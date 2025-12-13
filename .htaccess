@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Redirect HTTP to HTTPS (optional but recommended)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Allow service worker file if you use one
+RewriteCond %{REQUEST_URI} ^/sw.js$ [NC]
+RewriteRule ^ - [L]
+
+# Redirect everything else to /public/
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]
