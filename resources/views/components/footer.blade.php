@@ -1,7 +1,7 @@
 @php
     $programs = \App\Models\Program::where('is_active', true)->orderBy('sort_order')->limit(3)->get();
 
-    $contactEmail = \App\Models\SiteSetting::get('contact_email', 'info@roboticscorner.com');
+    $contactEmail = \App\Models\SiteSetting::get('contact_email', 'info@roboticscorner.tech');
     $contactPhone = \App\Models\SiteSetting::get('contact_phone', '+20 111 115 9633');
     $contactAddress = \App\Models\SiteSetting::get('contact_address', 'Cairo, Egypt');
     $facebookUrl = \App\Models\SiteSetting::get('facebook_url', 'https://facebook.com/roboticscorner');
