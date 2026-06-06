@@ -1,57 +1,56 @@
-@php
-    $programs = \App\Models\Program::where('is_active', true)->orderBy('sort_order')->limit(3)->get();
+<footer class="border-t border-white/10 bg-[#0A0A0A] relative z-20">
+    <div class="mx-auto max-w-7xl px-6 py-16">
+        <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Column 1 — Brand -->
+            <div>
+                <div class="mb-4 h-1 w-12 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400"></div>
+                <h3 class="text-xl font-bold text-white">Robotics Corner</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">
+                    Empowering engineers with cutting-edge robotics and software
+                    engineering skills.
+                </p>
 
-    $contactEmail = \App\Models\SiteSetting::get('contact_email', 'info@roboticscorner.tech');
-    $contactPhone = \App\Models\SiteSetting::get('contact_phone', '+20 111 115 9633');
-    $contactAddress = \App\Models\SiteSetting::get('contact_address', 'Cairo, Egypt');
-    $facebookUrl = \App\Models\SiteSetting::get('facebook_url', 'https://facebook.com/roboticscorner');
-    $twitterUrl = \App\Models\SiteSetting::get('twitter_url', 'https://twitter.com/roboticscorner');
-    $linkedinUrl = \App\Models\SiteSetting::get('linkedin_url', 'https://linkedin.com/company/roboticscorner');
-    $youtubeUrl = \App\Models\SiteSetting::get('youtube_url', 'https://youtube.com/@roboticscorner9870');
-    $siteTitle = \App\Models\SiteSetting::get('site_title', 'Robotics Corner');
-    $siteTagline = \App\Models\SiteSetting::get('site_tagline', 'Empowering engineers with cutting-edge robotics and software engineering skills.');
-@endphp
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>{{ $siteTitle }}</h3>
-                <p>{{ $siteTagline }}</p>
-                <div class="social-links">
-                    <a href="{{ $facebookUrl }}" aria-label="Facebook" target="_blank">📘</a>
-                    <a href="{{ $twitterUrl }}" aria-label="Twitter" target="_blank">🐦</a>
-                    <a href="{{ $linkedinUrl }}" aria-label="LinkedIn" target="_blank">💼</a>
-                    <a href="{{ $youtubeUrl }}" aria-label="YouTube" target="_blank">📺</a>
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <a href="#" class="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs text-slate-400 transition-colors hover:bg-white/10 hover:text-white"><span>📘</span>Facebook</a>
+                    <a href="#" class="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs text-slate-400 transition-colors hover:bg-white/10 hover:text-white"><span>🐦</span>Twitter</a>
+                    <a href="#" class="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs text-slate-400 transition-colors hover:bg-white/10 hover:text-white"><span>💼</span>LinkedIn</a>
+                    <a href="#" class="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs text-slate-400 transition-colors hover:bg-white/10 hover:text-white"><span>📺</span>YouTube</a>
                 </div>
             </div>
 
-            <div class="footer-section">
-                <h4>Programs</h4>
-                <ul>
-                    @foreach($programs as $program)
-                        <li><a href="{{ route('programs.show', $program->slug) }}">{{ $program->title }}</a></li>
-                    @endforeach
+            <!-- Column 2 — Programs -->
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-white">
+                    Programs
+                </h4>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="{{ route('programs.show', 'software-engineering') }}" class="text-sm text-slate-400 transition-colors hover:text-cyan-400">Software Engineering</a></li>
+                    <li><a href="{{ route('programs.show', 'robotics') }}" class="text-sm text-slate-400 transition-colors hover:text-cyan-400">Robotics for Professionals</a></li>
+                    <li><a href="{{ route('programs.show', 'embedded-systems') }}" class="text-sm text-slate-400 transition-colors hover:text-cyan-400">Embedded Systems</a></li>
                 </ul>
             </div>
 
-
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <div class="contact-info">
-                    <p>📧 {{ $contactEmail }}</p>
-                    <p>📱 {{ $contactPhone }}</p>
-                    <p>📍 {{ $contactAddress }}</p>
-                </div>
+            <!-- Column 3 — Contact -->
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-white">
+                    Contact
+                </h4>
+                <ul class="mt-4 space-y-3">
+                    <li class="text-sm text-slate-400"><span class="mr-2">📧</span>info@roboticscorner.tech</li>
+                    <li class="text-sm text-slate-400"><span class="mr-2">📱</span>+20 111 115 9633</li>
+                    <li class="text-sm text-slate-400"><span class="mr-2">📍</span>Cairo, Egypt</li>
+                </ul>
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} Robotics Corner. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+        <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row">
+            <p class="text-xs text-slate-600">
+                © {{ date('Y') }} Robotics Corner. All rights reserved.
+            </p>
+            <div class="flex items-center gap-3 text-xs text-slate-600">
+                <a href="#" class="transition-colors hover:text-slate-400">Privacy Policy</a>
+                <span>·</span>
+                <a href="#" class="transition-colors hover:text-slate-400">Terms of Service</a>
             </div>
         </div>
     </div>

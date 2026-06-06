@@ -1,71 +1,69 @@
 @extends('components.layout')
 
-@section('title', 'Programs - Robotics Corner')
-@section('description', 'Explore our comprehensive programs in robotics, embedded systems, and software engineering.')
+@section('title', 'Our Programs - Robotics Corner')
 
 @section('content')
-    <section class="hero compact">
-        <div class="container">
-            <h1 class="section-title">Our Programs</h1>
-            <p class="section-subtitle">Structured learning paths designed for career advancement</p>
-        </div>
-    </section>
+    @include('components.page-hero', [
+        'title' => 'Our Programs',
+        'subtitle' => 'Structured learning paths designed for career advancement'
+    ])
 
-    <section class="section">
-        <div class="container">
-            <div class="programs-grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
-                @foreach($programs as $program)
-                    <div class="program-card reveal"
-                        style="background: #fff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); transition: all 0.3s ease; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
-                        <div class="program-content">
-                            <h3 class="program-title"
-                                style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #1e293b;">
-                                {{ $program['title'] }}</h3>
-                            <p class="program-description" style="color: #64748b; margin-bottom: 1.5rem; line-height: 1.6;">
-                                {{ $program['description'] }}</p>
-
-                            <div class="course-list" style="margin-bottom: 1.5rem;">
-                                <h4 style="margin-bottom: 0.5rem; color: #1e293b;">Includes Courses:</h4>
-                                @foreach($program['courses'] as $course)
-                                    <span class="course-link" style="display: block; color: #64748b; margin-bottom: 0.25rem;">→
-                                        {{ $course['title'] }}</span>
+    <section class="relative z-10 max-w-6xl mx-auto px-6 py-16">
+        <div class="flex flex-col gap-8">
+            @foreach($programs as $program)
+                <div class="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-8 hover:border-cyan-400/20 transition-all duration-500">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <!-- Left side content -->
+                        <div>
+                            <h2 class="text-2xl font-bold text-white mb-3">{{ $program->title }}</h2>
+                            <p class="text-slate-400 leading-relaxed mb-4">
+                                {{ $program->description }}
+                            </p>
+                            
+                            <h3 class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">Included Topics:</h3>
+                            <div class="flex flex-wrap gap-1.5 mb-5">
+                                @php
+                                    $topics = is_array($program->topics) ? $program->topics : json_decode($program->topics, true) ?? [];
+                                @endphp
+                                @foreach(array_slice($topics, 0, 4) as $topic)
+                                    <span class="text-xs text-slate-400 bg-white/5 border border-white/10 px-2 py-1 rounded-md">{{ $topic }}</span>
                                 @endforeach
                             </div>
-
-                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
-                                <a href="{{ route('enroll', ['program' => $program['id']]) }}" class="btn"
-                                    style="display: inline-block; padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 700; background: #2dd4bf; color: #0b1220; text-decoration: none;">Enroll</a>
-                                <a href="{{ route('programs.show', $program['id']) }}" class="btn"
-                                    style="display: inline-block; padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 700; background: #0ea5e9; color: #fff; text-decoration: none;">Program
-                                    Details</a>
+                            
+                            <div class="flex items-center gap-6 mt-5">
+                                <div class="flex items-center gap-2 text-sm text-slate-400">
+                                    <span class="text-cyan-400">💰</span> EGP {{ number_format($program->price) }}
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-slate-400">
+                                    <span class="text-cyan-400">⏱️</span> {{ $program->duration }}
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3 mt-6">
+                                <a href="{{ route('enroll', ['program' => $program->slug]) }}" class="px-6 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-xl hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-300">
+                                    Enroll
+                                </a>
+                                <a href="{{ route('programs.show', $program->slug) }}" class="px-6 py-2.5 text-sm font-semibold text-white border border-white/15 bg-white/[0.04] rounded-xl hover:border-white/25 transition-all duration-300">
+                                    Program Details
+                                </a>
                             </div>
                         </div>
-
-                        {{-- START FIX: Check if video exists --}}
-                        @if(!empty($program['video']))
-                        <div class="program-video">
-                            <iframe width="100%" height="250" style="border: 0; border-radius: 12px"
-                                src="{{ $program['video'] }}" title="{{ $program['title'] }}"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                        
+                        <!-- Right side video -->
+                        <div class="rounded-xl overflow-hidden border border-white/[0.06]">
+                            <iframe 
+                                width="100%" 
+                                height="250" 
+                                style="border:0;" 
+                                src="{{ $program->video_url ?? 'https://www.youtube.com/embed/LEm8_dZao0E' }}" 
+                                title="{{ $program->title }}" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
                         </div>
-                        @else
-                        <div class="program-video" style="background: #f8fafc; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #94a3b8">No Preview Available</span>
-                        </div>
-                        @endif
-                        {{-- END FIX --}}
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </section>
-
-    <style>
-        @media (max-width: 768px) {
-            .program-card {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
 @endsection

@@ -17,6 +17,7 @@ class Enrollment extends Model
         'experience',
         'motivation',
         'selected_program',
+        'selected_course',
         'preferred_schedule',
         'payment_method',
         'payment_screenshot',

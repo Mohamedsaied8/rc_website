@@ -2,58 +2,68 @@
 
 @section('title', 'Site Settings')
 @section('page-title', 'Site Settings')
+@section('page-subtitle', 'Manage global contact information and social links.')
 
 @section('content')
-<div class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h2 style="margin: 0; color: #1e293b;">Contact Information & Site Settings</h2>
+<div class="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden shadow-xl mb-8">
+    <div class="p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.01]">
+        <h3 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            <i class="fa-solid fa-sliders text-cyan-400"></i> Configuration
+        </h3>
     </div>
 
-    @if(session('success'))
-        <div style="background: #d1fae5; color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-            <thead style="background: #f8fafc;">
-                <tr>
-                    <th style="padding: 1rem; text-align: left; font-weight: 600; color: #374151; border-bottom: 1px solid #e5e7eb;">Setting</th>
-                    <th style="padding: 1rem; text-align: left; font-weight: 600; color: #374151; border-bottom: 1px solid #e5e7eb;">Value</th>
-                    <th style="padding: 1rem; text-align: center; font-weight: 600; color: #374151; border-bottom: 1px solid #e5e7eb;">Actions</th>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left whitespace-nowrap">
+            <thead>
+                <tr class="bg-white/[0.02] text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-white/10">
+                    <th class="px-6 py-4">Setting Name</th>
+                    <th class="px-6 py-4">Current Value</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-white/5">
                 @forelse($settings as $setting)
-                <tr style="border-bottom: 1px solid #f3f4f6;">
-                    <td style="padding: 1rem; color: #1f2937; font-weight: 500;">
-                        <div style="display: flex; flex-direction: column;">
-                            <span style="font-weight: 600;">{{ ucwords(str_replace('_', ' ', $setting->key)) }}</span>
+                <tr class="hover:bg-white/[0.02] transition-colors group">
+                    <td class="px-6 py-4">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white">{{ ucwords(str_replace('_', ' ', $setting->key)) }}</span>
                             @if($setting->description)
-                                <small style="color: #6b7280; font-size: 0.875rem;">{{ $setting->description }}</small>
+                                <small class="text-slate-500 mt-0.5">{{ $setting->description }}</small>
                             @endif
                         </div>
                     </td>
-                    <td style="padding: 1rem; color: #6b7280; max-width: 300px; word-wrap: break-word;">
+                    <td class="px-6 py-4">
                         @if($setting->type === 'url')
-                            <a href="{{ $setting->value }}" target="_blank" style="color: #2dd4bf; text-decoration: none;">{{ $setting->value }}</a>
+                            <a href="{{ $setting->value }}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-link text-xs opacity-70"></i> {{ $setting->value }}
+                            </a>
                         @elseif($setting->type === 'email')
-                            <a href="mailto:{{ $setting->value }}" style="color: #2dd4bf; text-decoration: none;">{{ $setting->value }}</a>
+                            <a href="mailto:{{ $setting->value }}" class="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1.5 transition-colors">
+                                <i class="fa-regular fa-envelope text-xs opacity-70"></i> {{ $setting->value }}
+                            </a>
                         @elseif($setting->type === 'phone')
-                            <a href="tel:{{ $setting->value }}" style="color: #2dd4bf; text-decoration: none;">{{ $setting->value }}</a>
+                            <a href="tel:{{ $setting->value }}" class="text-emerald-400 hover:text-emerald-300 font-medium inline-flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-phone text-xs opacity-70"></i> {{ $setting->value }}
+                            </a>
                         @else
-                            {{ $setting->value }}
+                            <span class="text-slate-300 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">{{ $setting->value }}</span>
                         @endif
                     </td>
-                    <td style="padding: 1rem; text-align: center;">
-                        <a href="{{ route('admin.settings.edit', $setting) }}" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Edit</a>
+                    <td class="px-6 py-4 text-right">
+                        <a href="{{ route('admin.settings.edit', $setting) }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.05] border border-white/10 text-slate-300 hover:bg-cyan-500/20 hover:text-cyan-400 hover:border-cyan-500/30 transition-all shadow-sm">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                            <span class="text-sm font-medium">Edit</span>
+                        </a>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="3" style="padding: 2rem; text-align: center; color: #6b7280;">
-                        No settings found.
+                    <td colspan="3" class="px-6 py-12 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/[0.02] border border-white/5 mb-4">
+                            <i class="fa-solid fa-gear text-2xl text-slate-500"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">No settings found</h4>
+                        <p class="text-slate-400 max-w-sm mx-auto">System configuration variables will appear here.</p>
                     </td>
                 </tr>
                 @endforelse

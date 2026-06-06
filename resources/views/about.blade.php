@@ -1,50 +1,52 @@
 @extends('components.layout')
 
 @section('title', 'About Us - Robotics Corner')
-@section('description', 'Learn about Robotics Corner, our mission, vision, and the team behind your technical education.')
 
 @section('content')
-    <section class="hero compact">
-        <div class="container">
-            <h1 class="section-title">About Robotics Corner</h1>
-            <p class="section-subtitle">Empowering engineers with cutting-edge robotics and software engineering skills</p>
+    @include('components.page-hero', [
+        'title' => 'About Robotics Corner',
+        'subtitle' => 'Empowering engineers with cutting-edge robotics and software engineering skills'
+    ])
+
+    <section class="relative z-10 max-w-3xl mx-auto px-6 py-16">
+        <div class="mb-10">
+            <h2 class="text-2xl font-bold text-white mb-3">Our Mission</h2>
+            <p class="text-slate-400 leading-relaxed">
+                To bridge the gap between academic learning and industry requirements by providing hands-on, project-based education in robotics, embedded systems, and software engineering.
+            </p>
+        </div>
+        <div class="mb-10">
+            <h2 class="text-2xl font-bold text-white mb-3">Our Vision</h2>
+            <p class="text-slate-400 leading-relaxed">
+                To be the leading technical education platform that transforms engineers into industry-ready professionals through innovative learning methodologies and real-world project experience.
+            </p>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold text-white mb-3">Our Impact</h2>
+            <p class="text-slate-400 leading-relaxed">
+                Since our founding, we have trained over 500 professionals who are now working in top tech companies worldwide. Our graduates have a 95% job placement rate and consistently receive high ratings from employers.
+            </p>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="about-content" style="max-width: 800px; margin: 0 auto;">
-                <h2 style="margin-bottom: 1rem; color: #1e293b;">Our Mission</h2>
-                <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">To bridge the gap between academic
-                    learning and industry requirements by providing hands-on, project-based education in robotics, embedded
-                    systems, and software engineering.</p>
-
-                <h2 style="margin-bottom: 1rem; color: #1e293b;">Our Vision</h2>
-                <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">To be the leading technical education
-                    platform that transforms engineers into industry-ready professionals through innovative learning
-                    methodologies and real-world project experience.</p>
-
-                <h2 style="margin-bottom: 1rem; color: #1e293b;">Our Impact</h2>
-                <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Since our founding, we have trained over
-                    500 professionals who are now working in top tech companies worldwide. Our graduates have a 95% job
-                    placement rate and consistently receive high ratings from employers.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="section-title">Our Journey</h2>
-            <div class="timeline" style="max-width: 800px; margin: 0 auto;">
-                @foreach($milestones as $milestone)
-                    <div class="timeline-item"
-                        style="display: flex; gap: 2rem; margin-bottom: 2rem; padding: 1.5rem; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                        <div class="timeline-year" style="font-size: 2rem; font-weight: 800; color: #2dd4bf; min-width: 80px;">
-                            {{ $milestone['year'] }}
+    <section class="relative z-10 bg-white/[0.02] py-16 border-y border-white/[0.06]">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white text-center mb-12">Our Journey</h2>
+            <div class="space-y-6">
+                @foreach($milestones ?? [
+                    ['year' => '2020', 'title' => 'Founded', 'description' => 'Robotics Corner was established with a vision to bridge the gap between academic learning and industry requirements.'],
+                    ['year' => '2021', 'title' => 'First Cohort', 'description' => 'Graduated our first batch of 50 students with 95% job placement rate.'],
+                    ['year' => '2022', 'title' => 'Industry Partnerships', 'description' => 'Established partnerships with leading tech companies for internships and job placements.'],
+                    ['year' => '2023', 'title' => '500+ Graduates', 'description' => 'Celebrated training over 500 professionals now working in top tech companies.'],
+                    ['year' => '2024', 'title' => 'Expansion', 'description' => 'Launched advanced programs in AI, robotics, and embedded systems.']
+                ] as $item)
+                    <div class="bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl rounded-2xl p-6 flex flex-col sm:flex-row gap-6 hover:border-cyan-400/20 transition-all duration-300">
+                        <div class="text-3xl font-extrabold text-gradient min-w-[80px]">
+                            {{ $item['year'] }}
                         </div>
-                        <div class="timeline-content">
-                            <h3 style="color: #1e293b; margin-bottom: 0.5rem;">{{ $milestone['title'] }}</h3>
-                            <p style="color: #64748b; line-height: 1.6;">{{ $milestone['description'] }}</p>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white mb-1">{{ $item['title'] }}</h3>
+                            <p class="text-sm text-slate-400 leading-relaxed">{{ $item['description'] }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -52,116 +54,37 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Meet Our Expert Instructors</h2>
-            <div class="instructors-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                @foreach($instructors as $instructor)
-                    <div class="instructor-card"
-                        style="text-align: center; padding: 2rem; background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div class="instructor-image" style="margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center;">
-                            @if(str_starts_with($instructor['image'], '/'))
-                                <img src="{{ asset($instructor['image']) }}" alt="{{ $instructor['name'] }}"
-                                    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #2dd4bf;">
-                            @else
-                                <div style="font-size: 4rem;">{{ $instructor['image'] }}</div>
-                            @endif
-                        </div>
-                        <h3 style="color: #1e293b; margin-bottom: 0.5rem;">{{ $instructor['name'] }}</h3>
-                        <p style="color: #2dd4bf; font-weight: 600; margin-bottom: 0.5rem;">{{ $instructor['role'] }}</p>
-                        <p style="color: #64748b; margin-bottom: 0.5rem;">{{ $instructor['expertise'] }}</p>
-                        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1rem;">{{ $instructor['experience'] }}
-                            experience</p>
-                        @if(isset($instructor['linkedin']))
-                            <a href="{{ $instructor['linkedin'] }}" target="_blank" rel="noopener noreferrer"
-                                style="display: inline-flex; align-items: center; gap: 0.5rem; color: #0077b5; text-decoration: none; font-weight: 600; transition: color 0.3s ease;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path
-                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                </svg>
-                                Connect on LinkedIn
-                            </a>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
+    <section class="relative z-10 py-16 max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Meet Our Expert Instructors</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($instructors ?? [
+                ['name' => 'Mohamed Saied', 'role' => 'CTO & Lead Instructor', 'expertise' => 'Software Engineering & System Architecture', 'experience' => '15+ years experience', 'image' => '👨‍💻'],
+                ['name' => 'Dr. Sarah Ahmed', 'role' => 'Robotics Specialist', 'expertise' => 'ROS2 & Computer Vision & SLAM', 'experience' => '12+ years experience', 'image' => '👩‍🔬'],
+                ['name' => 'Ahmed Hassan', 'role' => 'Embedded Systems Expert', 'expertise' => 'Cortex-M & RTOS & Hardware Design', 'experience' => '10+ years experience', 'image' => '👨‍🔧']
+            ] as $instructor)
+                <div class="bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl rounded-2xl p-8 text-center hover:border-cyan-400/20 transition-all duration-500">
+                    <div class="text-5xl mb-4">{{ $instructor['image'] }}</div>
+                    <h3 class="text-lg font-semibold text-white">{{ $instructor['name'] }}</h3>
+                    <p class="text-sm text-cyan-400 font-medium mt-1">{{ $instructor['role'] }}</p>
+                    <p class="text-sm text-slate-400 mt-3">{{ $instructor['expertise'] }}</p>
+                    <p class="text-xs text-slate-500 mt-2">{{ $instructor['experience'] }}</p>
+                </div>
+            @endforeach
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Start Your Journey?</h2>
-            <p>Join our community of successful engineers and advance your career with cutting-edge technology</p>
-            <div class="cta-buttons">
-
-                <a href="{{ route('enroll') }}" class="btn-secondary">Enroll Now</a>
-                <a href="{{ route('contact') }}" class="btn-secondary">Contact Us</a>
-            </div>
+    <section class="relative z-10 py-16 text-center px-6">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Start Your Journey?</h2>
+        <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
+            Join our community of successful engineers and advance your career with cutting-edge technology
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="{{ route('enroll') }}" class="px-8 py-3 bg-gradient-to-r from-cyan-400 to-emerald-400 text-gray-900 font-semibold rounded-xl hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-300 w-full sm:w-auto">
+                Enroll Now
+            </a>
+            <a href="{{ route('contact') }}" class="px-8 py-3 border border-white/15 bg-white/[0.04] text-white font-semibold rounded-xl hover:border-white/25 hover:bg-white/[0.08] transition-all duration-300 w-full sm:w-auto">
+                Contact Us
+            </a>
         </div>
     </section>
-
-    <style>
-        body.dark .about-content h2 {
-            color: #e2e8f0 !important;
-        }
-
-        body.dark .about-content p {
-            color: #94a3b8 !important;
-        }
-
-        body.dark .timeline-item {
-            background: #0f172a !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        body.dark .timeline-content h3 {
-            color: #e2e8f0 !important;
-        }
-
-        body.dark .timeline-content p {
-            color: #94a3b8 !important;
-        }
-
-        body.dark .instructor-card {
-            background: #0f172a !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        body.dark .instructor-card h3 {
-            color: #e2e8f0 !important;
-        }
-
-        body.dark .instructor-card p {
-            color: #94a3b8 !important;
-        }
-
-        .instructor-card a:hover {
-            color: #005885 !important;
-        }
-
-        body.dark .instructor-card a {
-            color: #0ea5e9 !important;
-        }
-
-        body.dark .instructor-card a:hover {
-            color: #38bdf8 !important;
-        }
-
-        @media (max-width: 768px) {
-            .timeline-item {
-                flex-direction: column !important;
-                gap: 1rem !important;
-            }
-
-            .timeline-year {
-                min-width: auto !important;
-            }
-
-            .instructors-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
 @endsection
