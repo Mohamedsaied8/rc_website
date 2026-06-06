@@ -19,20 +19,20 @@ class HomeController extends Controller
             ['number' => '4.9', 'label' => 'Average Rating']
         ];
 
-        // Fetch courses from database
-        $courses = Course::where('is_active', true)
+        // Fetch programs from database instead of courses
+        $programs = Program::where('is_active', true)
             ->orderBy('sort_order')
             ->limit(4)
             ->get()
-            ->map(function ($course) {
+            ->map(function ($program) {
                 return [
-                    'id' => $course->slug,
-                    'title' => $course->title,
-                    'description' => $course->short_description,
-                    'duration' => $course->duration,
-                    'price' => CurrencyHelper::format($course->price, $course->currency ?? 'USD'),
-                    'topics' => $course->topics,
-                    'video' => VideoHelper::getEmbedUrl($course->video_url)
+                    'id' => $program->slug,
+                    'title' => $program->title,
+                    'description' => $program->short_description,
+                    'duration' => $program->duration,
+                    'price' => CurrencyHelper::format($program->price, $program->currency ?? 'USD'),
+                    'topics' => $program->topics ?? [],
+                    'video' => VideoHelper::getEmbedUrl($program->video_url)
                 ];
             });
 
@@ -59,6 +59,6 @@ class HomeController extends Controller
             ]
         ];
 
-        return view('home', compact('stats', 'courses', 'features'));
+        return view('home', compact('stats', 'programs', 'features'));
     }
 }

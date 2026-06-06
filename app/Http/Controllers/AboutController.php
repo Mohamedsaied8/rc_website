@@ -21,22 +21,57 @@ class AboutController extends Controller
                 'name' => 'Mohamed Saied',
                 'role' => 'CTO & Lead Instructor',
                 'expertise' => 'Software Engineering, System Architecture',
-                'experience' => '15+ years',
-                'image' => '👨‍💻'
-            ],
-            [
-                'name' => 'Dr. Sarah Ahmed',
-                'role' => 'Robotics Specialist',
-                'expertise' => 'ROS2, Computer Vision, SLAM',
-                'experience' => '12+ years',
-                'image' => '👩‍🔬'
-            ],
-            [
-                'name' => 'Ahmed Hassan',
-                'role' => 'Embedded Systems Expert',
-                'expertise' => 'Cortex-M, RTOS, Hardware Design',
                 'experience' => '10+ years',
-                'image' => '👨‍🔧'
+                'image' => '/images/team/mohamed-saied.png',
+                'linkedin' => 'https://www.linkedin.com/in/mohamedsaied8/'
+            ],
+            [
+                'name' => 'Aya Ashraf',
+                'role' => 'Instructor',
+                'expertise' => 'Robotics & Autonomous Systems',
+                'experience' => '5+ years',
+                'image' => '👩‍💻',
+                'linkedin' => 'https://www.linkedin.com/in/aya-ashraf-7aab62223/'
+            ],
+            [
+                'name' => 'Youssef Hindawi',
+                'role' => 'Instructor',
+                'expertise' => 'Robotics & Autonomous Systems',
+                'experience' => '5+ years',
+                'image' => '👩‍💻',
+                'linkedin' => ''
+            ],
+            [
+                'name' => 'Abdelrahman Mourad',
+                'role' => 'Instructor',
+                'expertise' => 'Embedded Systems',
+                'experience' => '5+ years',
+                'image' => '👩‍💻',
+                'linkedin' => ''
+            ],
+            [
+                'name' => 'Hesham Elsayed',
+                'role' => 'Instructor',
+                'expertise' => 'Embedded Systems',
+                'experience' => '3+ years',
+                'image' => '👩‍💻',
+                'linkedin' => ''
+            ],
+            [
+                'name' => 'Hady Ayman',
+                'role' => 'Instructor',
+                'expertise' => 'Embedded Systems',
+                'experience' => '2+ years',
+                'image' => '👩‍💻',
+                'linkedin' => ''
+            ],
+            [
+                'name' => 'Salma Nasser',
+                'role' => 'Instructor',
+                'expertise' => 'AI & Machine Learning',
+                'experience' => '2+ years',
+                'image' => '👩‍💻',
+                'linkedin' => ''
             ]
         ];
 

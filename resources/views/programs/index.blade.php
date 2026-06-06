@@ -41,12 +41,20 @@
                             </div>
                         </div>
 
+                        {{-- START FIX: Check if video exists --}}
+                        @if(!empty($program['video']))
                         <div class="program-video">
                             <iframe width="100%" height="250" style="border: 0; border-radius: 12px"
                                 src="{{ $program['video'] }}" title="{{ $program['title'] }}"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                         </div>
+                        @else
+                        <div class="program-video" style="background: #f8fafc; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #94a3b8">No Preview Available</span>
+                        </div>
+                        @endif
+                        {{-- END FIX --}}
                     </div>
                 @endforeach
             </div>
@@ -58,24 +66,6 @@
             .program-card {
                 grid-template-columns: 1fr !important;
             }
-        }
-
-        body.dark .program-card {
-            background: #0f172a !important;
-            border-color: #1e293b !important;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        body.dark .program-title {
-            color: #e2e8f0 !important;
-        }
-
-        body.dark .program-description {
-            color: #94a3b8 !important;
-        }
-
-        body.dark .course-list h4 {
-            color: #e2e8f0 !important;
         }
     </style>
 @endsection

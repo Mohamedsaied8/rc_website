@@ -10,29 +10,10 @@ use App\Helpers\CurrencyHelper;
 
 class ProgramController extends Controller
 {
-    // public function index()
-    // {
-    //     $programs = Program::where('is_active', true)
-    //         ->orderBy('sort_order')
-    //         ->get()
-    //         ->map(function ($program) {
-    //             return [
-    //                 'id' => $program->slug,
-    //                 'title' => $program->title,
-    //                 'description' => $program->short_description,
-    //                 'video' => $program->video_url,//VideoHelper::getEmbedUrl($program->video_url),
-    //                 'courses' => [
-    //                     ['id' => $program->slug, 'title' => $program->title]
-    //                 ]
-    //             ];
-    //         });
-
-    //     return view('programs.index', compact('programs'));
-    // }
     public function index()
     {
         $programs = Program::where('is_active', true)
-            ->with('courses') // eager load courses
+            ->with('courses')
             ->orderBy('sort_order')
             ->get()
             ->map(function ($program) {
@@ -40,7 +21,9 @@ class ProgramController extends Controller
                     'id' => $program->slug,
                     'title' => $program->title,
                     'description' => $program->short_description,
-                    'video' => $program->video_url, // or VideoHelper::getEmbedUrl($program->video_url)
+                    // START FIX: Use VideoHelper
+                    'video' => VideoHelper::getEmbedUrl($program->video_url),
+                    // END FIX
                     'courses' => $program->courses->map(function ($course) {
                         return [
                             'id' => $course->slug,
@@ -64,7 +47,6 @@ class ProgramController extends Controller
             abort(404);
         }
 
-        // Get associated courses from the relationship
         $associatedCourses = $program->courses->map(function ($course) {
             return [
                 'id' => $course->slug,
@@ -75,7 +57,6 @@ class ProgramController extends Controller
             ];
         });
 
-        // Transform the program data to match the expected format
         $programData = [
             'id' => $program->slug,
             'title' => $program->title,

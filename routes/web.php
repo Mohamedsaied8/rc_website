@@ -7,6 +7,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EnrollController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\ProgramController as AdminProgramController;
 use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\FileManagerController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,10 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/enroll', [EnrollController::class, 'index'])->name('enroll');
 Route::post('/enroll', [EnrollController::class, 'store'])->name('enroll.store');
 Route::get('/enroll/success', [EnrollController::class, 'success'])->name('enroll.success');
+
+// Blog
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Admin Routes
 Route::prefix('admin')->group(function () {
@@ -91,5 +97,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/file-manager', [FileManagerController::class, 'index'])->name('admin.file-manager.index');
         Route::post('/file-manager/upload', [FileManagerController::class, 'upload'])->name('admin.file-manager.upload');
         Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('admin.file-manager.delete');
+
+        // Blog Management
+        Route::resource('blog', AdminBlogController::class)->names('admin.blog');
     });
 });

@@ -40,27 +40,27 @@
         </div>
     </section>
 
-    <!-- Courses Section -->
-    <section id="courses" class="courses-section">
+    <!-- Programs Section -->
+    <section id="programs" class="courses-section">
         <div class="courses-container">
             <div class="section-header">
                 <h2 class="section-title">Professional Training Programs</h2>
-                <p class="section-subtitle">Comprehensive courses designed with industry experts to bridge the gap between
+                <p class="section-subtitle">Comprehensive programs designed with industry experts to bridge the gap between
                     academic learning and professional requirements.</p>
             </div>
             <div class="courses-grid">
-                @foreach($courses as $course)
+                @foreach($programs as $program)
                     <div class="course-card reveal">
                         <div class="course-header">
-                            <div class="course-icon">💻</div>
-                            <span class="course-badge">Professional</span>
+                            <div class="course-icon">🎯</div>
+                            <span class="course-badge">Program</span>
                         </div>
-                        <h3 class="course-title">{{ $course['title'] }}</h3>
-                        <p class="course-description">{{ $course['description'] }}</p>
+                        <h3 class="course-title">{{ $program['title'] }}</h3>
+                        <p class="course-description">{{ $program['description'] }}</p>
                         <div class="course-meta">
                             <div class="meta-item">
                                 <span>⏱</span>
-                                <span>{{ $course['duration'] }}</span>
+                                <span>{{ $program['duration'] }}</span>
                             </div>
                             <div class="meta-item">
                                 <span>🌐</span>
@@ -78,19 +78,19 @@
                         <div class="course-topics">
                             <h4>Key Topics:</h4>
                             <div class="topics-grid">
-                                @foreach(array_slice($course['topics'], 0, 4) as $topic)
+                                @foreach(array_slice($program['topics'] ?? [], 0, 4) as $topic)
                                     <div class="topic-item">{{ $topic }}</div>
                                 @endforeach
                             </div>
                         </div>
                         <div class="course-footer">
                             <div>
-                                <div class="course-price">{{ $course['price'] }}</div>
+                                <div class="course-price">{{ $program['price'] }}</div>
                                 <div class="course-enrollment">400+ enrolled</div>
                             </div>
                             <div class="course-buttons">
-
-                                <a href="{{ route('enroll', ['course' => $course['id']]) }}"
+                                <a href="{{ route('programs.show', $program['id']) }}" class="btn-small btn-outline">Details</a>
+                                <a href="{{ route('enroll', ['program' => $program['id']]) }}"
                                     class="btn-small btn-solid">Enroll</a>
                             </div>
                         </div>
