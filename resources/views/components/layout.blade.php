@@ -26,10 +26,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body>
+<body class="relative bg-[#0A0A0A] min-h-screen overflow-x-hidden dark text-slate-400">
     @include('components.header')
     
-    <main id="main">
+    <main id="main" class="min-h-screen">
         @yield('content')
     </main>
     

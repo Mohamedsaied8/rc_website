@@ -100,6 +100,7 @@ class EnrollController extends Controller
             'experience' => $request->experience,
             'motivation' => $request->motivation,
             'selected_program' => $request->selected_program,
+            'selected_course' => 'N/A', // Set to N/A as it is required by the DB migration but not used in the form
             'preferred_schedule' => $request->preferred_schedule,
             'payment_method' => $request->payment_method,
             'payment_screenshot' => $screenshotPath,

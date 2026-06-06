@@ -1,383 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') - Robotics Corner</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-        }
-
-        .admin-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background: #1e293b;
-            color: white;
-            padding: 2rem 0;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar-header {
-            padding: 0 2rem 2rem;
-            border-bottom: 1px solid #334155;
-            margin-bottom: 2rem;
-        }
-
-        .sidebar-header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2dd4bf;
-        }
-
-        .sidebar-nav {
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-nav a {
-            display: block;
-            padding: 0.75rem 2rem;
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
-            background: #334155;
-            color: #2dd4bf;
-        }
-
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 2rem;
-        }
-
-        .header {
-            background: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h2 {
-            color: #1e293b;
-            font-weight: 600;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #2dd4bf;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0891b2;
-        }
-
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-
-        .btn-secondary {
-            background: #64748b;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #475569;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #2dd4bf;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .table th,
-        .table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .table th {
-            background: #f8fafc;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        .table tr:hover {
-            background: #f8fafc;
-        }
-
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-approved {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-rejected {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-completed {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #2dd4bf;
-            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
-        }
-
-        .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-textarea:focus {
-            outline: none;
-            border-color: #2dd4bf;
-            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
-        }
-
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .alert-success {
-            background: #d1fae5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-
-        .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
-        }
-
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8fafc;
-        }
-
-        .login-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-header h1 {
-            color: #2dd4bf;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                position: relative;
-                height: auto;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    
+    <!-- Vite (Tailwind + Alpine) -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="relative bg-[#0A0A0A] min-h-screen text-slate-300 font-sans selection:bg-cyan-500/30 overflow-x-hidden">
+    
+    <!-- Background Accents -->
+    <div class="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0A0A0A] to-[#0A0A0A]"></div>
+    <div class="fixed inset-0 z-[-1] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] opacity-50 mask-image-gradient-b"></div>
+
     @if(!request()->routeIs('admin.login'))
-    <div class="admin-container">
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h1>🤖 Admin Panel</h1>
+    <div x-data="{ sidebarOpen: false }" class="flex min-h-screen">
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-black/80 backdrop-blur-sm lg:hidden" @click="sidebarOpen = false" style="display: none;"></div>
+
+        <!-- Sidebar -->
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-slate-950/80 backdrop-blur-2xl border-r border-white/10 transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:w-64 lg:flex-col">
+            
+            <!-- Sidebar Header -->
+            <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
+                    @if(file_exists(public_path('images/logo.png')))
+                        <img src="{{ asset('images/logo.png') }}" alt="Robotics Corner Logo" class="h-8 object-contain">
+                    @else
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center text-gray-900 font-bold text-lg">RC</div>
+                        <span class="text-white font-bold text-lg tracking-tight">Admin<span class="text-cyan-400">Panel</span></span>
+                    @endif
+                </a>
+                <button @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-            <nav>
-                <ul class="sidebar-nav">
-                    <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">📊 Dashboard</a></li>
-                    <li><a href="{{ route('admin.courses.index') }}" class="{{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">📚 Courses</a></li>
-                    <li><a href="{{ route('admin.programs.index') }}" class="{{ request()->routeIs('admin.programs.*') ? 'active' : '' }}">🎯 Programs</a></li>
-                    <li><a href="{{ route('admin.enrollments.index') }}" class="{{ request()->routeIs('admin.enrollments.*') ? 'active' : '' }}">📝 Enrollments</a></li>
-                    <li><a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">⚙️ Settings</a></li>
-                    <li><a href="{{ route('admin.file-manager.index') }}" class="{{ request()->routeIs('admin.file-manager.*') ? 'active' : '' }}">📁 File Manager</a></li>
-                    <li><a href="{{ route('home') }}" target="_blank">🌐 View Site</a></li>
-                    <li>
-                        <form method="POST" action="{{ route('admin.logout') }}" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-danger" style="width: 100%; text-align: left; background: none; border: none; color: #cbd5e1; padding: 0.75rem 2rem;">🚪 Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="main-content">
-            <div class="header">
-                <h2>@yield('page-title', 'Dashboard')</h2>
-                <div class="user-menu">
-                    <span>Welcome, {{ Auth::guard('admin')->user()->name }}</span>
+
+            <!-- Sidebar Navigation -->
+            <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+                @php
+                    $navItems = [
+                        ['route' => 'admin.dashboard', 'icon' => 'fa-solid fa-chart-line', 'label' => 'Dashboard', 'pattern' => 'admin.dashboard'],
+                        ['route' => 'admin.courses.index', 'icon' => 'fa-solid fa-book', 'label' => 'Courses', 'pattern' => 'admin.courses.*'],
+                        ['route' => 'admin.programs.index', 'icon' => 'fa-solid fa-graduation-cap', 'label' => 'Programs', 'pattern' => 'admin.programs.*'],
+                        ['route' => 'admin.enrollments.index', 'icon' => 'fa-solid fa-user-graduate', 'label' => 'Enrollments', 'pattern' => 'admin.enrollments.*'],
+                        ['route' => 'admin.settings.index', 'icon' => 'fa-solid fa-gear', 'label' => 'Settings', 'pattern' => 'admin.settings.*'],
+                        ['route' => 'admin.file-manager.index', 'icon' => 'fa-solid fa-folder-open', 'label' => 'File Manager', 'pattern' => 'admin.file-manager.*'],
+                    ];
+                @endphp
+
+                @foreach($navItems as $item)
+                    <a href="{{ route($item['route']) }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group {{ request()->routeIs($item['pattern']) ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-400 hover:bg-white/[0.04] hover:text-white' }}">
+                        <i class="{{ $item['icon'] }} w-5 text-center transition-transform group-hover:scale-110"></i>
+                        <span class="font-medium">{{ $item['label'] }}</span>
+                    </a>
+                @endforeach
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="p-4 border-t border-white/10">
+                <a href="{{ route('home') }}" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/[0.04] hover:text-white transition-all duration-200 group mb-2">
+                    <i class="fa-solid fa-globe w-5 text-center transition-transform group-hover:scale-110"></i>
+                    <span class="font-medium">View Live Site</span>
+                </a>
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-200 group">
+                        <i class="fa-solid fa-sign-out-alt w-5 text-center transition-transform group-hover:scale-110"></i>
+                        <span class="font-medium">Sign Out</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            
+            <!-- Topbar -->
+            <header class="sticky top-0 z-10 bg-slate-950/50 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex items-center justify-between lg:justify-end shadow-sm">
+                <button @click="sidebarOpen = true" class="lg:hidden text-slate-300 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex flex-col text-right mr-2">
+                        <span class="text-sm font-semibold text-white">{{ Auth::guard('admin')->user()->name ?? 'Administrator' }}</span>
+                        <span class="text-xs text-cyan-400">System Admin</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 p-[2px]">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
+                            <i class="fa-solid fa-user text-cyan-400"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
-    @endif
+            </header>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6 md:p-8">
+                
+                <!-- Page Header -->
+                <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white tracking-tight">@yield('page-title', 'Dashboard')</h2>
+                        @hasSection('page-subtitle')
+                            <p class="text-slate-400 mt-1 text-sm">@yield('page-subtitle')</p>
+                        @endif
+                    </div>
+                    <div>
+                        @yield('page-actions')
+                    </div>
+                </div>
 
-    @if(session('error'))
-        <div class="alert alert-error">
-            {{ session('error') }}
-        </div>
-    @endif
+                <!-- Flash Messages -->
+                @if(session('success'))
+                    <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-xl"></i>
+                        <span class="font-medium">{{ session('success') }}</span>
+                    </div>
+                @endif
 
-    @yield('content')
+                @if(session('error'))
+                    <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-exclamation text-xl"></i>
+                        <span class="font-medium">{{ session('error') }}</span>
+                    </div>
+                @endif
 
-    @if(!request()->routeIs('admin.login'))
+                <!-- Content Slot -->
+                @yield('content')
+                
+            </main>
         </div>
     </div>
+    @else
+        <!-- Render full screen content for Auth pages -->
+        @yield('content')
     @endif
+
+    @stack('scripts')
 </body>
 </html>
