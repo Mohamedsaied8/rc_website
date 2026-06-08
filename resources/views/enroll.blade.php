@@ -16,8 +16,8 @@
         
         <!-- Header -->
         <div class="mb-10 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Complete Your Enrollment</h1>
-            <p class="text-slate-400">Join our upcoming cohort and transform your engineering career.</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">{{ cms('enroll.hero.title', 'Complete Your Enrollment') }}</h1>
+            <p class="text-slate-400">{{ cms('enroll.hero.subtitle', 'Join our upcoming cohort and transform your engineering career.') }}</p>
         </div>
 
         @if($errors->any())

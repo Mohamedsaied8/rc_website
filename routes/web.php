@@ -37,7 +37,73 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 // Courses
 // Courses routes removed
 
-// Programs
+// Services
+Route::get('/services', function () {
+    return view('services.index');
+})->name('services.index');
+
+Route::get('/services/{service}', function ($service) {
+    // Basic mapping for titles
+    $titles = [
+        'rnd' => 'Research & Development',
+        'consultation' => 'Engineering Consultation',
+        'outsourcing' => 'Outsourcing'
+    ];
+    
+    if (!array_key_exists($service, $titles)) {
+        abort(404);
+    }
+    
+    return view('services.show', [
+        'serviceId' => $service,
+        'serviceTitle' => $titles[$service]
+    ]);
+})->name('services.show');
+
+Route::get('/services/{service}/{department}', function ($service, $department) {
+    // Basic mapping for department titles
+    $deptTitles = [
+        'rnd' => [
+            'autonomous-cars' => 'Autonomous Cars R&D',
+            'robotics' => 'Intelligent Robotics',
+            'automotive' => 'Automotive Software R&D'
+        ],
+        'outsourcing' => [
+            'automotive' => 'Automotive Outsourcing',
+            'robotics' => 'Robotics Outsourcing'
+        ]
+    ];
+    
+    if (!array_key_exists($service, $deptTitles) || !array_key_exists($department, $deptTitles[$service])) {
+        abort(404);
+    }
+
+    // Serve bespoke view for Automotive Outsourcing
+    if ($service === 'outsourcing' && $department === 'automotive') {
+        return view('services.automotive', [
+            'serviceId' => $service,
+            'departmentId' => $department,
+            'departmentTitle' => $deptTitles[$service][$department]
+        ]);
+    }
+    
+    return view('services.department', [
+        'serviceId' => $service,
+        'departmentId' => $department,
+        'departmentTitle' => $deptTitles[$service][$department]
+    ]);
+})->name('services.department');
+// Products
+Route::get('/products', function () {
+    return view('products.index');
+})->name('products.index');
+
+// Freelance External Redirect
+Route::get('/freelance', function () {
+    return redirect()->away('https://remoterobotics.placeholder.com');
+})->name('freelance');
+
+// Programs (Now acting as "Training" service)
 Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
 Route::get('/programs/{id}', [ProgramController::class, 'show'])->name('programs.show');
 
@@ -100,5 +166,31 @@ Route::prefix('admin')->group(function () {
 
         // Blog Management
         Route::resource('blog', AdminBlogController::class)->names('admin.blog');
+
+        // Contact Messages Management
+        Route::get('/messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('admin.messages.index');
+        Route::get('/messages/{message}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'show'])->name('admin.messages.show');
+        Route::delete('/messages/{message}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])->name('admin.messages.destroy');
+
+        // CMS Pages Management
+        Route::get('/pages', [\App\Http\Controllers\Admin\CmsPageController::class, 'index'])->name('admin.pages.index');
+        Route::get('/pages/create', [\App\Http\Controllers\Admin\CmsPageController::class, 'create'])->name('admin.pages.create');
+        Route::post('/pages', [\App\Http\Controllers\Admin\CmsPageController::class, 'store'])->name('admin.pages.store');
+        Route::get('/pages/{page}/edit', [\App\Http\Controllers\Admin\CmsPageController::class, 'edit'])->name('admin.pages.edit');
+        Route::delete('/pages/{page}', [\App\Http\Controllers\Admin\CmsPageController::class, 'destroy'])->name('admin.pages.destroy');
+        
+        Route::post('/api/cms/save', [\App\Http\Controllers\Admin\CmsApiController::class, 'saveInline'])->name('admin.api.cms.save');
+        Route::post('/api/cms/upload', [\App\Http\Controllers\Admin\CmsApiController::class, 'uploadImage'])->name('admin.api.cms.upload');
     });
 });
+
+// Dynamic Pages Route (Must be at the very bottom)
+Route::get('/{slug}', function ($slug) {
+    $page = \App\Models\CmsPage::findBySlug($slug);
+    
+    if (!$page || !$page->is_custom) {
+        abort(404);
+    }
+    
+    return view('pages.custom', compact('page'));
+})->where('slug', '.*')->name('custom.page');

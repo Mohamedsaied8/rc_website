@@ -17,11 +17,24 @@ class ContactController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:1000'
+            'message' => 'required|string|max:2000',
+            'type' => 'nullable|string|max:50',
+            'company' => 'nullable|string|max:255',
         ]);
 
-        // Here you would typically send an email or save to database
-        // For now, we'll just return a success message
+        $messageContent = $request->message;
+        if ($request->company) {
+            $messageContent = "Company: " . $request->company . "\n\n" . $messageContent;
+        }
+
+        // Save the message to database
+        \App\Models\ContactMessage::create([
+            'type' => $request->type ?? 'contact',
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $messageContent,
+        ]);
         
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }

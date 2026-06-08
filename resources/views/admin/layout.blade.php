@@ -50,9 +50,11 @@
                 @php
                     $navItems = [
                         ['route' => 'admin.dashboard', 'icon' => 'fa-solid fa-chart-line', 'label' => 'Dashboard', 'pattern' => 'admin.dashboard'],
+                        ['route' => 'admin.pages.index', 'icon' => 'fa-solid fa-file-lines', 'label' => 'Pages', 'pattern' => 'admin.pages.*'],
                         ['route' => 'admin.courses.index', 'icon' => 'fa-solid fa-book', 'label' => 'Courses', 'pattern' => 'admin.courses.*'],
                         ['route' => 'admin.programs.index', 'icon' => 'fa-solid fa-graduation-cap', 'label' => 'Programs', 'pattern' => 'admin.programs.*'],
                         ['route' => 'admin.enrollments.index', 'icon' => 'fa-solid fa-user-graduate', 'label' => 'Enrollments', 'pattern' => 'admin.enrollments.*'],
+                        ['route' => 'admin.messages.index', 'icon' => 'fa-solid fa-envelope', 'label' => 'Messages', 'pattern' => 'admin.messages.*'],
                         ['route' => 'admin.blog.index', 'icon' => 'fa-solid fa-newspaper', 'label' => 'Blog', 'pattern' => 'admin.blog.*'],
                         ['route' => 'admin.settings.index', 'icon' => 'fa-solid fa-gear', 'label' => 'Settings', 'pattern' => 'admin.settings.*'],
                         ['route' => 'admin.file-manager.index', 'icon' => 'fa-solid fa-folder-open', 'label' => 'File Manager', 'pattern' => 'admin.file-manager.*'],
