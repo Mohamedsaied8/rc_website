@@ -28,9 +28,7 @@
     overflow-x: hidden;
   }
 
-  p {
-    text-align: justify;
-  }
+
 
   ::selection {
     background-color: rgba(34, 211, 238, 0.25);

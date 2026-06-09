@@ -12,7 +12,7 @@
                 <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
                 <span class="text-xs font-bold text-slate-600 tracking-wide uppercase">{{ cms('about.hero.badge', 'Who We Are') }}</span>
             </div>
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-6">
+            <h1 class="text-4xl md:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-6">
                 {!! cms('about.hero.title', 'Architecting the <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Digital Layer</span> of Robotics') !!}
             </h1>
             <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -22,7 +22,7 @@
     </section>
 
     <!-- The Vision (Emotional & Cinematic) -->
-    <section class="relative py-32 overflow-hidden border-t border-slate-200 bg-white">
+    <section class="relative py-16 md:py-32 overflow-hidden border-t border-slate-200 bg-white">
         <!-- Cinematic Background Effects -->
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMCwwLDAsMC4wMikiLz48L3N2Zz4=')]"></div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-gradient-to-b from-cyan-200/50 to-transparent blur-[80px] pointer-events-none"></div>
@@ -121,7 +121,7 @@
                     </div>
                     
                     <div class="bg-white/60 backdrop-blur-md border border-white shadow-xl rounded-3xl p-8 md:p-10 pointer-events-auto inline-block max-w-4xl">
-                        <h2 class="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
+                        <h2 class="text-4xl md:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
                             {!! cms('about.mission.title', 'Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-cyan-600">Mission Roadmap</span>') !!}
                         </h2>
                         <p class="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
@@ -131,7 +131,7 @@
                 </div>
 
                 <!-- ROW 3: The Cards Grid -->
-                <div class="grid md:grid-cols-3 gap-12 relative z-10 col-start-1 row-start-3">
+                <div class="grid md:grid-cols-3 gap-6 md:gap-12 relative z-10 col-start-1 row-start-3">
                     <!-- Phase 1 -->
                     <div class="bg-white border border-emerald-200 shadow-md rounded-[2.5rem] p-10 hover:-translate-y-4 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-500 group relative text-center flex flex-col items-center">
                         <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 bg-white border border-emerald-300 rounded-full flex items-center justify-center text-emerald-600 font-bold text-2xl shadow-sm group-hover:scale-125 transition-transform z-20">1</div>
@@ -173,7 +173,7 @@
     </section>
 
     <!-- Our Pillars (Training vs R&D) -->
-    <section class="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-slate-200 bg-slate-50 rounded-3xl mb-12 mt-12">
+    <section class="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24 border-t border-slate-200 bg-slate-50 rounded-3xl mb-12 mt-12">
         <div class="text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-5">
                 {!! cms('about.pillars.title', 'Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Core Pillars</span>') !!}
@@ -260,19 +260,19 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div>
-                    <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600 mb-2">{{ cms('about.stats.1_val', '2020') }}</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600 mb-2">{{ cms('about.stats.1_val', '2020') }}</div>
                     <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.1_label', 'Founded') }}</div>
                 </div>
                 <div>
-                    <div class="text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.2_val', '15+') }}</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.2_val', '15+') }}</div>
                     <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.2_label', 'Enterprise Partners') }}</div>
                 </div>
                 <div>
-                    <div class="text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.3_val', '500+') }}</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.3_val', '500+') }}</div>
                     <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.3_label', 'Professionals Trained') }}</div>
                 </div>
                 <div>
-                    <div class="text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.4_val', '95%') }}</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.4_val', '95%') }}</div>
                     <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.4_label', 'Job Placement Rate') }}</div>
                 </div>
             </div>
@@ -280,7 +280,7 @@
     </section>
 
     <!-- Leadership / Founder Spotlight -->
-    <section class="relative py-24 overflow-hidden bg-slate-50">
+    <section class="relative py-12 md:py-24 overflow-hidden bg-slate-50">
         <div class="absolute left-0 top-1/4 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px]"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -370,10 +370,10 @@
                             <h4 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 mb-4">
                                 <i class="fa-solid fa-bolt text-cyan-500"></i> {{ cms('about.leadership.saied_exec_title', 'Executive Summary') }}
                             </h4>
-                            <p class="text-slate-600 leading-relaxed font-medium">
+                            <p class="text-justify text-slate-600 leading-relaxed font-medium">
                                 {{ cms('about.leadership.saied_exec_desc', 'With a rich vein of over a decade of experience in embedded software engineering, Mohamed specializes in bridging the gap between cutting-edge technology and tangible, industry-shaping products. His technical canvas is built on Adaptive AUTOSAR, Modern C++, and ROS2, with a specific focus on driving innovation in autonomous driving applications and smart IoT solutions.') }}
                             </p>
-                            <p class="text-slate-600 leading-relaxed font-medium mt-4">
+                            <p class="text-justify text-slate-600 leading-relaxed font-medium mt-4">
                                 {{ cms('about.leadership.saied_exec_desc2', 'Beyond product development, he is deeply invested in elevating the engineering community. He actively consults organizations on Agile transformations and provides high-level training to embedded software professionals aiming for the next tier of their careers.') }}
                             </p>
                         </div>
@@ -409,7 +409,7 @@
                             <div class="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
                                 
                                 <!-- Highlight 1 -->
-                                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="relative flex flex-col md:flex-row items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div class="flex items-center justify-center w-4 h-4 rounded-full border border-slate-300 bg-white text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
                                         <div class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></div>
                                     </div>
@@ -420,7 +420,7 @@
                                 </div>
 
                                 <!-- Highlight 2 -->
-                                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="relative flex flex-col md:flex-row items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div class="flex items-center justify-center w-4 h-4 rounded-full border border-slate-300 bg-white text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
                                         <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
                                     </div>
@@ -431,7 +431,7 @@
                                 </div>
 
                                 <!-- Highlight 3 -->
-                                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="relative flex flex-col md:flex-row items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div class="flex items-center justify-center w-4 h-4 rounded-full border border-slate-300 bg-white text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
                                         <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
                                     </div>

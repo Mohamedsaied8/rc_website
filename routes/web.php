@@ -86,6 +86,15 @@ Route::get('/services/{service}/{department}', function ($service, $department) 
             'departmentTitle' => $deptTitles[$service][$department]
         ]);
     }
+
+    // Serve bespoke view for Intelligent Robotics
+    if ($service === 'rnd' && $department === 'robotics') {
+        return view('services.intelligent-robotics', [
+            'serviceId' => $service,
+            'departmentId' => $department,
+            'departmentTitle' => $deptTitles[$service][$department]
+        ]);
+    }
     
     return view('services.department', [
         'serviceId' => $service,
@@ -194,3 +203,7 @@ Route::get('/{slug}', function ($slug) {
     
     return view('pages.custom', compact('page'));
 })->where('slug', '.*')->name('custom.page');
+
+Route::get('/test', function() { dd(env('APP_KEY'), config('app.key')); });
+
+Route::get('/test2', function() { return file_get_contents(base_path('.env')); });

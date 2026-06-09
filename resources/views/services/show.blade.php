@@ -10,8 +10,8 @@
 
     @if($serviceId === 'consultation')
         <!-- Consultation Content -->
-        <section class="relative z-10 max-w-6xl mx-auto px-6 py-24">
-            <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
+        <section class="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
                 <div>
                     <h2 class="text-3xl font-extrabold text-slate-900 mb-6">Expert Engineering Guidance</h2>
                     <p class="text-slate-600 text-lg leading-relaxed mb-6">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="bg-white border border-slate-200 shadow-sm rounded-3xl p-12 mb-12 text-center">
-                <i class="fa-solid fa-network-wired text-5xl text-blue-500 mb-6"></i>
+                <i class="fa-solid fa-network-wired text-4xl md:text-5xl text-blue-500 mb-6"></i>
                 <h3 class="text-2xl font-extrabold text-slate-900 mb-4">Comprehensive System Audits</h3>
                 <p class="text-slate-600 text-lg leading-relaxed max-w-3xl mx-auto">
                     We offer deep-dive reviews of your existing robotics stack. Whether you are dealing with latency issues in perception pipelines, struggling with determinism in control loops, or planning a massive fleet deployment, our team can identify bottlenecks and prescribe precise technical solutions.
@@ -47,7 +47,7 @@
         </section>
     @elseif($serviceId === 'rnd')
         <!-- R&D Overview -->
-        <section class="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center">
+        <section class="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24 text-center">
             <div class="mb-16">
                 <h2 class="text-4xl font-extrabold text-slate-900 mb-6">Explore Our R&D Divisions</h2>
                 <p class="text-slate-600 text-lg max-w-3xl mx-auto">
@@ -96,7 +96,7 @@
         </section>
     @elseif($serviceId === 'outsourcing')
         <!-- Outsourcing Overview -->
-        <section class="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center">
+        <section class="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24 text-center">
             <div class="mb-16">
                 <h2 class="text-4xl font-extrabold text-slate-900 mb-6">Explore Our Outsourcing Divisions</h2>
                 <p class="text-slate-600 text-lg max-w-3xl mx-auto">

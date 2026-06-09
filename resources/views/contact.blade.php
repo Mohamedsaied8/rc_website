@@ -28,7 +28,7 @@
     </section>
 
     <section class="relative z-10 max-w-7xl mx-auto px-6 py-12 pb-32">
-        <div class="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        <div class="grid lg:grid-cols-5 gap-8 lg:gap-6 md:gap-12">
             
             <!-- Left Column: Contact Cards -->
             <div class="lg:col-span-2 space-y-6">

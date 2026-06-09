@@ -303,12 +303,12 @@
                     --text-3xl--line-height: 1.2;
                     --text-4xl: 2.25rem;
                     --text-4xl--line-height: calc(2.5/2.25);
-                    --text-5xl: 3rem;
-                    --text-5xl--line-height: 1;
-                    --text-6xl: 3.75rem;
-                    --text-6xl--line-height: 1;
-                    --text-7xl: 4.5rem;
-                    --text-7xl--line-height: 1;
+                    --text-4xl md:text-5xl: 3rem;
+                    --text-4xl md:text-5xl--line-height: 1;
+                    --text-4xl md:text-5xl md:text-6xl: 3.75rem;
+                    --text-4xl md:text-5xl md:text-6xl--line-height: 1;
+                    --text-5xl lg:text-7xl: 4.5rem;
+                    --text-5xl lg:text-7xl--line-height: 1;
                     --text-8xl: 6rem;
                     --text-8xl--line-height: 1;
                     --text-9xl: 8rem;

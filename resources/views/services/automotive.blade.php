@@ -9,8 +9,8 @@
     ])
 
     <!-- Cinematic Intro -->
-    <section class="relative z-10 max-w-7xl mx-auto px-6 py-24">
-        <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+    <section class="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
             <div>
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-semibold mb-6">
                     <i class="fa-solid fa-microchip"></i> Architecture-Driven Excellence
@@ -34,7 +34,7 @@
     </section>
 
     <!-- Engineering Process Grid -->
-    <section class="relative z-10 bg-white border-y border-slate-200 py-24">
+    <section class="relative z-10 bg-white border-y border-slate-200 py-12 md:py-24">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">How We Work</span>
@@ -138,7 +138,7 @@
     </section>
 
     <!-- Deep Technical Architectural Overview - INTERACTIVE BLUEPRINT -->
-    <section class="relative z-10 py-24 bg-gradient-to-b from-transparent to-purple-900/10">
+    <section class="relative z-10 py-12 md:py-24 bg-gradient-to-b from-transparent to-purple-900/10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">Interactive Blueprint</span>
@@ -367,7 +367,7 @@
     @endpush
 
     <!-- SDV Architecture Showcase -->
-    <section class="relative z-10 max-w-5xl mx-auto px-6 py-24">
+    <section class="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-24">
         <div class="bg-white border border-purple-500/20 rounded-3xl p-10 shadow-[0_0_50px_rgba(168,85,247,0.05)] overflow-hidden">
             <div class="text-center mb-12">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">System Architecture</span>
@@ -376,7 +376,7 @@
             </div>
             
             <div class="w-full overflow-x-auto">
-                <svg class="w-full min-w-[700px]" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-full" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- Background Glow -->
                     <circle cx="400" cy="225" r="150" fill="url(#radialGlow)" opacity="0.15"/>
                     
@@ -444,8 +444,8 @@
     </section>
 
     <!-- AIDV / Autonomous Showcase -->
-    <section class="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-slate-200">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <section class="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24 border-t border-slate-200">
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div class="order-2 lg:order-1 relative rounded-3xl overflow-hidden border border-slate-200 shadow-2xl">
                 <!-- Using one of the generated images for the autonomous part -->
                 <img src="{{ asset('images/dept_rnd_cars.png') }}" alt="AI-Defined Vehicles" class="w-full object-cover h-[500px]">
@@ -494,7 +494,7 @@
     </section>
 
     <!-- Elite Developer Skill Matrix -->
-    <section class="relative z-10 py-24 border-t border-slate-200 bg-gradient-to-b from-transparent to-slate-50">
+    <section class="relative z-10 py-12 md:py-24 border-t border-slate-200 bg-gradient-to-b from-transparent to-slate-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-slate-900 mb-6">Comprehensive Engineering Matrix</h2>

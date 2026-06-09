@@ -61,7 +61,7 @@
                 {{ $posts->links() }}
             </div>
         @else
-            <div class="text-center py-24 bg-white border border-slate-200 rounded-2xl">
+            <div class="text-center py-12 md:py-24 bg-white border border-slate-200 rounded-2xl">
                 <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mx-auto mb-4">
                     <i class="fa-solid fa-file-pen text-2xl text-cyan-600"></i>
                 </div>

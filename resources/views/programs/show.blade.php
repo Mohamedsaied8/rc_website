@@ -9,7 +9,7 @@
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-cyan-500/[0.05] rounded-full blur-[150px]"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8">
-            <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight mb-4">
+            <h1 class="text-4xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
                 {{ $program->title }}
             </h1>
             <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8">

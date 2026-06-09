@@ -14,7 +14,7 @@
             
             <!-- Service 1: R&D -->
             <div class="relative bg-white border border-slate-200 shadow-sm hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/10 rounded-[2rem] overflow-hidden transition-all duration-500 group flex flex-col">
-                <div class="h-56 relative overflow-hidden">
+                <div class="h-56 overflow-hidden">
                     <div class="absolute inset-0 bg-cyan-900/10 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
                     <img src="{{ cms('services.rnd.img', asset('images/rnd_service.png'), true) }}" data-cms-image="services.rnd.img" alt="R&D" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>
@@ -38,7 +38,7 @@
 
             <!-- Service 2: Consulting -->
             <div class="relative bg-white border border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-lg hover:shadow-blue-500/10 rounded-[2rem] overflow-hidden transition-all duration-500 group flex flex-col">
-                <div class="h-56 relative overflow-hidden">
+                <div class="h-56 overflow-hidden">
                     <div class="absolute inset-0 bg-blue-900/10 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
                     <img src="{{ cms('services.consulting.img', asset('images/consultation_service.png'), true) }}" data-cms-image="services.consulting.img" alt="Consulting" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>
@@ -62,7 +62,7 @@
 
             <!-- Service 3: Outsourcing -->
             <div class="relative bg-white border border-slate-200 shadow-sm hover:border-purple-300 hover:shadow-lg hover:shadow-purple-500/10 rounded-[2rem] overflow-hidden transition-all duration-500 group flex flex-col">
-                <div class="h-56 relative overflow-hidden">
+                <div class="h-56 overflow-hidden">
                     <div class="absolute inset-0 bg-purple-900/10 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
                     <img src="{{ cms('services.outsourcing.img', asset('images/outsourcing_service.png'), true) }}" data-cms-image="services.outsourcing.img" alt="Outsourcing" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>
@@ -86,7 +86,7 @@
 
             <!-- Service 4: Training -->
             <div class="relative bg-white border border-slate-200 shadow-sm hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/10 rounded-[2rem] overflow-hidden transition-all duration-500 group flex flex-col">
-                <div class="h-56 relative overflow-hidden">
+                <div class="h-56 overflow-hidden">
                     <div class="absolute inset-0 bg-emerald-900/10 mix-blend-multiply z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
                     <img src="{{ cms('services.training.img', asset('images/training_service.png'), true) }}" data-cms-image="services.training.img" alt="Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>

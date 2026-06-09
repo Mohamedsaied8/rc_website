@@ -14,7 +14,10 @@ $app = Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Throwable $e) {
+            echo get_class($e) . ': ' . $e->getMessage() . "\n" . $e->getTraceAsString();
+            die();
+        });
     })->create();
 
 if (isset($_SERVER['VERCEL']) || isset($_ENV['VERCEL'])) {

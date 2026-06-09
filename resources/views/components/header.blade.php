@@ -55,11 +55,13 @@
 
             <!-- Desktop CTA + Mobile Toggle -->
             <div class="flex items-center gap-3">
-                <a href="{{ route('freelance') }}" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-0.5 transition-all duration-300 group">
-                    {{ cms('global.header.btn_freelance', 'Get your freelance job') }} <i class="fa-solid fa-bolt text-pink-200 group-hover:animate-pulse"></i>
+                <a href="{{ route('freelance') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-0.5 transition-all duration-300 group">
+                    <span class="hidden xl:inline">{{ cms('global.header.btn_freelance', 'Get your freelance job') }}</span>
+                    <span class="hidden sm:inline xl:hidden">Freelance</span>
+                    <i class="fa-solid fa-bolt text-pink-200 group-hover:animate-pulse"></i>
                 </a>
-                <a href="#" class="hidden lg:inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg hover:bg-cyan-100 hover:-translate-y-0.5 transition-all duration-300 group">
-                    <i class="fa-solid fa-flask text-cyan-500 group-hover:rotate-12 transition-transform"></i> {{ cms('global.header.btn_connected_labs', 'Connected Labs') }}
+                <a href="#" class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg hover:bg-cyan-100 hover:-translate-y-0.5 transition-all duration-300 group">
+                    <i class="fa-solid fa-flask text-cyan-500 group-hover:rotate-12 transition-transform"></i> <span class="hidden lg:inline">{{ cms('global.header.btn_connected_labs', 'Connected Labs') }}</span>
                 </a>
                 @if(request()->routeIs('programs.*'))
                     <a href="{{ route('enroll') }}" class="hidden md:inline-flex items-center px-5 py-2 text-sm font-semibold text-gray-900 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-lg hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-300 hover:-translate-y-0.5">

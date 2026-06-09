@@ -1,9 +1,9 @@
 <footer class="border-t border-slate-200 bg-white relative z-20">
     <div class="mx-auto max-w-7xl px-6 py-16">
-        <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-8 md:gap-12 lg:grid-cols-5">
             <!-- Column 1 — Brand -->
-            <div class="lg:col-span-1">
-                <a href="/" class="flex items-center gap-3 mb-6">
+            <div class="col-span-2 lg:col-span-2">
+                <a href="/" class="flex items-center gap-3 mb-4">
                     <img src="{{ asset('images/logo.png') }}" alt="Robotics Corner Logo" class="h-8 w-auto">
                     <span class="text-xl font-bold text-slate-900 tracking-wide">{{ cms('global.header.site_name', 'Robotics Corner') }}</span>
                 </a>
@@ -13,9 +13,9 @@
             </div>
 
             <!-- Column 2 — Services -->
-            <div>
-                <h4 class="text-sm font-semibold text-slate-900 mb-6">Services</h4>
-                <ul class="space-y-4">
+            <div class="col-span-1">
+                <h4 class="text-sm font-semibold text-slate-900 mb-4">Services</h4>
+                <ul class="space-y-3">
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.services_1', 'Automotive & AUTOSAR') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.services_2', 'Autonomous Driving') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.services_3', 'Robotics') }}</a></li>
@@ -24,9 +24,9 @@
             </div>
 
             <!-- Column 3 — Company -->
-            <div>
-                <h4 class="text-sm font-semibold text-slate-900 mb-6">Company</h4>
-                <ul class="space-y-4">
+            <div class="col-span-1">
+                <h4 class="text-sm font-semibold text-slate-900 mb-4">Company</h4>
+                <ul class="space-y-3">
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.company_1', 'About Us') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.company_2', 'Our Process') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.company_3', 'Portfolio') }}</a></li>
@@ -35,9 +35,9 @@
             </div>
 
             <!-- Column 4 — Technologies -->
-            <div>
-                <h4 class="text-sm font-semibold text-slate-900 mb-6">Technologies</h4>
-                <ul class="space-y-4">
+            <div class="col-span-2 md:col-span-1">
+                <h4 class="text-sm font-semibold text-slate-900 mb-4">Technologies</h4>
+                <ul class="space-y-3">
                     <li><a href="/services/outsourcing/automotive" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.tech_1', 'SDV & AIDV Showcase') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.tech_2', 'Modern C++') }}</a></li>
                     <li><a href="#" class="text-sm text-slate-600 transition-colors hover:text-cyan-600">{{ cms('global.footer.tech_3', 'AUTOSAR') }}</a></li>

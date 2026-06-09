@@ -93,8 +93,8 @@
         'subtitle' => 'Deep-dive into our specialized engineering capabilities.'
     ])
 
-    <section class="relative z-10 max-w-7xl mx-auto px-6 py-24">
-        <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+    <section class="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
             <div>
                 <h2 class="text-4xl font-extrabold text-slate-900 mb-8">{{ $departmentTitle }}</h2>
                 <p class="text-slate-600 text-xl leading-relaxed mb-6">
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8 mb-24">
+        <div class="grid md:grid-cols-3 gap-8 mb-12 md:mb-24">
             @foreach($features as $feature)
                 <div class="bg-white border border-slate-200 shadow-sm rounded-2xl p-8 hover:shadow-lg hover:border-slate-300 transition-all duration-300 border-t-4 {{ $borderClass }}">
                     <i class="fa-solid {{ $feature['icon'] }} text-4xl {{ $iconClass }} mb-6"></i>

@@ -14,7 +14,7 @@
                 <span class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"><i class="fa-regular fa-clock text-emerald-600"></i> {{ $post->reading_time }} min read</span>
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-8 leading-tight">
+            <h1 class="text-4xl md:text-5xl lg:text-4xl md:text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-8 leading-tight">
                 {{ $post->title }}
             </h1>
             
@@ -87,7 +87,7 @@
 
     <!-- Related Posts -->
     @if($relatedPosts->count() > 0)
-        <section class="relative z-10 bg-white border-t border-slate-200 py-24">
+        <section class="relative z-10 bg-white border-t border-slate-200 py-12 md:py-24">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="flex items-center justify-between mb-12">
                     <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Related Articles</h2>
