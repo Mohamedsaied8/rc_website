@@ -165,7 +165,7 @@
 
                 <!-- Consultation -->
                 <div class="relative bg-white border border-slate-200 shadow-md hover:shadow-2xl hover:border-blue-300 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 group flex flex-col">
-                    <a href="{{ route('services.index') }}" class="absolute inset-0 z-20"><span class="sr-only">Engineering Consultation</span></a>
+                    <a href="{{ route('services.show', 'consultation') }}" class="absolute inset-0 z-20"><span class="sr-only">Engineering Consultation</span></a>
                     <div class="h-48 overflow-hidden bg-slate-100">
                         <img src="{{ cms('home.services.consultation_img', asset('images/consultation_service.png'), true) }}" data-cms-image="home.services.consultation_img" alt="Consultation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
@@ -195,7 +195,7 @@
 
                 <!-- Outsourcing -->
                 <div class="relative bg-white border border-slate-200 shadow-md hover:shadow-2xl hover:border-purple-300 rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 group flex flex-col">
-                    <a href="{{ route('services.index') }}" class="absolute inset-0 z-20"><span class="sr-only">Outsourcing</span></a>
+                    <a href="{{ route('services.show', 'outsourcing') }}" class="absolute inset-0 z-20"><span class="sr-only">Outsourcing</span></a>
                     <div class="h-48 overflow-hidden bg-slate-100">
                         <img src="{{ cms('home.services.outsourcing_img', asset('images/outsourcing_service.png'), true) }}" data-cms-image="home.services.outsourcing_img" alt="Outsourcing" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>

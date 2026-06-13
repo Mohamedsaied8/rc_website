@@ -88,7 +88,6 @@
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-700 to-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-500/20">
                                     1
                                 </div>
-                                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200">3-5 Days</span>
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 mb-4">Feasibility Study</h3>
                             <ul class="space-y-3 mb-6">
@@ -110,7 +109,7 @@
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-700 to-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-500/20">
                                     2
                                 </div>
-                                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200">1-2 Weeks</span>
+
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 mb-4">Proof of Concept</h3>
                             <ul class="space-y-3 mb-6">
@@ -132,7 +131,7 @@
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-700 to-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-500/20">
                                     3
                                 </div>
-                                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200">1-2 Weeks</span>
+
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 mb-4">Architectural Design</h3>
                             <ul class="space-y-3 mb-6">
@@ -154,7 +153,7 @@
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-700 to-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-500/20">
                                     4
                                 </div>
-                                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200">Ongoing</span>
+
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 mb-4">Integration Review</h3>
                             <ul class="space-y-3 mb-6">
