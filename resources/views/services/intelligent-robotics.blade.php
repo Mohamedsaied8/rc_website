@@ -417,7 +417,7 @@
                         <!-- Content 1 -->
                         <div id="arch-content-1" class="arch-content transition-all duration-500 opacity-100 translate-y-0">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 border border-cyan-200 text-cyan-800 text-xs font-bold mb-6">Middleware Platform</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">The Complete Digital Layer</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">The Complete Digital Layer</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">Robotics Corner provides a complete digital layer around robotic systems. This includes robot programming interfaces, motion-planning algorithms, simulation tools, perception software, optimization modules, monitoring dashboards, and integration with external systems such as sensors, cameras, databases, PLCs, cloud platforms, and enterprise software.</p>
                             <div class="grid md:grid-cols-3 gap-4">
                                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 h-full">
@@ -447,7 +447,7 @@
                         <!-- Content 2 -->
                         <div id="arch-content-2" class="arch-content transition-all duration-500 opacity-0 pointer-events-none translate-y-4" style="display:none;">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold mb-6">Performance Tuning</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">Robotic Process Optimization Engine</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Robotic Process Optimization Engine</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">Many robotic applications are technically functional but not fully optimized. A robot may complete a task with unnecessary motion, long cycle time, high energy consumption, or inefficient coordination. Our engine addresses these systematically.</p>
                             <div class="space-y-4">
                                 <div class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-200">
@@ -483,7 +483,7 @@
                         <!-- Content 3 -->
                         <div id="arch-content-3" class="arch-content transition-all duration-500 opacity-0 pointer-events-none translate-y-4" style="display:none;">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 text-blue-800 text-xs font-bold mb-6">Motion Quality</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">Trajectory & Path Planning Stack</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Trajectory & Path Planning Stack</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">Trajectory quality strongly affects speed, smoothness, safety, energy use, and mechanical wear. Our algorithms generate optimized motions while considering all critical constraints.</p>
                             <div class="grid md:grid-cols-3 gap-4">
                                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 h-full">
@@ -513,7 +513,7 @@
                         <!-- Content 4 -->
                         <div id="arch-content-4" class="arch-content transition-all duration-500 opacity-0 pointer-events-none translate-y-4" style="display:none;">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 border border-teal-200 text-teal-800 text-xs font-bold mb-6">Virtual Commissioning</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">Simulation &amp; Digital Twin</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Simulation &amp; Digital Twin</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">Before deploying on real hardware, we build virtual models to test paths, layouts, sequences, gripper configurations, and process parameters — reducing commissioning time and deployment risk.</p>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex items-start gap-4 h-full">
@@ -550,7 +550,7 @@
                         <!-- Content 5 -->
                         <div id="arch-content-5" class="arch-content transition-all duration-500 opacity-0 pointer-events-none translate-y-4" style="display:none;">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-purple-800 text-xs font-bold mb-6">Cognitive Robotics</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">AI-Based Optimization &amp; Adaptation</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">AI-Based Optimization &amp; Adaptation</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">In dynamic environments where objects move, lighting varies, and human operators are present, fixed programming is insufficient. Our AI pipeline enables adaptive intelligent behavior.</p>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div class="bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-2xl p-5 h-full">
@@ -579,7 +579,7 @@
                         <!-- Content 6 -->
                         <div id="arch-content-6" class="arch-content transition-all duration-500 opacity-0 pointer-events-none translate-y-4" style="display:none;">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-amber-800 text-xs font-bold mb-6">System-Wide Coordination</div>
-                            <h3 class="text-3xl font-bold text-slate-900 mb-6">Multi-Robot Orchestration Layer</h3>
+                            <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Multi-Robot Orchestration Layer</h3>
                             <p class="text-slate-600 leading-relaxed mb-8">When multiple robots, conveyors, machines, and human workers share a workspace, the challenge is system-wide optimization. Our orchestration layer manages it all.</p>
                             <div class="space-y-4">
                                 <div class="flex items-start gap-4 p-5 bg-amber-50 rounded-2xl border border-amber-200">
@@ -779,7 +779,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Infrastructure</span>
                         <i class="fa-solid fa-code text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Robot Programming</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">Robot Programming</h3>
                     <p class="text-slate-500 text-sm mb-4">Unified SDKs, vendor abstraction, RAPID, KRL, URScript</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L3</span>
@@ -792,7 +792,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Control</span>
                         <i class="fa-solid fa-sliders text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Motion Planning &amp; Control</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">Motion Planning &amp; Control</h3>
                     <p class="text-slate-500 text-sm mb-4">IK, PK, trajectory optimization, MPC, feedback control</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L4</span>
@@ -805,7 +805,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Perception</span>
                         <i class="fa-solid fa-eye text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Computer Vision</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">Computer Vision</h3>
                     <p class="text-slate-500 text-sm mb-4">OpenCV, YOLO, 3D point clouds, stereo depth, pose estimation</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L4</span>
@@ -818,7 +818,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Intelligence</span>
                         <i class="fa-solid fa-brain text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">AI &amp; Machine Learning</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">AI &amp; Machine Learning</h3>
                     <p class="text-slate-500 text-sm mb-4">PyTorch, RLlib, imitation learning, sim-to-real transfer</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L4</span>
@@ -831,7 +831,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Virtualization</span>
                         <i class="fa-solid fa-cube text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Simulation &amp; Digital Twin</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">Simulation &amp; Digital Twin</h3>
                     <p class="text-slate-500 text-sm mb-4">Gazebo, Unity, Webots, FMU, virtual commissioning</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L4</span>
@@ -844,7 +844,7 @@
                         <span class="px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider">Integration</span>
                         <i class="fa-solid fa-plug text-cyan-500 text-lg"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">System Integration</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-2">System Integration</h3>
                     <p class="text-slate-500 text-sm mb-4">ROS/ROS2, OPC-UA, MQTT, PLCs, REST, cloud connectors</p>
                     <div class="flex gap-2">
                         <span class="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-lg text-xs font-bold text-cyan-700">L4</span>

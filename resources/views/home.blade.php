@@ -16,12 +16,12 @@
             </div>
 
             <!-- Headline -->
-            <h1 class="text-4xl md:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6 animate-fade-in-up" style="animation-delay: 200ms;">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05] mb-8 animate-fade-in-up" style="animation-delay: 200ms;">
                 {!! cms('home.hero.title', 'Empowering the Future with <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Robotics Products</span> & Corporate Services') !!}
             </h1>
 
             <!-- Description -->
-            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 300ms;">
+            <p class="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-12 leading-relaxed font-medium animate-fade-in-up" style="animation-delay: 300ms;">
                 {{ cms('home.hero.description', 'From autonomous industrial solutions to cutting-edge software products. We build the infrastructure of tomorrow, today.') }}
             </p>
 
@@ -86,7 +86,7 @@
 
                     <!-- Services Trigger -->
                     <div class="relative" @mouseenter="activeHub = 'services'" @mouseleave="activeHub = null">
-                        <a href="{{ route('services.index') }}" class="group inline-flex items-center gap-2 px-8 py-4 text-sm font-bold text-slate-700 border border-slate-300 bg-white shadow-sm hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 hover:-translate-y-1 relative z-20">
+                        <a href="{{ route('services.index') }}" class="group inline-flex items-center gap-2 px-8 py-4 text-sm font-bold text-slate-700 border border-slate-300 bg-white rounded-xl shadow-sm hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 hover:-translate-y-1 relative z-20">
                             <i class="fa-solid fa-briefcase text-blue-500 transition-transform duration-300 group-hover:scale-110"></i>
                             {{ cms('home.hero.btn_services', 'View Corporate Services') }}
                         </a>

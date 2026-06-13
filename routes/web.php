@@ -8,6 +8,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EnrollController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RnDController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
@@ -60,6 +61,10 @@ Route::get('/services/{service}', function ($service) {
     ]);
 })->name('services.show');
 
+// Specific route for autonomous cars
+Route::get('/services/rnd/autonomous-cars', [RnDController::class, 'autonomousCars'])
+    ->name('services.rnd.autonomous-cars');
+
 Route::get('/services/{service}/{department}', function ($service, $department) {
     // Basic mapping for department titles
     $deptTitles = [
@@ -95,13 +100,33 @@ Route::get('/services/{service}/{department}', function ($service, $department) 
             'departmentTitle' => $deptTitles[$service][$department]
         ]);
     }
+
+    // Serve bespoke view for Automotive Software R&D
+    if ($service === 'rnd' && $department === 'automotive') {
+        return view('services.automotive-rnd', [
+            'serviceId' => $service,
+            'departmentId' => $department,
+            'departmentTitle' => $deptTitles[$service][$department]
+        ]);
+    }
     
+
+    // Serve bespoke view for Robotics Outsourcing
+    if ($service === 'outsourcing' && $department === 'robotics') {
+        return view('services.robotics-outsourcing', [
+            'serviceId' => $service,
+            'departmentId' => $department,
+            'departmentTitle' => $deptTitles[$service][$department]
+        ]);
+    }
+
     return view('services.department', [
         'serviceId' => $service,
         'departmentId' => $department,
         'departmentTitle' => $deptTitles[$service][$department]
     ]);
 })->name('services.department');
+
 // Products
 Route::get('/products', function () {
     return view('products.index');

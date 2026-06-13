@@ -14,7 +14,7 @@
                 <span class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"><i class="fa-regular fa-clock text-emerald-600"></i> {{ $post->reading_time }} min read</span>
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-4xl md:text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-8 leading-tight">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.05] mb-8">
                 {{ $post->title }}
             </h1>
             

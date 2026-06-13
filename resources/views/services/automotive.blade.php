@@ -15,8 +15,8 @@
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-semibold mb-6">
                     <i class="fa-solid fa-microchip"></i> Architecture-Driven Excellence
                 </div>
-                <h2 class="text-4xl font-bold text-slate-900 mb-8">Software-Defined Vehicle Mastery</h2>
-                <p class="text-slate-600 text-xl leading-relaxed mb-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">Software-Defined Vehicle Mastery</h2>
+                <p class="text-slate-600 text-lg leading-relaxed mb-6">
                     We provide dedicated teams of elite software engineers to automotive giants. We scale your development capacity instantly without compromising code quality.
                 </p>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
@@ -38,8 +38,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">How We Work</span>
-                <h2 class="text-4xl font-bold text-slate-900 mb-4">Engineering Process & Quality</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">A structured and disciplined engineering process designed for complex embedded systems where safety and maintainability are critical.</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Engineering Process & Quality</h2>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">A structured and disciplined engineering process designed for complex embedded systems where safety and maintainability are critical.</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -54,8 +54,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">Interconnected Services</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Technical consulting, product development, managed outsourcing, and architecture refactoring work together seamlessly.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">Interconnected Services</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">Technical consulting, product development, managed outsourcing, and architecture refactoring work together seamlessly.</p>
                     </div>
                 </div>
                 <!-- Card 2 -->
@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">SAFe for Automotive</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Multi-level planning and execution with safety compliance at every stage of development.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">SAFe for Automotive</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">Multi-level planning and execution with safety compliance at every stage of development.</p>
                     </div>
                 </div>
                 <!-- Card 3 -->
@@ -84,8 +84,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">CI/CD Pipeline</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">DevOps with hardware-in-the-loop testing ensuring continuous integration and quality validation.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">CI/CD Pipeline</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">DevOps with hardware-in-the-loop testing ensuring continuous integration and quality validation.</p>
                     </div>
                 </div>
                 <!-- Card 4 -->
@@ -99,8 +99,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">Safety-Critical Sprints</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">2-week sprints adapted for ISO 26262 & ASPICE compliance with rigorous checkpoints.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">Safety-Critical Sprints</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">2-week sprints adapted for ISO 26262 & ASPICE compliance with rigorous checkpoints.</p>
                     </div>
                 </div>
                 <!-- Card 5 -->
@@ -114,8 +114,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">Agile Transformation</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Shifting from traditional to agile thinking with adaptive planning and iterative cycles.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">Agile Transformation</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">Shifting from traditional to agile thinking with adaptive planning and iterative cycles.</p>
                     </div>
                 </div>
                 <!-- Card 6 -->
@@ -129,8 +129,8 @@
                         </div>
                     </div>
                     <div class="p-8 pt-2 text-center">
-                        <h4 class="text-xl font-bold text-slate-900 mb-3">Architecture-First</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Connected layers from requirements through deployment with continuous iteration.</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-3">Architecture-First</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed">Connected layers from requirements through deployment with continuous iteration.</p>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">Interactive Blueprint</span>
-                <h2 class="text-4xl font-bold text-slate-900 mb-6">Deep Technical <span class="text-purple-400">Architectural Overview</span></h2>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Deep Technical <span class="text-purple-400">Architectural Overview</span></h2>
                 <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto">A comprehensive examination of how we compile these engineering domains to realize safety-certified, adaptive vehicle dynamics.</p>
             </div>
 
@@ -190,7 +190,7 @@
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-6">
                             Architecture Shift
                         </div>
-                        <h3 class="text-3xl font-bold text-slate-900 mb-6">The Centralization Shift: Zonal E/E</h3>
+                        <h3 class="text-3xl font-extrabold text-slate-900 mb-6">The Centralization Shift: Zonal E/E</h3>
                         <p class="text-slate-600 text-lg leading-relaxed mb-6">Traditional vehicle engineering represents a decentralized mesh where each functional request involves isolated physical components. Introducing next-generation safety requirements, autonomous driving vision models, and continuous over-the-air updates renders this design obsolete due to harness complexity, bandwidth bottlenecks, and physical space constraints.</p>
                         <p class="text-slate-600 text-lg leading-relaxed">To overcome this, we design and support zonal E/E platforms. Zonal controllers act as high-speed data hubs, collecting raw sensor inputs (CAN, LIN, SPI) from their respective physical zones and converting them to Ethernet packets. These packets are routed via SOME/IP or DDS to a centralized High-Performance Compute (HPC) platform, containing the core processing elements required to make localized decisions in microseconds.</p>
                     </div>
@@ -200,7 +200,7 @@
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-6">
                             Software Decoupling
                         </div>
-                        <h3 class="text-3xl font-bold text-slate-900 mb-6">Service-Oriented Middleware</h3>
+                        <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Service-Oriented Middleware</h3>
                         <p class="text-slate-600 text-lg leading-relaxed mb-8">In a Software-Defined Vehicle, applications are decoupled from the hardware layer through service-oriented middleware. Adaptive AUTOSAR provides the standard runtime environment (ara) for these applications. Instead of hardcoding signal routing via CAN matrices, application modules register as dynamic services exposing standardized APIs.</p>
                         
                         <div class="grid gap-6">
@@ -224,7 +224,7 @@
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-6">
                             Safety & Isolation
                         </div>
-                        <h3 class="text-3xl font-bold text-slate-900 mb-6">Real-Time OS & Mixed Criticality</h3>
+                        <h3 class="text-3xl font-extrabold text-slate-900 mb-6">Real-Time OS & Mixed Criticality</h3>
                         <p class="text-slate-600 text-lg leading-relaxed mb-8">Running high-performance autonomous perception alongside safety-critical vehicle dynamics controls requires a robust real-time operating system that guarantees freedom from interference. We utilize QNX Neutrino RTOS and Type 1 hypervisors to handle these mixed-criticality requirements:</p>
                         
                         <div class="space-y-6 relative before:absolute before:inset-y-0 before:left-4 before:w-px before:bg-white/[0.1]">
@@ -234,7 +234,7 @@
                                 </div>
                                 <div>
                                     <h4 class="text-slate-900 font-bold mb-2 text-xl">Microkernel Architecture</h4>
-                                    <p class="text-slate-600">QNX runs system drivers, filesystems, and network stacks in user space, ensuring that a driver crash cannot bring down the core kernel.</p>
+                                    <p class="text-slate-600 text-lg">QNX runs system drivers, filesystems, and network stacks in user space, ensuring that a driver crash cannot bring down the core kernel.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4 relative">
@@ -243,7 +243,7 @@
                                 </div>
                                 <div>
                                     <h4 class="text-slate-900 font-bold mb-2 text-xl">Hypervisor Partitioning</h4>
-                                    <p class="text-slate-600">We run isolated virtual machines on a single SoC. Safety-critical tasks run in an ASIL-D QNX partition, while non-safety-critical interfaces (AAOS) run in parallel, fully isolated.</p>
+                                    <p class="text-slate-600 text-lg">We run isolated virtual machines on a single SoC. Safety-critical tasks run in an ASIL-D QNX partition, while non-safety-critical interfaces (AAOS) run in parallel, fully isolated.</p>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +254,7 @@
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-6">
                             Parallel Performance
                         </div>
-                        <h3 class="text-3xl font-bold text-slate-900 mb-6">AI Acceleration (CUDA)</h3>
+                        <h3 class="text-3xl font-extrabold text-slate-900 mb-6">AI Acceleration (CUDA)</h3>
                         <p class="text-slate-600 text-lg leading-relaxed mb-8">AI-Defined Vehicles (AIDV) demand parallel processing to handle multi-camera perception, LiDAR point cloud processing, and local NLP. We optimize these intensive math routines for embedded GPUs:</p>
                         
                         <div class="grid md:grid-cols-2 gap-6">
@@ -371,8 +371,8 @@
         <div class="bg-white border border-purple-500/20 rounded-3xl p-10 shadow-[0_0_50px_rgba(168,85,247,0.05)] overflow-hidden">
             <div class="text-center mb-12">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">System Architecture</span>
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">Next-Generation Zonal E/E Layout</h3>
-                <p class="text-slate-600 max-w-2xl mx-auto">Transition from decentralized ECUs to zonal hubs communicating with a high-performance Central Compute unit via SOME/IP over automotive Ethernet.</p>
+                <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Next-Generation Zonal E/E Layout</h3>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">Transition from decentralized ECUs to zonal hubs communicating with a high-performance Central Compute unit via SOME/IP over automotive Ethernet.</p>
             </div>
             
             <div class="w-full overflow-x-auto">
@@ -453,7 +453,7 @@
             </div>
             <div class="order-1 lg:order-2">
                 <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2 block">Autonomous Intelligence</span>
-                <h3 class="text-4xl font-bold text-slate-900 mb-6">AI-Defined Vehicles (AIDV)</h3>
+                <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">AI-Defined Vehicles (AIDV)</h3>
                 <p class="text-slate-600 text-lg leading-relaxed mb-8">
                     AI represents the intelligent cognitive layer of the vehicle. We provide elite AI engineers who embed neural network perception pipelines, high-performance sensor fusion, and natural language interfaces directly into the vehicle's runtime environment.
                 </p>
@@ -497,7 +497,7 @@
     <section class="relative z-10 py-12 md:py-24 border-t border-slate-200 bg-gradient-to-b from-transparent to-slate-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-slate-900 mb-6">Comprehensive Engineering Matrix</h2>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Comprehensive Engineering Matrix</h2>
                 <p class="text-slate-600 text-lg max-w-3xl mx-auto">Traceable competencies spanning SDV Infrastructure and Autonomous Intelligence (AIDV).</p>
             </div>
 
@@ -507,7 +507,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Infrastructure</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Adaptive AUTOSAR</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Adaptive AUTOSAR</h3>
                     <p class="text-slate-600 text-sm mb-6">Vector DaVinci, ARXML Manifests, ara::com, ara::exec</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">
@@ -526,7 +526,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Infrastructure</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">IPC & SOME/IP</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">IPC & SOME/IP</h3>
                     <p class="text-slate-600 text-sm mb-6">SOME/IP-SD, POSIX Shared Memory, Domain Sockets, vsomeip</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">
@@ -545,7 +545,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Intelligence</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Autonomous Algorithms</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Autonomous Algorithms</h3>
                     <p class="text-slate-600 text-sm mb-6">Kalman Filters, A*, Hybrid A*, MPC, Optimization</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">
@@ -564,7 +564,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Intelligence</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Vision & NLP</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Vision & NLP</h3>
                     <p class="text-slate-600 text-sm mb-6">PyTorch, YOLO, Transformer Architectures, SLMs</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">
@@ -583,7 +583,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Intelligence</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Parallel Compute (CUDA)</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Parallel Compute (CUDA)</h3>
                     <p class="text-slate-600 text-sm mb-6">CUDA Toolkit, NVIDIA TensorRT, Thrust, cuDNN</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">
@@ -602,7 +602,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Infrastructure</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">POSIX OSes (QNX)</h3>
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-3">POSIX OSes (QNX)</h3>
                     <p class="text-slate-600 text-sm mb-6">QNX Neutrino RTOS, Automotive Grade Linux, Hypervisors</p>
                     <div class="space-y-3">
                         <div class="flex gap-4 items-start">

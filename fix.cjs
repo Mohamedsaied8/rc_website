@@ -1,0 +1,14 @@
+const fs = require('fs');
+const file = 'c:/Users/alima/OneDrive/Desktop/rc_website/rc_website/resources/views/services/show.blade.php';
+const lines = fs.readFileSync(file, 'utf8').split('\n');
+const newLines = lines.slice(0, 519);
+newLines.push(`            <div class="text-center">`);
+newLines.push(`                <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-purple-600 transition-colors group">`);
+newLines.push(`                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>`);
+newLines.push(`                    Back to All Services`);
+newLines.push(`                </a>`);
+newLines.push(`            </div>`);
+newLines.push(`        </section>`);
+newLines.push(`    @endif`);
+newLines.push(`@endsection`);
+fs.writeFileSync(file, newLines.join('\n'));

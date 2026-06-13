@@ -12,7 +12,7 @@
                 <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
                 <span class="text-xs font-bold text-slate-600 tracking-wide uppercase">{{ cms('about.hero.badge', 'Who We Are') }}</span>
             </div>
-            <h1 class="text-4xl md:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight mb-6">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.05] mb-8">
                 {!! cms('about.hero.title', 'Architecting the <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Digital Layer</span> of Robotics') !!}
             </h1>
             <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
