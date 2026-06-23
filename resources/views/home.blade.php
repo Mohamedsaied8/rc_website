@@ -262,7 +262,7 @@
                     <div class="p-8 z-20">
                         <h3 class="text-2xl font-bold text-slate-900 mb-2">{{ cms('home.products.ide_title', 'RoboAgent IDE') }}</h3>
                         <p class="!text-left text-slate-600 mb-6 line-clamp-3">{{ cms('home.products.ide_desc', 'Our proprietary Integrated Development Environment specifically tailored for robotics programming, ROS2 integration, and simulation.') }}</p>
-                        <a href="{{ route('products.index') }}" class="relative z-30 inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 rounded-xl text-purple-700 text-sm font-bold transition-colors">
+                        <a href="https://roboagentweb.vercel.app/" target="_blank" class="relative z-30 inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 rounded-xl text-purple-700 text-sm font-bold transition-colors">
                             {!! cms('home.products.ide_link', 'Product Specs <i class="fa-solid fa-arrow-right text-xs"></i>') !!}
                         </a>
                     </div>

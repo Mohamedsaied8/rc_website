@@ -80,9 +80,9 @@
                         <li class="flex items-center gap-3 text-sm font-semibold text-slate-600"><i class="fa-solid fa-check text-purple-500"></i> 3D Physics Simulation Engine</li>
                         <li class="flex items-center gap-3 text-sm font-semibold text-slate-600"><i class="fa-solid fa-check text-purple-500"></i> Over-the-Air (OTA) Deployments</li>
                     </ul>
-                    <button @click="openModal('RoboAgent IDE License')" class="w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl text-white font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 flex items-center justify-center gap-2">
-                        Customize & Quote <i class="fa-solid fa-file-signature"></i>
-                    </button>
+                    <a href="https://roboagentweb.vercel.app/" target="_blank" class="w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl text-white font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        Visit RoboAgent Website <i class="fa-solid fa-globe"></i>
+                    </a>
                 </div>
             </div>
         </div>

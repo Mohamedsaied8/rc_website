@@ -60,7 +60,7 @@
                     <span class="hidden sm:inline xl:hidden">Freelance</span>
                     <i class="fa-solid fa-bolt text-pink-200 group-hover:animate-pulse"></i>
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg hover:bg-cyan-100 hover:-translate-y-0.5 transition-all duration-300 group">
+                <a href="https://connectedlabs.vercel.app/" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg hover:bg-cyan-100 hover:-translate-y-0.5 transition-all duration-300 group">
                     <i class="fa-solid fa-flask text-cyan-500 group-hover:rotate-12 transition-transform"></i> <span class="hidden lg:inline">{{ cms('global.header.btn_connected_labs', 'Connected Labs') }}</span>
                 </a>
                 @if(request()->routeIs('programs.*'))
@@ -96,7 +96,7 @@
             <div class="h-px bg-slate-200 my-4"></div>
             
             <a href="{{ route('freelance') }}" target="_blank" @click="mobileOpen = false" class="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg shadow-md">{{ cms('global.header.btn_freelance', 'Get your freelance job') }} <i class="fa-solid fa-bolt text-pink-200"></i></a>
-            <a href="#" @click="mobileOpen = false" class="flex items-center justify-center gap-2 w-full mt-3 px-4 py-3 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg"><i class="fa-solid fa-flask text-cyan-500"></i> {{ cms('global.header.btn_connected_labs', 'Connected Labs') }}</a>
+            <a href="https://connectedlabs.vercel.app/" target="_blank" @click="mobileOpen = false" class="flex items-center justify-center gap-2 w-full mt-3 px-4 py-3 text-sm font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 rounded-lg"><i class="fa-solid fa-flask text-cyan-500"></i> {{ cms('global.header.btn_connected_labs', 'Connected Labs') }}</a>
 
             @if(request()->routeIs('programs.*'))
                 <a href="{{ route('enroll') }}" @click="mobileOpen = false" class="block w-full text-center mt-3 px-5 py-3 text-sm font-semibold text-gray-900 bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-lg">
