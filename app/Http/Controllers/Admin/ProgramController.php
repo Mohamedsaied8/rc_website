@@ -61,6 +61,22 @@ class ProgramController extends Controller
             $program->courses()->sync($request->courses);
         }
 
+        // Handle cohorts
+        if ($request->has('cohorts') && is_array($request->cohorts)) {
+            foreach ($request->cohorts as $cohortData) {
+                if (!empty($cohortData['group_name']) && !empty($cohortData['start_date'])) {
+                    $program->cohorts()->create([
+                        'group_name' => $cohortData['group_name'],
+                        'start_date' => $cohortData['start_date'],
+                        'schedule' => $cohortData['schedule'] ?? null,
+                        'location' => $cohortData['location'] ?? 'Online',
+                        'fees' => $cohortData['fees'] ?? $program->price,
+                        'is_active' => isset($cohortData['is_active']) ? (bool) $cohortData['is_active'] : true,
+                    ]);
+                }
+            }
+        }
+
         return redirect()->route('admin.programs.index')
             ->with('success', 'Program created successfully.');
     }
@@ -74,7 +90,7 @@ class ProgramController extends Controller
     public function edit(Program $program)
     {
         $courses = Course::where('is_active', true)->get();
-        $program->load('courses');
+        $program->load(['courses', 'cohorts']);
         return view('admin.programs.edit', compact('program', 'courses'));
     }
 
@@ -119,6 +135,44 @@ class ProgramController extends Controller
         } else {
             $program->courses()->detach();
         }
+
+        // Sync cohorts
+        $existingCohortIds = [];
+        if ($request->has('cohorts') && is_array($request->cohorts)) {
+            foreach ($request->cohorts as $cohortData) {
+                if (!empty($cohortData['group_name']) && !empty($cohortData['start_date'])) {
+                    if (!empty($cohortData['id'])) {
+                        // Update existing
+                        $cohort = $program->cohorts()->find($cohortData['id']);
+                        if ($cohort) {
+                            $cohort->update([
+                                'group_name' => $cohortData['group_name'],
+                                'start_date' => $cohortData['start_date'],
+                                'schedule' => $cohortData['schedule'] ?? null,
+                                'location' => $cohortData['location'] ?? 'Online',
+                                'fees' => $cohortData['fees'] ?? $program->price,
+                                'is_active' => isset($cohortData['is_active']) ? (bool) $cohortData['is_active'] : false,
+                            ]);
+                            $existingCohortIds[] = $cohort->id;
+                        }
+                    } else {
+                        // Create new
+                        $newCohort = $program->cohorts()->create([
+                            'group_name' => $cohortData['group_name'],
+                            'start_date' => $cohortData['start_date'],
+                            'schedule' => $cohortData['schedule'] ?? null,
+                            'location' => $cohortData['location'] ?? 'Online',
+                            'fees' => $cohortData['fees'] ?? $program->price,
+                            'is_active' => isset($cohortData['is_active']) ? (bool) $cohortData['is_active'] : true,
+                        ]);
+                        $existingCohortIds[] = $newCohort->id;
+                    }
+                }
+            }
+        }
+        
+        // Delete removed cohorts
+        $program->cohorts()->whereNotIn('id', $existingCohortIds)->delete();
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Program updated successfully.');

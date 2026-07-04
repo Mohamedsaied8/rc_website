@@ -12,12 +12,11 @@ class EnrollController extends Controller
     public function index(Request $request)
     {
         $selectedProgram = $request->get('program');
-        $currentStep = $request->get('step', 1); // Get step from URL parameter
+        $selectedCohort = $request->get('cohort');
         
-        // Get programs from database with their courses
-        $programs = Program::where('is_active', true)->with('courses')->get();
+        $programs = Program::where('is_active', true)->with('cohorts')->orderBy('sort_order')->get();
 
-        return view('enroll', compact('programs', 'selectedProgram', 'currentStep'));
+        return view('enroll', compact('programs', 'selectedProgram', 'selectedCohort'));
     }
 
     public function store(Request $request)
@@ -27,53 +26,24 @@ class EnrollController extends Controller
         
         $validationRules = [
             'first_name' => 'required|string|max:255|min:2',
+            'second_name' => 'required|string|max:255|min:2',
             'last_name' => 'required|string|max:255|min:2',
-            'email' => 'required|email|max:255|unique:enrollments,email',
-            'phone' => 'required|string|max:20|min:10|regex:/^[\+]?[1-9][\d]{0,15}$/',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20|min:8',
             'country' => 'required|string|max:255|min:2',
             'city' => 'required|string|max:255|min:2',
-            'education_level' => 'required|string|in:high_school,bachelor,master,phd,other',
-            'experience' => 'required|string|min:10|max:1000',
-            'motivation' => 'required|string|min:10|max:1000',
-            'selected_program' => 'required|string|max:255',
-            'preferred_schedule' => 'required|string|in:weekdays,evenings,weekends,flexible',
-            'payment_method' => 'required|string|in:instapay,contact_sales',
-            'additional_notes' => 'nullable|string|max:1000'
+            'education_level' => 'required|string|in:Undergraduate,Graduate,Postgraduate',
+            'graduation_year' => 'required|string|max:4',
+            'university' => 'required|string|max:255',
+            'college' => 'required|string|max:255',
+            'experience' => 'nullable|string|max:1000',
+            'motivation' => 'nullable|string|max:1000',
+            'program' => 'required|string|exists:programs,slug',
+            'cohort_id' => 'required|exists:program_cohorts,id',
+            'payment_method' => 'required|string|in:instapay,paymob_card,paymob_wallet',
         ];
 
-        // Add file upload validation only for instapay payment method
-        if ($request->payment_method === 'instapay') {
-            $validationRules['payment_screenshot'] = 'required|image|mimes:jpeg,png,jpg|max:5120'; // 5MB max
-        }
-
-        $request->validate($validationRules, [
-            'first_name.required' => 'First name is required.',
-            'first_name.min' => 'First name must be at least 2 characters.',
-            'last_name.required' => 'Last name is required.',
-            'last_name.min' => 'Last name must be at least 2 characters.',
-            'email.required' => 'Email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.unique' => 'This email address has already been used for enrollment.',
-            'phone.required' => 'Phone number is required.',
-            'phone.min' => 'Phone number must be at least 10 digits.',
-            'phone.regex' => 'Please enter a valid phone number.',
-            'country.required' => 'Country is required.',
-            'country.min' => 'Country name must be at least 2 characters.',
-            'city.required' => 'City is required.',
-            'city.min' => 'City name must be at least 2 characters.',
-            'education_level.required' => 'Education level is required.',
-            'education_level.in' => 'Please select a valid education level.',
-            'experience.required' => 'Technical experience is required.',
-            'experience.min' => 'Please provide at least 10 characters describing your experience.',
-            'motivation.required' => 'Motivation is required.',
-            'motivation.min' => 'Please provide at least 10 characters describing your motivation.',
-            'selected_program.required' => 'Please select a program.',
-            'preferred_schedule.required' => 'Please select your preferred schedule.',
-            'preferred_schedule.in' => 'Please select a valid schedule option.',
-            'payment_method.required' => 'Please select a payment method.',
-            'payment_method.in' => 'Please select a valid payment method.',
-            'additional_notes.max' => 'Additional notes cannot exceed 1000 characters.'
-        ]);
+        $request->validate($validationRules);
 
         // Debug: Log validation passed
         \Log::info('Validation passed, creating enrollment record');
@@ -90,26 +60,33 @@ class EnrollController extends Controller
         // Create enrollment record
         try {
             $enrollment = Enrollment::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'country' => $request->country,
-            'city' => $request->city,
-            'education_level' => $request->education_level,
-            'experience' => $request->experience,
-            'motivation' => $request->motivation,
-            'selected_program' => $request->selected_program,
-            'selected_course' => 'N/A', // Set to N/A as it is required by the DB migration but not used in the form
-            'preferred_schedule' => $request->preferred_schedule,
-            'payment_method' => $request->payment_method,
-            'payment_screenshot' => $screenshotPath,
-            'additional_notes' => $request->additional_notes,
-            'status' => 'pending'
+                'user_id' => auth()->id(),
+                'first_name' => $request->first_name,
+                'second_name' => $request->second_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'country' => $request->country,
+                'city' => $request->city,
+                'education_level' => $request->education_level,
+                'graduation_year' => $request->graduation_year,
+                'university' => $request->university,
+                'college' => $request->college,
+                'experience' => $request->experience,
+                'motivation' => $request->motivation,
+                'selected_program' => $request->program,
+                'program_cohort_id' => $request->cohort_id,
+                'payment_method' => $request->payment_method,
+                'status' => 'pending'
             ]);
             
             // Debug: Log successful creation
             \Log::info('Enrollment created successfully', ['id' => $enrollment->id]);
+            
+            if (in_array($request->payment_method, ['paymob_card', 'paymob_wallet'])) {
+                // Return redirect to payment processor
+                return redirect()->route('payment.process', ['enrollment' => $enrollment->id]);
+            }
             
             \Log::info('Redirecting to success page');
             return redirect()->route('enroll.success')

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Auth\StudentAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,10 +146,28 @@ Route::get('/programs/{id}', [ProgramController::class, 'show'])->name('programs
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Enrollment
-Route::get('/enroll', [EnrollController::class, 'index'])->name('enroll');
-Route::post('/enroll', [EnrollController::class, 'store'])->name('enroll.store');
-Route::get('/enroll/success', [EnrollController::class, 'success'])->name('enroll.success');
+// Authentication
+Route::middleware('guest:web')->group(function () {
+    Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [StudentAuthController::class, 'login'])->name('login.store');
+    Route::get('/register', [StudentAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [StudentAuthController::class, 'register'])->name('register.store');
+});
+Route::post('/logout', [StudentAuthController::class, 'logout'])->name('logout')->middleware('auth:web');
+
+// Enrollment (Protected)
+Route::middleware('auth:web')->group(function () {
+    Route::get('/enroll', [EnrollController::class, 'index'])->name('enroll');
+    Route::post('/enroll', [EnrollController::class, 'store'])->name('enroll.store');
+    Route::get('/enroll/success', [EnrollController::class, 'success'])->name('enroll.success');
+    
+    // Payment Processing
+    Route::get('/payment/process/{enrollment}', [\App\Http\Controllers\PaymentController::class, 'process'])->name('payment.process');
+    Route::get('/payment/return', [\App\Http\Controllers\PaymentController::class, 'returnUrl'])->name('payment.return');
+});
+
+// Paymob Webhook Callback
+Route::post('/payment/callback', [\App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
 
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -217,6 +236,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/api/cms/upload', [\App\Http\Controllers\Admin\CmsApiController::class, 'uploadImage'])->name('admin.api.cms.upload');
     });
 });
+
+// External Download Link Redirects
+Route::get('/download/roboagent', function () {
+    $url = \App\Models\SiteSetting::get('roboagent_download_link');
+    if (!$url) {
+        abort(404, 'Download link not configured.');
+    }
+    return redirect()->away($url);
+})->name('download.roboagent');
 
 // Dynamic Pages Route (Must be at the very bottom)
 Route::get('/{slug}', function ($slug) {

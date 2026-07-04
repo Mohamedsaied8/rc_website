@@ -22,7 +22,9 @@ class ProgramController extends Controller
 
     public function show($id)
     {
-        $program = Program::where('slug', $id)->where('is_active', true)->with('courses')->first();
+        $program = Program::where('slug', $id)->where('is_active', true)->with(['courses', 'cohorts' => function($query) {
+            $query->where('is_active', true)->orderBy('start_date');
+        }])->first();
         
         if (!$program) {
             abort(404);

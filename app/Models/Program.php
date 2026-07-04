@@ -35,9 +35,13 @@ class Program extends Model
                     ->orderBy('pivot_sort_order');
     }
 
-    // Get required courses only
     public function requiredCourses()
     {
         return $this->courses()->wherePivot('is_required', true);
+    }
+
+    public function cohorts()
+    {
+        return $this->hasMany(ProgramCohort::class)->orderBy('start_date');
     }
 }
