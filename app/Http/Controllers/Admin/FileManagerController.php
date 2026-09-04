@@ -40,8 +40,10 @@ class FileManagerController extends Controller
 
     public function upload(Request $request)
     {
+        // Restrict to raster images only. SVG is intentionally excluded because an
+        // SVG served same-origin can execute JavaScript (stored XSS).
         $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg,ico|max:2048',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'type' => 'required|in:logo,favicon'
         ]);
 

@@ -73,8 +73,13 @@ class CmsApiController extends Controller
 
     public function uploadImage(Request $request)
     {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('public/cms');
+            // Store on the "public" disk (public/storage/cms/...) so Storage::url() resolves.
+            $path = $request->file('file')->store('cms', 'public');
             $url = Storage::url($path);
             return response()->json(['url' => $url]);
         }

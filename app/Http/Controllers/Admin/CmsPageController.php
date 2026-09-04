@@ -75,8 +75,12 @@ class CmsPageController extends Controller
 
     public function uploadImage(Request $request)
     {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('public/cms');
+            $path = $request->file('file')->store('cms', 'public');
             $url = \Illuminate\Support\Facades\Storage::url($path);
             return response()->json(['location' => $url]);
         }

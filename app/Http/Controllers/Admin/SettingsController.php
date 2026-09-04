@@ -32,4 +32,20 @@ class SettingsController extends Controller
         return redirect()->route('admin.settings.index')
             ->with('success', 'Setting updated successfully.');
     }
+
+    public function updateBatch(Request $request)
+    {
+        $data = $request->except(['_token', '_method']);
+        foreach ($data as $key => $value) {
+            if ($value !== null && is_string($value)) {
+                SiteSetting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => trim($value)]
+                );
+            }
+        }
+
+        return redirect()->route('admin.settings.index')
+            ->with('success', 'Settings updated successfully.');
+    }
 }

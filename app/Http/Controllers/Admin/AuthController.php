@@ -22,14 +22,15 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        // Only allow active admin accounts to authenticate.
+        if (Auth::guard('admin')->attempt(array_merge($credentials, ['is_active' => true]))) {
             $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)

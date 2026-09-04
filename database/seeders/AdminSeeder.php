@@ -14,20 +14,25 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@roboticscorner.com',
-            'password' => Hash::make('admin123'),
-            'role' => 'super_admin',
-            'is_active' => true,
-        ]);
+        // Credentials come from env so no known passwords are ever committed/seeded.
+        // A random password is generated if none is provided (printed once to the console).
+        $adminEmail = env('ADMIN_EMAIL', 'admin@roboticscorner.com');
+        $adminPassword = env('ADMIN_PASSWORD');
 
-        Admin::create([
-            'name' => 'Course Manager',
-            'email' => 'courses@roboticscorner.com',
-            'password' => Hash::make('courses123'),
-            'role' => 'admin',
-            'is_active' => true,
-        ]);
+        if (empty($adminPassword)) {
+            $adminPassword = \Illuminate\Support\Str::password(16);
+            $this->command?->warn("Generated Super Admin password for {$adminEmail}: {$adminPassword}");
+            $this->command?->warn('Store it now — it will not be shown again.');
+        }
+
+        Admin::updateOrCreate(
+            ['email' => $adminEmail],
+            [
+                'name' => 'Super Admin',
+                'password' => Hash::make($adminPassword),
+                'role' => 'super_admin',
+                'is_active' => true,
+            ]
+        );
     }
 }

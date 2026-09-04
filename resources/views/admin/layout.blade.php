@@ -6,8 +6,10 @@
     <title>@yield('title', 'Admin Dashboard') - Robotics Corner</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts (kept in step with components/layout.blade.php) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -48,6 +50,10 @@
             <!-- Sidebar Navigation -->
             <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
                 @php
+                    // Community blog submissions awaiting review — surfaced as a badge so an
+                    // admin sees the queue without opening the page.
+                    $blogPendingCount = \App\Models\BlogPost::pending()->count();
+
                     $navItems = [
                         ['route' => 'admin.dashboard', 'icon' => 'fa-solid fa-chart-line', 'label' => 'Dashboard', 'pattern' => 'admin.dashboard'],
                         ['route' => 'admin.pages.index', 'icon' => 'fa-solid fa-file-lines', 'label' => 'Pages', 'pattern' => 'admin.pages.*'],
@@ -65,6 +71,9 @@
                     <a href="{{ route($item['route']) }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group {{ request()->routeIs($item['pattern']) ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-slate-400 hover:bg-white/[0.04] hover:text-white' }}">
                         <i class="{{ $item['icon'] }} w-5 text-center transition-transform group-hover:scale-110"></i>
                         <span class="font-medium">{{ $item['label'] }}</span>
+                        @if($item['label'] === 'Blog' && $blogPendingCount > 0)
+                            <span class="ml-auto min-w-[1.25rem] h-5 px-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px] font-bold flex items-center justify-center">{{ $blogPendingCount }}</span>
+                        @endif
                     </a>
                 @endforeach
             </div>

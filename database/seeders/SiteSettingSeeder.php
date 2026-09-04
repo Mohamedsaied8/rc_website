@@ -57,11 +57,23 @@ class SiteSettingSeeder extends Seeder
                 'value' => 'https://youtube.com/@roboticscorner',
                 'type' => 'url',
                 'description' => 'YouTube channel URL'
+            ],
+            [
+                'key' => 'instapay_number',
+                'value' => '01156800621',
+                'type' => 'text',
+                'description' => 'InstaPay Phone Number / Address for course manual transfers'
+            ],
+            [
+                'key' => 'mobile_wallet_number',
+                'value' => '01156800621',
+                'type' => 'phone',
+                'description' => 'Vodafone Cash / Mobile Wallet number for course manual transfers'
             ]
         ];
 
         foreach ($settings as $setting) {
-            SiteSetting::create($setting);
+            SiteSetting::updateOrCreate(['key' => $setting['key']], $setting);
         }
     }
 }
