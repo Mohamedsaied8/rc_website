@@ -103,9 +103,23 @@
                         ];
                         $colorClass = $statusColors[$enrollment->status] ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20';
                     @endphp
-                    <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $colorClass }} shadow-lg uppercase tracking-wider">
-                        {{ $enrollment->status }}
-                    </span>
+                    @php
+                        $payColors = [
+                            'paid' => 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                            'unpaid' => 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+                            'failed' => 'bg-red-500/10 text-red-400 border-red-500/20',
+                            'refunded' => 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                        ];
+                        $payClass = $payColors[$enrollment->payment_status] ?? $payColors['unpaid'];
+                    @endphp
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $payClass }} shadow-lg uppercase tracking-wider" title="Payment status">
+                            <i class="fa-solid fa-credit-card mr-1"></i>{{ $enrollment->payment_status ?? 'unpaid' }}
+                        </span>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $colorClass }} shadow-lg uppercase tracking-wider">
+                            {{ $enrollment->status }}
+                        </span>
+                    </div>
                 </div>
             </div>
             
@@ -172,20 +186,42 @@
                 </div>
                 
                 <div class="pt-4 border-t border-white/10">
-                    <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Payment Details</span>
+                    <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Payment Details</span>
                     
-                    @if($enrollment->payment_method)
-                        <div class="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg {{ $enrollment->payment_method === 'instapay' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-slate-500/10 text-slate-300 border border-slate-500/20' }}">
-                            <i class="fa-solid {{ $enrollment->payment_method === 'instapay' ? 'fa-building-columns' : 'fa-headset' }}"></i>
-                            <span class="font-medium text-sm">{{ ucfirst(str_replace('_', ' ', $enrollment->payment_method)) }}</span>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between items-center bg-white/[0.03] p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-slate-400">Total Amount:</span>
+                            <span class="text-base font-extrabold text-cyan-400">EGP {{ number_format($enrollment->amount) }}</span>
                         </div>
-                    @else
-                        <p class="text-slate-500 text-sm mb-4">Not specified</p>
-                    @endif
+
+                        <div class="flex justify-between items-center bg-white/[0.03] p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-slate-400">Payment Method:</span>
+                            @if($enrollment->payment_method)
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold {{ in_array($enrollment->payment_method, ['instapay', 'manual_wallet']) ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' }}">
+                                    <i class="fa-solid {{ in_array($enrollment->payment_method, ['instapay', 'manual_wallet']) ? 'fa-building-columns' : 'fa-credit-card' }}"></i>
+                                    {{ $enrollment->payment_method === 'instapay' ? 'InstaPay / Mobile Wallet' : ucfirst(str_replace('_', ' ', $enrollment->payment_method)) }}
+                                </span>
+                            @else
+                                <span class="text-slate-500 text-xs">Not specified</span>
+                            @endif
+                        </div>
+
+                        @php
+                            $manualPayment = $enrollment->latestManualPayment;
+                            $refNo = $manualPayment ? $manualPayment->reference_number : null;
+                        @endphp
+
+                        @if($refNo)
+                            <div class="flex justify-between items-center bg-white/[0.03] p-3 rounded-xl border border-white/5">
+                                <span class="text-xs text-slate-400">Reference / Phone:</span>
+                                <span class="text-xs font-mono font-bold text-white bg-slate-800 px-2 py-1 rounded border border-white/10">{{ $refNo }}</span>
+                            </div>
+                        @endif
+                    </div>
                     
                     @if($enrollment->payment_screenshot)
-                        <div class="mt-2" x-data="{ imgModal: false }">
-                            <span class="block text-xs font-semibold text-slate-400 mb-2">Transfer Receipt</span>
+                        <div class="mt-4" x-data="{ imgModal: false }">
+                            <span class="block text-xs font-semibold text-slate-400 mb-2">Proof of Payment / Transfer Receipt</span>
                             <div class="relative group rounded-xl overflow-hidden border border-white/10 bg-black aspect-video cursor-pointer" @click="imgModal = true">
                                 <img src="{{ asset('storage/' . $enrollment->payment_screenshot) }}" alt="Receipt" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
@@ -197,7 +233,7 @@
                             <template x-teleport="body">
                                 <div x-show="imgModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4" x-transition.opacity style="display: none;">
                                     <div class="relative max-w-4xl w-full h-full flex flex-col items-center justify-center">
-                                        <button @click="imgModal = false" class="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors">
+                                        <button @click="imgModal = false" class="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors cursor-pointer">
                                             <i class="fa-solid fa-xmark text-xl"></i>
                                         </button>
                                         <img src="{{ asset('storage/' . $enrollment->payment_screenshot) }}" alt="Receipt Full" class="max-w-full max-h-[85vh] object-contain rounded-lg border border-white/20 shadow-2xl">

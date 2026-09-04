@@ -24,7 +24,7 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.05] mb-6">Application Received!</h1>
             
             <p class="text-lg text-slate-300 font-medium leading-relaxed mb-8">
-                Thank you for applying to Robotics Corner. We've sent a confirmation email with your application details.
+                Thank you for applying to Robotics Corner. Our team will review your application and reach out by email or WhatsApp with the next steps.
             </p>
 
             <div class="bg-white/[0.02] border border-white/[0.05] rounded-2xl p-6 mb-8 text-left">

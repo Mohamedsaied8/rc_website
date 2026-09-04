@@ -25,7 +25,17 @@ class Enrollment extends Model
         'selected_course',
         'program_cohort_id',
         'preferred_schedule',
+        'promo_code_id',
+        'discount_percent',
+        'original_amount',
         'payment_method',
+        'payment_status',
+        'gateway',
+        'gateway_order_id',
+        'gateway_transaction_id',
+        'amount',
+        'currency',
+        'paid_at',
         'payment_screenshot',
         'additional_notes',
         'status',
@@ -34,6 +44,10 @@ class Enrollment extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'paid_at' => 'datetime',
+        'amount' => 'decimal:2',
+        'original_amount' => 'decimal:2',
+        'discount_percent' => 'integer',
     ];
 
     // Scope for filtering by status
@@ -61,5 +75,20 @@ class Enrollment extends Model
     public function cohort()
     {
         return $this->belongsTo(ProgramCohort::class, 'program_cohort_id');
+    }
+
+    public function promoCode()
+    {
+        return $this->belongsTo(PromoCode::class);
+    }
+
+    public function manualPayments()
+    {
+        return $this->hasMany(ManualPayment::class);
+    }
+
+    public function latestManualPayment()
+    {
+        return $this->hasOne(ManualPayment::class)->latestOfMany();
     }
 }
