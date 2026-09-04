@@ -68,6 +68,23 @@ class StudentAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        $response = redirect('/');
+
+        // Best-effort server-side clear of the shared Supabase cookie so the
+        // sign-out propagates to the other apps even if JS signOut didn't run.
+        // (The logout button also calls supabase.auth.signOut() client-side,
+        // which is what broadcasts SIGNED_OUT to other open tabs.)
+        $ref = config('supabase.project_ref');
+        if ($ref) {
+            $names = ["sb-{$ref}-auth-token"];
+            for ($i = 0; $i < 6; $i++) {
+                $names[] = "sb-{$ref}-auth-token.{$i}";
+            }
+            foreach ($names as $name) {
+                $response->headers->setCookie(cookie()->forget($name, '/'));
+            }
+        }
+
+        return $response;
     }
 }
