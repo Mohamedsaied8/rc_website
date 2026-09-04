@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /enroll
+Disallow: /profile
+Disallow: /payment
+
+Sitemap: https://roboticscorner.tech/sitemap.xml

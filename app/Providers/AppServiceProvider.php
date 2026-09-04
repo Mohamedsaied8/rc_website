@@ -19,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (env('APP_ENV') !== 'local') {
+        // Force HTTPS URL generation only when explicitly enabled (config-cache safe).
+        // Enable via FORCE_HTTPS=true once TLS is live on the domain.
+        if (config('app.force_https')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
     }
