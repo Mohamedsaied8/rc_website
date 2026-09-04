@@ -6,18 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\BlogImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
     /**
-     * Display a listing of blog posts.
+     * Display a listing of blog posts, filterable by status and type.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = BlogPost::latest('created_at')->paginate(15);
-        return view('admin.blog.index', compact('posts'));
+        $status = in_array($request->query('status'), ['draft', 'pending', 'published', 'rejected'], true)
+            ? $request->query('status')
+            : null;
+        $type = in_array($request->query('type'), BlogPost::TYPES, true) ? $request->query('type') : null;
+
+        $posts = BlogPost::with(['user', 'images'])
+            ->when($status, fn ($q) => $q->where('status', $status))
+            ->when($type, fn ($q) => $q->where('type', $type))
+            // Submissions awaiting review float to the top — they're the actionable ones.
+            ->orderByRaw("CASE WHEN status = 'pending' THEN 0 ELSE 1 END")
+            ->latest('created_at')
+            ->paginate(15)
+            ->withQueryString();
+
+        $pendingCount = BlogPost::pending()->count();
+
+        return view('admin.blog.index', compact('posts', 'pendingCount', 'status', 'type'));
     }
 
     /**
@@ -33,46 +47,28 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string',
-            'content' => 'required|string',
-            'author' => 'nullable|string|max:255',
-            'status' => 'required|in:draft,published',
-            'featured_image' => 'nullable|image|max:5120', // 5MB max
-            'images.*' => 'nullable|image|max:5120',
-            'captions.*' => 'nullable|string|max:255'
-        ]);
+        $validated = $request->validate($this->rules());
 
-        // Handle featured image upload
+        $validated['tags'] = $this->parseTags($request->input('tags'));
+        $validated['featured'] = $request->boolean('featured');
+
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')->store('blog/featured', 'public');
         }
 
-        // Set published_at if status is published
-        if ($validated['status'] === 'published' && !isset($validated['published_at'])) {
+        if ($request->hasFile('paper_pdf')) {
+            $validated['paper_pdf'] = $request->file('paper_pdf')->store('blog/papers', 'public');
+        }
+
+        if ($validated['status'] === 'published') {
             $validated['published_at'] = now();
         }
 
-        // Create the blog post
         $post = BlogPost::create($validated);
 
-        // Handle additional images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $index => $image) {
-                $imagePath = $image->store('blog/images', 'public');
-                $caption = $request->input('captions.' . $index, null);
+        $this->syncGalleryImages($request, $post);
 
-                BlogImage::create([
-                    'blog_post_id' => $post->id,
-                    'image_path' => $imagePath,
-                    'caption' => $caption,
-                    'order' => $index
-                ]);
-            }
-        }
-
-        return redirect()->route('admin.blog.index')->with('success', 'Blog post created successfully!');
+        return redirect()->route('admin.blog.index')->with('success', 'Post created successfully!');
     }
 
     /**
@@ -80,7 +76,7 @@ class BlogController extends Controller
      */
     public function edit(BlogPost $blog)
     {
-        $post = $blog->load('images');
+        $post = $blog->load(['images', 'user']);
         return view('admin.blog.edit', compact('post'));
     }
 
@@ -89,36 +85,34 @@ class BlogController extends Controller
      */
     public function update(Request $request, BlogPost $blog)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string',
-            'content' => 'required|string',
-            'author' => 'nullable|string|max:255',
-            'status' => 'required|in:draft,published',
-            'featured_image' => 'nullable|image|max:5120',
-            'images.*' => 'nullable|image|max:5120',
-            'captions.*' => 'nullable|string|max:255',
-            'remove_images' => 'nullable|array'
+        $validated = $request->validate($this->rules() + [
+            'remove_images' => 'nullable|array',
         ]);
 
-        // Handle featured image upload
+        $validated['tags'] = $this->parseTags($request->input('tags'));
+        $validated['featured'] = $request->boolean('featured');
+
         if ($request->hasFile('featured_image')) {
-            // Delete old featured image
             if ($blog->featured_image) {
                 Storage::disk('public')->delete($blog->featured_image);
             }
             $validated['featured_image'] = $request->file('featured_image')->store('blog/featured', 'public');
         }
 
-        // Set published_at if status changed to published
-        if ($validated['status'] === 'published' && $blog->status === 'draft') {
+        if ($request->hasFile('paper_pdf')) {
+            if ($blog->paper_pdf) {
+                Storage::disk('public')->delete($blog->paper_pdf);
+            }
+            $validated['paper_pdf'] = $request->file('paper_pdf')->store('blog/papers', 'public');
+        }
+
+        // Stamp published_at the first time a post actually goes live.
+        if ($validated['status'] === 'published' && !$blog->published_at) {
             $validated['published_at'] = now();
         }
 
-        // Update the blog post
         $blog->update($validated);
 
-        // Remove selected images
         if ($request->has('remove_images')) {
             foreach ($request->input('remove_images') as $imageId) {
                 $image = BlogImage::find($imageId);
@@ -129,24 +123,51 @@ class BlogController extends Controller
             }
         }
 
-        // Handle new images
-        if ($request->hasFile('images')) {
-            $currentMaxOrder = $blog->images()->max('order') ?? 0;
+        $this->syncGalleryImages($request, $blog, $blog->images()->max('order') ?? 0);
 
-            foreach ($request->file('images') as $index => $image) {
-                $imagePath = $image->store('blog/images', 'public');
-                $caption = $request->input('captions.' . $index, null);
+        return redirect()->route('admin.blog.index')->with('success', 'Post updated successfully!');
+    }
 
-                BlogImage::create([
-                    'blog_post_id' => $blog->id,
-                    'image_path' => $imagePath,
-                    'caption' => $caption,
-                    'order' => $currentMaxOrder + $index + 1
-                ]);
-            }
-        }
+    /**
+     * Render markdown for the editor preview, using the same pipeline as the
+     * published page so the preview can't drift from the real thing.
+     */
+    public function preview(Request $request)
+    {
+        $validated = $request->validate(['content' => 'nullable|string|max:200000']);
 
-        return redirect()->route('admin.blog.index')->with('success', 'Blog post updated successfully!');
+        return response()->json([
+            'html' => BlogPost::renderMarkdown($validated['content'] ?? ''),
+        ]);
+    }
+
+    /**
+     * Approve a user-submitted post and publish it.
+     */
+    public function approve(BlogPost $blog)
+    {
+        $blog->update([
+            'status' => 'published',
+            'rejection_reason' => null,
+            'published_at' => $blog->published_at ?? now(),
+        ]);
+
+        return back()->with('success', '"' . $blog->title . '" is now live.');
+    }
+
+    /**
+     * Reject a user-submitted post, optionally with a reason for the author.
+     */
+    public function reject(Request $request, BlogPost $blog)
+    {
+        $request->validate(['rejection_reason' => 'nullable|string|max:500']);
+
+        $blog->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->input('rejection_reason'),
+        ]);
+
+        return back()->with('success', '"' . $blog->title . '" was rejected.');
     }
 
     /**
@@ -154,18 +175,86 @@ class BlogController extends Controller
      */
     public function destroy(BlogPost $blog)
     {
-        // Delete featured image
         if ($blog->featured_image) {
             Storage::disk('public')->delete($blog->featured_image);
         }
 
-        // Delete all associated images
+        if ($blog->paper_pdf) {
+            Storage::disk('public')->delete($blog->paper_pdf);
+        }
+
         foreach ($blog->images as $image) {
             Storage::disk('public')->delete($image->image_path);
         }
 
         $blog->delete();
 
-        return redirect()->route('admin.blog.index')->with('success', 'Blog post deleted successfully!');
+        return redirect()->route('admin.blog.index')->with('success', 'Post deleted successfully!');
+    }
+
+    /**
+     * Shared validation rules for store/update. Every paper field is optional.
+     */
+    private function rules(): array
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'type' => 'required|in:' . implode(',', BlogPost::TYPES),
+            'excerpt' => 'nullable|string',
+            'content' => 'required|string',
+            'author' => 'nullable|string|max:255',
+            'status' => 'required|in:draft,pending,published,rejected',
+            'featured_image' => 'nullable|image|max:5120', // 5MB max
+            'images.*' => 'nullable|image|max:5120',
+            'captions.*' => 'nullable|string|max:255',
+            'paper_authors' => 'nullable|string|max:255',
+            'paper_abstract' => 'nullable|string',
+            'paper_venue' => 'nullable|string|max:255',
+            'paper_year' => 'nullable|integer|min:1950|max:2100',
+            'paper_doi' => 'nullable|string|max:255',
+            'paper_url' => 'nullable|url|max:255',
+            'paper_pdf' => 'nullable|file|mimes:pdf|max:20480',
+            'paper_code_url' => 'nullable|url|max:255',
+            'paper_bibtex' => 'nullable|string',
+        ];
+    }
+
+    /**
+     * Store any newly uploaded gallery images against the post.
+     */
+    private function syncGalleryImages(Request $request, BlogPost $post, int $startOrder = 0): void
+    {
+        if (!$request->hasFile('images')) {
+            return;
+        }
+
+        foreach ($request->file('images') as $index => $image) {
+            BlogImage::create([
+                'blog_post_id' => $post->id,
+                'image_path' => $image->store('blog/images', 'public'),
+                'caption' => $request->input('captions.' . $index),
+                'order' => $startOrder + $index + 1,
+            ]);
+        }
+    }
+
+    /**
+     * Turn "robotics, ros2 , slam" into a clean array of at most 5 tags.
+     */
+    private function parseTags(?string $raw): ?array
+    {
+        if (!$raw) {
+            return null;
+        }
+
+        $tags = collect(explode(',', $raw))
+            ->map(fn ($t) => trim($t))
+            ->filter()
+            ->unique()
+            ->take(5)
+            ->values()
+            ->all();
+
+        return $tags ?: null;
     }
 }

@@ -1,125 +1,161 @@
 @extends('components.layout')
 
-@section('title', $post->title . ' - Robotics Corner Blog')
+@section('title', $post->title . ' - Robotics Corner')
 @section('description', $post->excerpt ?? Str::limit(strip_tags($post->content), 160))
 
 @section('content')
-    <!-- Post Header/Hero -->
-    <section class="relative pt-32 pb-16 overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-[#0A0A0A] to-slate-50"></div>
-        
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-            <div class="flex items-center justify-center gap-4 text-xs font-semibold uppercase tracking-widest text-slate-600 mb-6">
-                <span class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"><i class="fa-regular fa-calendar text-cyan-600"></i> {{ $post->formatted_date }}</span>
-                <span class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"><i class="fa-regular fa-clock text-emerald-600"></i> {{ $post->reading_time }} min read</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.05] mb-8">
+    @php
+        $isNews = $post->type === 'news';
+        // Full class strings — Tailwind can't compile an interpolated variant prefix.
+        $accentLink = $isNews ? 'hover:text-amber-600' : 'hover:text-cyan-600';
+        $accentChip = $isNews ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-cyan-50 text-cyan-700 border-cyan-200';
+        $accentGlow = $isNews ? 'bg-amber-500/[0.07]' : 'bg-cyan-500/[0.07]';
+    @endphp
+
+    {{-- Reading progress --}}
+    <div id="read-progress" class="scroll-progress" style="width: 0%"></div>
+
+    {{-- ===== Header ===== --}}
+    <section class="relative pt-32 pb-12 overflow-hidden">
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[380px] {{ $accentGlow }} rounded-full blur-[150px]"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto px-6">
+            <nav class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-8">
+                <a href="{{ route('blog.index') }}" class="{{ $accentLink }} transition-colors">Blog</a>
+                <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                <span class="text-slate-500">{{ $isNews ? 'News' : 'Article' }}</span>
+            </nav>
+
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full border text-[11px] font-bold uppercase tracking-widest {{ $accentChip }}">
+                <i class="{{ $post->type_icon }} text-[10px]"></i> {{ $post->type_label }}
+            </span>
+
+            <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-slate-900 tracking-tight leading-[1.08] mb-7">
                 {{ $post->title }}
             </h1>
-            
-            <div class="flex items-center justify-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-cyan-100 border border-cyan-500/30 flex items-center justify-center">
-                    <i class="fa-solid fa-user text-cyan-600 text-sm"></i>
+
+            @if($post->excerpt)
+                <p class="text-lg md:text-xl text-slate-600 leading-relaxed mb-9">{{ $post->excerpt }}</p>
+            @endif
+
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-3 pb-8 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 p-[2px]">
+                        <span class="w-full h-full rounded-full bg-white flex items-center justify-center text-sm font-bold text-slate-700">
+                            {{ strtoupper(mb_substr($post->byline, 0, 1)) }}
+                        </span>
+                    </span>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900 leading-tight">{{ $post->byline }}</p>
+                        <p class="text-xs text-slate-500">{{ $post->user_id ? 'Community author' : 'Robotics Corner' }}</p>
+                    </div>
                 </div>
-                <div class="text-left">
-                    <p class="text-sm font-medium text-slate-900">{{ $post->author }}</p>
-                    <p class="text-xs text-slate-600">Author</p>
+                <span class="hidden sm:block w-px h-8 bg-slate-200"></span>
+                <div class="flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> {{ $post->formatted_date }}</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock"></i> {{ $post->reading_time }} min read</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <section class="relative z-10 max-w-4xl mx-auto px-6 pb-24">
-        <div class="bg-white border border-slate-200 shadow-sm rounded-3xl p-6 md:p-12 shadow-2xl">
-            
-            <!-- Featured Image -->
-            @if($post->featured_image)
-                <div class="mb-12 rounded-2xl overflow-hidden border border-slate-200 shadow-xl shadow-black/50">
-                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-auto object-cover">
-                </div>
-            @endif
+    {{-- ===== Body ===== --}}
+    <article class="relative z-10 max-w-3xl mx-auto px-6 pb-16">
+        @if($post->featured_image)
+            <figure class="mb-12 -mx-6 md:mx-0">
+                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                     class="w-full h-auto object-cover md:rounded-2xl border-y md:border border-slate-200 shadow-lg shadow-slate-200/60">
+            </figure>
+        @endif
 
-            <!-- Prose Content -->
-            <div class="prose prose-invert prose-cyan max-w-none 
-                        prose-headings:text-slate-900 prose-headings:font-bold prose-headings:tracking-tight
-                        prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-slate-200 prose-h2:pb-4
-                        prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                        prose-p:text-slate-500 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
-                        prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:underline
-                        prose-strong:text-slate-900 prose-strong:font-semibold
-                        prose-ul:list-disc prose-ul:text-slate-500 prose-ul:my-6 prose-ul:ml-6
-                        prose-ol:list-decimal prose-ol:text-slate-500 prose-ol:my-6 prose-ol:ml-6
-                        prose-li:mb-2
-                        prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-slate-600 prose-blockquote:bg-white prose-blockquote:py-2 prose-blockquote:rounded-r-lg">
-                {!! nl2br(e($post->content)) !!}
+        <div class="article-body">
+            {!! $post->body_html !!}
+        </div>
+
+        @if($post->tags)
+            <div class="mt-12 flex flex-wrap items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mr-1">Topics</span>
+                @foreach($post->tags as $tag)
+                    <span class="topic-pill">{{ $tag }}</span>
+                @endforeach
             </div>
+        @endif
 
-            <!-- Additional Images Gallery -->
-            @if($post->images->count() > 0)
-                <div class="mt-16 pt-12 border-t border-slate-200">
-                    <h3 class="text-2xl font-bold text-slate-900 mb-8">Gallery</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        @foreach($post->images as $image)
-                            <div class="group relative rounded-xl overflow-hidden border border-slate-200">
-                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $image->caption }}" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-500">
-                                @if($image->caption)
-                                    <div class="absolute inset-x-0 bottom-0 bg-slate-50/80 backdrop-blur-md p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                        <p class="text-sm text-slate-500">{{ $image->caption }}</p>
-                                    </div>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
+        @if($post->images->count() > 0)
+            <div class="mt-16 pt-12 border-t border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 tracking-tight mb-8">Gallery</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    @foreach($post->images as $image)
+                        <figure class="group relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
+                            <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $image->caption }}" loading="lazy"
+                                 class="w-full h-auto group-hover:scale-105 transition-transform duration-700">
+                            @if($image->caption)
+                                <figcaption class="absolute inset-x-0 bottom-0 bg-slate-900/85 backdrop-blur-sm px-4 py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    <p class="text-sm text-slate-200">{{ $image->caption }}</p>
+                                </figcaption>
+                            @endif
+                        </figure>
+                    @endforeach
                 </div>
-            @endif
+            </div>
+        @endif
 
-            <!-- Footer Actions -->
-            <div class="mt-16 pt-8 border-t border-slate-200 flex items-center justify-between">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors group">
-                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
-                    Back to Blog
+        {{-- Share + back --}}
+        <div class="mt-14 pt-8 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+            <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors group">
+                <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Back to blog
+            </a>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mr-1">Share</span>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($post->url) }}" target="_blank" rel="noopener"
+                   aria-label="Share on LinkedIn" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-[#0a66c2] hover:border-[#0a66c2] transition-all">
+                    <i class="fa-brands fa-linkedin-in text-sm"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ urlencode($post->url) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener"
+                   aria-label="Share on X" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-900 hover:border-slate-900 transition-all">
+                    {{-- The CDN pins Font Awesome 6.4.0, which predates fa-x-twitter. --}}
+                    <i class="fa-brands fa-twitter text-sm"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($post->url) }}" target="_blank" rel="noopener"
+                   aria-label="Share on Facebook" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-[#1877f2] hover:border-[#1877f2] transition-all">
+                    <i class="fa-brands fa-facebook-f text-sm"></i>
                 </a>
             </div>
         </div>
-    </section>
+    </article>
 
-    <!-- Related Posts -->
+    {{-- ===== Related ===== --}}
     @if($relatedPosts->count() > 0)
-        <section class="relative z-10 bg-white border-t border-slate-200 py-12 md:py-24">
+        <section class="relative z-10 bg-white border-t border-slate-200 py-16 md:py-20">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="flex items-center justify-between mb-12">
-                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Related Articles</h2>
-                    <a href="{{ route('blog.index') }}" class="text-sm font-semibold text-cyan-600 hover:text-cyan-500">View All</a>
+                <div class="flex items-end justify-between gap-4 mb-10">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Keep reading</h2>
+                    <a href="{{ route('blog.index') }}" class="text-sm font-bold text-cyan-600 hover:text-cyan-700 whitespace-nowrap">View all &rarr;</a>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
                     @foreach($relatedPosts as $relatedPost)
-                        <article class="bg-white shadow-sm border border-slate-200 rounded-2xl overflow-hidden hover:border-cyan-400/20 hover:-translate-y-1 transition-all duration-300 group">
-                            @if($relatedPost->featured_image)
-                                <div class="w-full h-40 overflow-hidden relative">
-                                    <img src="{{ asset('storage/' . $relatedPost->featured_image) }}" alt="{{ $relatedPost->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                            @endif
-
-                            <div class="p-6">
-                                <h3 class="text-lg font-bold text-slate-900 mb-4 group-hover:text-cyan-600 transition-colors line-clamp-2">
-                                    <a href="{{ route('blog.show', $relatedPost->slug) }}" class="focus:outline-none">
-                                        <span class="absolute inset-0" aria-hidden="true"></span>
-                                        {{ $relatedPost->title }}
-                                    </a>
-                                </h3>
-
-                                <div class="flex items-center justify-between text-sm">
-                                    <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">{{ $relatedPost->formatted_date }}</span>
-                                    <span class="text-cyan-600 font-medium group-hover:translate-x-1 transition-transform">Read &rarr;</span>
-                                </div>
-                            </div>
-                        </article>
+                        @include('components.blog-card', ['post' => $relatedPost])
                     @endforeach
                 </div>
             </div>
         </section>
     @endif
 @endsection
+
+@push('scripts')
+<script>
+    // Reading progress bar across the article body.
+    (function () {
+        const bar = document.getElementById('read-progress');
+        if (!bar) return;
+        const update = () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        };
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+    })();
+</script>
+@endpush
