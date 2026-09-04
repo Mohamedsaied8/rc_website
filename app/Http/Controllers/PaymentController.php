@@ -2,99 +2,259 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Enrollment;
-use App\Services\PaymobService;
+use App\Services\Payments\EnrollmentPricing;
+use App\Services\Payments\GatewayManager;
+use App\Services\Payments\PaymentEvent;
+use App\Services\Payments\PaymentGateway;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
-    protected $paymobService;
-
-    public function __construct(PaymobService $paymobService)
-    {
-        $this->paymobService = $paymobService;
+    public function __construct(
+        private GatewayManager $gateways,
+        private EnrollmentPricing $pricing,
+    ) {
     }
 
     /**
-     * Initiate payment process
+     * Send the payer to the gateway's checkout.
      */
     public function process(Request $request, Enrollment $enrollment)
     {
-        // Ensure user is authorized to pay for this
         if ($enrollment->user_id !== auth()->id()) {
             abort(403, 'Unauthorized access.');
         }
 
-        if ($enrollment->status === 'paid') {
+        if ($enrollment->payment_status === 'paid') {
             return redirect()->route('enroll.success')->with('success', 'This enrollment is already paid.');
         }
 
         try {
-            $type = ($enrollment->payment_method === 'paymob_wallet') ? 'wallet' : 'card';
-            $url = $this->paymobService->processPayment($enrollment, $type);
-            
-            return redirect()->away($url);
+            $method = $enrollment->payment_method === 'wallet' ? 'wallet' : 'card';
+
+            return redirect()->away(
+                $this->gateways->default()->createCheckout($enrollment, $method)
+            );
         } catch (Exception $e) {
-            \Log::error('Payment initiation failed: ' . $e->getMessage());
-            return redirect()->route('enroll')->withErrors(['error' => 'Failed to initiate payment. Please try again.']);
+            Log::error('Payment initiation failed', [
+                'enrollment_id' => $enrollment->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return redirect()->route('enroll')
+                ->withErrors(['error' => 'Failed to initiate payment. Please try again.']);
         }
     }
 
     /**
-     * Webhook callback for Paymob server-to-server notifications
+     * Server-to-server webhook.
+     *
+     * A callback carries no hint of which provider sent it, so each active
+     * gateway is offered the request and the signature decides. Unsigned or
+     * badly-signed payloads are rejected — this endpoint is public and the
+     * signature is its only authentication.
      */
     public function callback(Request $request)
     {
-        $data = $request->all();
-        \Log::info('Paymob Callback Received', $data);
+        $gateway = $this->resolveGatewayFor($request);
 
-        // Verify HMAC
-        if (!$this->paymobService->verifyHmac($data)) {
-            \Log::warning('Paymob Callback HMAC validation failed.');
-            return response()->json(['message' => 'Invalid HMAC'], 403);
+        if (! $gateway) {
+            Log::warning('Payment callback rejected: no gateway accepted the signature.');
+
+            return response()->json(['message' => 'Invalid signature'], 403);
         }
 
-        $obj = $data['obj'] ?? [];
-        $success = $obj['success'] ?? false;
-        
-        // Extract merchant order ID to find enrollment
-        $merchantOrderId = $obj['order']['merchant_order_id'] ?? '';
-        $parts = explode('_', $merchantOrderId);
-        
-        if (count($parts) >= 2 && $parts[0] === 'ENR') {
-            $enrollmentId = $parts[1];
-            $enrollment = Enrollment::find($enrollmentId);
-            
-            if ($enrollment) {
-                if ($success) {
-                    $enrollment->status = 'paid';
-                    // We could also record the Paymob transaction ID here
-                    $enrollment->save();
-                    \Log::info("Enrollment {$enrollmentId} marked as paid.");
-                } else {
-                    $enrollment->status = 'failed';
-                    $enrollment->save();
-                    \Log::info("Enrollment {$enrollmentId} payment failed.");
-                }
-            }
+        $event = $gateway->parseWebhook($request);
+
+        if (! $event || ! $event->eventId) {
+            Log::warning('Payment callback verified but unparseable.', ['gateway' => $gateway->name()]);
+
+            // 4xx so the gateway retries — a 200 here would tell it the payment
+            // was handled when nothing was recorded.
+            return response()->json(['message' => 'Unprocessable payload'], 422);
+        }
+
+        // Claim the event before doing any work. The unique index makes this
+        // exactly-once even if two deliveries land concurrently.
+        $claimed = $this->claimEvent($gateway->name(), $event);
+
+        if (! $claimed) {
+            return response()->json(['message' => 'Already processed'], 200);
+        }
+
+        try {
+            $this->applyEvent($gateway, $event);
+        } catch (Exception $e) {
+            // Release the claim so the gateway's retry can have another go.
+            DB::table('gateway_events')
+                ->where('gateway', $gateway->name())
+                ->where('event_id', $event->eventId)
+                ->delete();
+
+            Log::error('Payment callback processing failed', [
+                'gateway' => $gateway->name(),
+                'event_id' => $event->eventId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json(['message' => 'Processing failed'], 500);
         }
 
         return response()->json(['message' => 'Processed'], 200);
     }
 
     /**
-     * User redirect callback after completing/failing payment in browser
+     * Browser redirect back from the gateway.
+     *
+     * Presentation only — it never writes payment state; the webhook is the
+     * source of truth. It also verifies the redirect signature, because the old
+     * implementation trusted a bare ?success=true query param and would tell
+     * anyone who visited that URL their enrollment was confirmed.
      */
     public function returnUrl(Request $request)
     {
-        // Paymob redirects back with URL parameters (success=true/false)
-        $success = $request->query('success');
-        
-        if ($success === 'true') {
-            return redirect()->route('enroll.success')->with('success', 'Payment successful! Your enrollment is confirmed.');
-        } else {
-            return redirect()->route('enroll')->withErrors(['error' => 'Payment failed or was cancelled. Please try again.']);
+        $gateway = $this->gateways->default();
+        $verified = $gateway->verifyRedirect($request);
+
+        if (! $verified) {
+            Log::info('Unverified payment redirect; falling back to a neutral message.');
+
+            return redirect()->route('profile')
+                ->with('info', 'Thanks — we are confirming your payment. This page will update once your bank confirms it.');
         }
+
+        $status = strtoupper((string) $request->query('paymentStatus', $request->query('status', '')));
+
+        if ($status === 'SUCCESS') {
+            return redirect()->route('enroll.success')
+                ->with('success', 'Payment successful! Your enrollment is confirmed.');
+        }
+
+        return redirect()->route('enroll')
+            ->withErrors(['error' => 'Payment failed or was cancelled. Please try again.']);
+    }
+
+    // ----------------------------------------------------------- internals
+
+    private function resolveGatewayFor(Request $request): ?PaymentGateway
+    {
+        foreach ($this->gateways->active() as $gateway) {
+            try {
+                if ($gateway->verifyWebhook($request)) {
+                    return $gateway;
+                }
+            } catch (Exception $e) {
+                // An unconfigured gateway must not block a configured one.
+                Log::debug('Gateway declined callback', [
+                    'gateway' => $gateway->name(),
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        return null;
+    }
+
+    /** @return bool True when this process won the race to handle the event. */
+    private function claimEvent(string $gateway, PaymentEvent $event): bool
+    {
+        try {
+            DB::table('gateway_events')->insert([
+                'gateway' => $gateway,
+                'event_id' => $event->eventId,
+                'event_type' => $event->type,
+                'enrollment_id' => $event->enrollmentId,
+                'processed_at' => now(),
+            ]);
+
+            return true;
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Unique violation — another delivery already claimed it.
+            return false;
+        }
+    }
+
+    private function applyEvent(PaymentGateway $gateway, PaymentEvent $event): void
+    {
+        if (! $event->enrollmentId) {
+            Log::warning('Payment event carries no enrollment reference.', ['event_id' => $event->eventId]);
+
+            return;
+        }
+
+        DB::transaction(function () use ($gateway, $event) {
+            $enrollment = Enrollment::whereKey($event->enrollmentId)->lockForUpdate()->first();
+
+            if (! $enrollment) {
+                Log::warning('Payment event for unknown enrollment.', ['id' => $event->enrollmentId]);
+
+                return;
+            }
+
+            if ($event->type === 'refund') {
+                $enrollment->forceFill(['payment_status' => 'refunded'])->save();
+                Log::info("Enrollment {$enrollment->id} marked refunded.");
+
+                return;
+            }
+
+            if (! $event->success) {
+                // Never downgrade a paid enrollment. A late failure callback for
+                // an earlier attempt must not clobber a successful one.
+                if ($enrollment->payment_status !== 'paid') {
+                    $enrollment->forceFill([
+                        'payment_status' => 'failed',
+                        'gateway' => $gateway->name(),
+                        'gateway_transaction_id' => $event->gatewayTransactionId,
+                    ])->save();
+                }
+
+                return;
+            }
+
+            if ($enrollment->payment_status === 'paid') {
+                return;
+            }
+
+            // Confirm we were paid what we asked for. Both sides are decimal
+            // major units — PaymobGateway normalises piastres on the way in.
+            $expected = $this->pricing->amountFor($enrollment);
+
+            if ($event->amount !== null && ! $this->pricing->matches($expected, $event->amount)) {
+                Log::warning('Payment amount mismatch — NOT marking paid.', [
+                    'enrollment_id' => $enrollment->id,
+                    'expected' => $expected,
+                    'received' => $event->amount,
+                    'transaction' => $event->gatewayTransactionId,
+                ]);
+
+                $enrollment->forceFill([
+                    'payment_status' => 'failed',
+                    'gateway' => $gateway->name(),
+                    'gateway_transaction_id' => $event->gatewayTransactionId,
+                ])->save();
+
+                return;
+            }
+
+            $enrollment->forceFill([
+                'payment_status' => 'paid',
+                'gateway' => $gateway->name(),
+                'gateway_order_id' => $event->gatewayOrderId ?? $enrollment->gateway_order_id,
+                'gateway_transaction_id' => $event->gatewayTransactionId,
+                'amount' => $event->amount ?? $expected,
+                'currency' => $event->currency ?? EnrollmentPricing::CURRENCY,
+                'paid_at' => now(),
+            ])->save();
+
+            Log::info("Enrollment {$enrollment->id} marked paid.", [
+                'gateway' => $gateway->name(),
+                'transaction' => $event->gatewayTransactionId,
+            ]);
+        });
     }
 }

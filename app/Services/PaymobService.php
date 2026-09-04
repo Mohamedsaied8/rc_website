@@ -15,10 +15,10 @@ class PaymobService
 
     public function __construct()
     {
-        $this->apiKey = env('PAYMOB_API_KEY');
-        $this->integrationIdCard = env('PAYMOB_INTEGRATION_ID_CARD');
-        $this->integrationIdWallet = env('PAYMOB_INTEGRATION_ID_WALLET');
-        $this->iframeId = env('PAYMOB_IFRAME_ID');
+        $this->apiKey = config('services.paymob.api_key');
+        $this->integrationIdCard = config('services.paymob.integration_id_card');
+        $this->integrationIdWallet = config('services.paymob.integration_id_wallet');
+        $this->iframeId = config('services.paymob.iframe_id');
     }
 
     /**
@@ -127,10 +127,12 @@ class PaymobService
 
         $authToken = $this->getAuthenticationToken();
         $orderId = $this->createOrder($authToken, $amountCents, $currency, 'ENR_' . $enrollment->id . '_' . time());
-        
-        // Save paymob order ID to enrollment if we had a column, 
-        // for now we can just rely on the callback sending it back.
-        
+
+        // Persist the Paymob order id for later reconciliation with the webhook.
+        if (\Illuminate\Support\Facades\Schema::hasColumn('enrollments', 'paymob_order_id')) {
+            $enrollment->forceFill(['paymob_order_id' => $orderId])->save();
+        }
+
         $integrationId = ($type === 'wallet') ? $this->integrationIdWallet : $this->integrationIdCard;
         
         $paymentKey = $this->getPaymentKey($authToken, $orderId, $amountCents, $currency, $billingData, $integrationId);
@@ -146,10 +148,10 @@ class PaymobService
     /**
      * Calculate amount based on cohort or program
      */
-    protected function getEnrollmentAmount($enrollment)
+    public function getEnrollmentAmount($enrollment)
     {
-        if ($enrollment->programCohort) {
-            return $enrollment->programCohort->fees;
+        if ($enrollment->cohort) {
+            return $enrollment->cohort->fees;
         }
         
         $program = \App\Models\Program::where('slug', $enrollment->selected_program)->first();
@@ -202,7 +204,7 @@ class PaymobService
             $hmacString .= $value;
         }
 
-        $secret = env('PAYMOB_HMAC');
+        $secret = config('services.paymob.hmac');
         $calculatedHmac = hash_hmac('sha512', $hmacString, $secret);
 
         $receivedHmac = $requestData['hmac'] ?? '';
