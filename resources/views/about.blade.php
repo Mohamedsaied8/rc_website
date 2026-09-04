@@ -1,6 +1,7 @@
 @extends('components.layout')
 
 @section('title', 'About Us - Robotics Corner')
+@section('description', 'Meet Robotics Corner — an engineering group building autonomous systems, robotics software, and training programs, with expertise spanning ROS2, embedded, and AI.')
 
 @section('content')
     <!-- Hero Section -->
@@ -252,30 +253,6 @@
                 </ul>
             </div>
 
-        </div>
-    </section>
-
-    <!-- Corporate History / Stats -->
-    <section class="relative py-20 overflow-hidden border-y border-slate-200 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600 mb-2">{{ cms('about.stats.1_val', '2020') }}</div>
-                    <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.1_label', 'Founded') }}</div>
-                </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.2_val', '15+') }}</div>
-                    <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.2_label', 'Enterprise Partners') }}</div>
-                </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.3_val', '500+') }}</div>
-                    <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.3_label', 'Professionals Trained') }}</div>
-                </div>
-                <div>
-                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">{{ cms('about.stats.4_val', '95%') }}</div>
-                    <div class="text-sm text-slate-500 uppercase tracking-wider font-bold">{{ cms('about.stats.4_label', 'Job Placement Rate') }}</div>
-                </div>
-            </div>
         </div>
     </section>
 

@@ -28,14 +28,25 @@ class ContactController extends Controller
         }
 
         // Save the message to database
-        \App\Models\ContactMessage::create([
+        $contactMessage = \App\Models\ContactMessage::create([
             'type' => $request->type ?? 'contact',
             'name' => $request->name,
             'email' => $request->email,
             'subject' => $request->subject,
             'message' => $messageContent,
         ]);
-        
+
+        // Notify staff by email (best-effort — never block the user if mail fails).
+        try {
+            $adminEmail = config('services.admin.notification_email');
+            if ($adminEmail) {
+                \Illuminate\Support\Facades\Mail::to($adminEmail)
+                    ->send(new \App\Mail\ContactMessageReceived($contactMessage));
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Contact notification email failed: ' . $e->getMessage());
+        }
+
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
 }

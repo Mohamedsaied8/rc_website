@@ -1,12 +1,13 @@
 @extends('components.layout')
 
 @section('title', 'Contact Us - Robotics Corner')
+@section('description', 'Get in touch with Robotics Corner. Reach us by email, phone, or WhatsApp for training, R&D, consultation, and outsourcing enquiries.')
 
 @php
     $contactEmail = \App\Models\SiteSetting::get('contact_email', 'info@roboticscorner.tech');
-    $contactPhone = \App\Models\SiteSetting::get('contact_phone', '+20 111 115 9633');
+    $contactPhone = \App\Models\SiteSetting::get('contact_phone', '+20 115 680 0621');
     $contactAddress = \App\Models\SiteSetting::get('contact_address', 'Cairo, Egypt');
-    $whatsappNumber = \App\Models\SiteSetting::get('whatsapp_number', '+0201111159633');
+    $whatsappNumber = \App\Models\SiteSetting::get('whatsapp_number', '+201156800621');
 @endphp
 
 @section('content')

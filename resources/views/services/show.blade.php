@@ -48,7 +48,6 @@
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Feasibility Study</h3>
                         <p class="text-slate-600 text-sm mb-4">Validate your concept before burning capital. We assess hardware requirements, compute constraints, and algorithmic viability.</p>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Duration: 3-5 Days</div>
                     </div>
                     <!-- Format 2 -->
                     <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow reveal-on-scroll" style="animation-delay: 100ms;">
@@ -57,7 +56,6 @@
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">System Audit</h3>
                         <p class="text-slate-600 text-sm mb-4">Deep dive into your existing codebase. We identify latency bottlenecks, structural flaws, and reliability risks in your stack.</p>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Duration: 1-2 Weeks</div>
                     </div>
                     <!-- Format 3 -->
                     <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow reveal-on-scroll" style="animation-delay: 200ms;">
@@ -66,7 +64,6 @@
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Architectural Design</h3>
                         <p class="text-slate-600 text-sm mb-4">A complete blueprint for your system. Data flows, sensor fusion strategies, middleware selection, and deployment pipelines.</p>
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Duration: 2-4 Weeks</div>
                     </div>
                 </div>
             </div>
@@ -212,92 +209,6 @@
             </div>
         </section>
 
-        <!-- ===== SECTION 5: VISUAL 2 (Static Client Results Grid) ===== -->
-        <section class="py-24 bg-white border-t border-slate-200 relative z-10" id="results-section">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-16 reveal-on-scroll">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Proven Business Impact</h2>
-                    <p class="text-slate-600 text-lg max-w-2xl mx-auto">Concrete outcomes from our architectural interventions.</p>
-                </div>
-
-                <!-- Grid Container -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal-on-scroll">
-                    
-                    <!-- Card 1 -->
-                    <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl p-8 flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <span class="bg-slate-100 text-slate-600 text-xs font-bold uppercase px-3 py-1 rounded-full border border-slate-200">Automotive Assembly</span>
-                                <i class="fa-solid fa-industry text-slate-400"></i>
-                            </div>
-                            <div class="mb-8">
-                                <div class="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
-                                    34%
-                                </div>
-                                <p class="text-slate-700 text-lg font-bold">reduction in manual cycle time after implementation</p>
-                            </div>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> Localization stack was causing 800ms latency spikes under vibration</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> EKF tuning had never been validated against real floor conditions</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> Switching from camera-only to LiDAR-camera fusion eliminated 91% of miss-picks</li>
-                            </ul>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-slate-100">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Consultation Type: System Audit</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl p-8 flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <span class="bg-slate-100 text-slate-600 text-xs font-bold uppercase px-3 py-1 rounded-full border border-slate-200">Logistics & Warehousing</span>
-                                <i class="fa-solid fa-boxes-stacked text-slate-400"></i>
-                            </div>
-                            <div class="mb-8">
-                                <div class="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
-                                    6 months
-                                </div>
-                                <p class="text-slate-700 text-lg font-bold">of rework avoided by catching a critical architecture flaw early</p>
-                            </div>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> Fleet coordination layer had no collision arbitration for >12 simultaneous robots</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> WMS integration was tightly coupled - one API change would ground the fleet</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> Proposed hardware was undersized for the planned route density</li>
-                            </ul>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-slate-100">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Consultation Type: Feasibility Study</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl p-8 flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
-                        <div>
-                            <div class="flex items-center gap-3 mb-6">
-                                <span class="bg-slate-100 text-slate-600 text-xs font-bold uppercase px-3 py-1 rounded-full border border-slate-200">Industrial Manufacturing Startup</span>
-                                <i class="fa-solid fa-rocket text-slate-400"></i>
-                            </div>
-                            <div class="mb-8">
-                                <div class="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-2">
-                                    3x faster
-                                </div>
-                                <p class="text-slate-700 text-lg font-bold">time-to-deployment vs. their original estimate</p>
-                            </div>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> URDF model had incorrect inertia tensors causing sim-to-real gap</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> CI pipeline had no hardware-in-the-loop tests - bugs were found on deployment day</li>
-                                <li class="flex items-start gap-3 text-slate-600 text-sm"><i class="fa-solid fa-angle-right text-blue-500 mt-1 shrink-0"></i> Switching to micro-ROS reduced embedded footprint by 60%</li>
-                            </ul>
-                        </div>
-                        <div class="mt-8 pt-4 border-t border-slate-100">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Consultation Type: Architectural Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- ===== SECTION 6: HOW IT WORKS ===== -->
         <section class="py-24 bg-slate-50 border-t border-slate-200 relative z-10">
             <div class="max-w-7xl mx-auto px-6 text-center">
@@ -409,15 +320,15 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md reveal-on-scroll">
-                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="50">0</span>+</div>
+                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="2">0</span>+</div>
                             <div class="text-slate-600 font-bold text-sm uppercase tracking-wide">Systems Audited</div>
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md reveal-on-scroll" style="animation-delay: 100ms;">
-                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="12">0</span></div>
+                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="6">0</span>+</div>
                             <div class="text-slate-600 font-bold text-sm uppercase tracking-wide">Production Deployments</div>
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md sm:col-span-2 reveal-on-scroll" style="animation-delay: 200ms;">
-                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="100">0</span>%</div>
+                            <div class="text-4xl font-extrabold text-blue-600 mb-2"><span class="trust-stat" data-target="70">0</span>%</div>
                             <div class="text-slate-600 font-bold text-sm uppercase tracking-wide">Focus on Autonomous Mobility</div>
                         </div>
                     </div>

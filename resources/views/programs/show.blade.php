@@ -23,7 +23,7 @@
                 <div class="absolute -inset-4 bg-gradient-to-br from-cyan-400/20 to-emerald-400/20 rounded-[3rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <iframe 
                     class="w-full h-full absolute inset-0 rounded-2xl z-10"
-                    src="{{ $program->video_url }}" 
+                    src="{{ \App\Helpers\VideoHelper::getEmbedUrl($program->video_url) }}"
                     title="{{ $program->title }}" 
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -79,12 +79,16 @@
                                     <div class="flex justify-between items-start mb-4 relative z-10">
                                         <div>
                                             @php
-                                                $daysUntil = \Carbon\Carbon::parse($cohort->start_date)->diffInDays(now());
-                                                $isPast = \Carbon\Carbon::parse($cohort->start_date)->isPast();
+                                                $start = \Carbon\Carbon::parse($cohort->start_date)->startOfDay();
+                                                $daysUntil = (int) now()->startOfDay()->diffInDays($start, false);
+                                                $isPast = $daysUntil < 0;
+                                                $startsLabel = $daysUntil === 0
+                                                    ? 'Starts today'
+                                                    : ($daysUntil === 1 ? 'Starts tomorrow' : 'Starts in '.$daysUntil.' days');
                                             @endphp
                                             @if(!$isPast)
-                                                <span class="inline-block px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full mb-3 uppercase tracking-wide border border-red-200">
-                                                    Starts in {{ $daysUntil }} Days
+                                                <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full mb-3 uppercase tracking-wide border border-emerald-200">
+                                                    {{ $startsLabel }}
                                                 </span>
                                             @endif
                                             <div class="flex items-center gap-2 text-sm font-semibold {{ strtolower($cohort->location) == 'online' ? 'text-emerald-600' : 'text-blue-600' }} uppercase tracking-wider mb-1">

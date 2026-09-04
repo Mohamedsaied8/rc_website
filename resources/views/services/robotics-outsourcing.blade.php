@@ -48,26 +48,6 @@
             </a>
         </div>
 
-        {{-- Floating stats --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-20 animate-fade-in-up" style="animation-delay: 400ms;">
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">&lt;5</div>
-                <div class="text-xs text-slate-500 uppercase tracking-wider font-bold mt-1">Days to First PR</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900">3</div>
-                <div class="text-xs text-slate-500 uppercase tracking-wider font-bold mt-1">Engagement Models</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900">100%</div>
-                <div class="text-xs text-slate-500 uppercase tracking-wider font-bold mt-1">Robotics Specialist</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900">∞</div>
-                <div class="text-xs text-slate-500 uppercase tracking-wider font-bold mt-1">Vendor Agnostic</div>
-            </div>
-        </div>
-
     </div>
 </section>
 
@@ -322,7 +302,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 mb-1">Fast Onboarding</h4>
-                        <p class="text-slate-600 text-sm">3–5 day codebase ramp-up. First pull request delivered within the first sprint — not the third.</p>
+                        <p class="text-slate-600 text-sm">Rapid codebase ramp-up. Your first pull request lands early in the engagement — not sprints later.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">
@@ -331,7 +311,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 mb-1">Daily Communication</h4>
-                        <p class="text-slate-600 text-sm">Async standups on Slack or Discord. Weekly video sync. Sprint reviews every 2 weeks — always with working software to show.</p>
+                        <p class="text-slate-600 text-sm">Async standups on Slack or Discord. Regular video syncs and sprint reviews — always with working software to show.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">
@@ -363,7 +343,7 @@
                         <div class="w-0.5 flex-1 bg-gradient-to-b from-blue-300 to-teal-300 mt-2 mb-2 min-h-[32px]"></div>
                     </div>
                     <div class="pb-8">
-                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Day 1–3</div>
+                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Kickoff</div>
                         <h4 class="font-bold text-slate-900 mb-1">Access & environment setup</h4>
                         <p class="text-slate-500 text-sm">Repo access, Docker environment, architecture walkthrough with your lead engineer.</p>
                     </div>
@@ -375,7 +355,7 @@
                         <div class="w-0.5 flex-1 bg-gradient-to-b from-blue-300 to-teal-300 mt-2 mb-2 min-h-[32px]"></div>
                     </div>
                     <div class="pb-8">
-                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Day 4–5</div>
+                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Alignment</div>
                         <h4 class="font-bold text-slate-900 mb-1">Code review & architecture alignment</h4>
                         <p class="text-slate-500 text-sm">First PR reviewed. Stack conventions agreed. Backlog groomed together.</p>
                     </div>
@@ -387,7 +367,7 @@
                         <div class="w-0.5 flex-1 bg-gradient-to-b from-blue-300 to-teal-300 mt-2 mb-2 min-h-[32px]"></div>
                     </div>
                     <div class="pb-8">
-                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Week 2</div>
+                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">First Delivery</div>
                         <h4 class="font-bold text-slate-900 mb-1">First feature module delivered</h4>
                         <p class="text-slate-500 text-sm">A working, tested software module committed and demonstrated.</p>
                     </div>
@@ -398,7 +378,7 @@
                         <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center text-white text-xs font-bold shrink-0">4</div>
                     </div>
                     <div class="pb-4">
-                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Week 3+</div>
+                        <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Full Velocity</div>
                         <h4 class="font-bold text-slate-900 mb-1">Full sprint velocity</h4>
                         <p class="text-slate-500 text-sm">Regular delivery rhythm. Demos every sprint. Continuous improvement.</p>
                     </div>
@@ -512,9 +492,9 @@
         <div class="grid md:grid-cols-3 gap-6 mb-10">
 
             <div class="bg-white border border-slate-200 rounded-2xl p-6 border-t-4 border-t-blue-500 reveal-on-scroll" data-delay="100">
-                <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-3">&lt;5 days</div>
+                <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-3">Fast start</div>
                 <h3 class="text-xl font-bold text-slate-900 mb-2">First PR, Fast</h3>
-                <p class="text-slate-500 text-sm">Engineers who hit the ground running. Not a 3-week discovery phase before a single line of code.</p>
+                <p class="text-slate-500 text-sm">Engineers who hit the ground running. Not a drawn-out discovery phase before a single line of code.</p>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-6 border-t-4 border-t-teal-500 reveal-on-scroll" data-delay="200">
@@ -526,7 +506,7 @@
             <div class="bg-white border border-slate-200 rounded-2xl p-6 border-t-4 border-t-blue-400 reveal-on-scroll" data-delay="300">
                 <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-3">Per-sprint</div>
                 <h3 class="text-xl font-bold text-slate-900 mb-2">Scale Without Lock-in</h3>
-                <p class="text-slate-500 text-sm">Add a CV specialist for one phase, drop back to a core team after. No 12-month retainer required.</p>
+                <p class="text-slate-500 text-sm">Add a CV specialist for one phase, drop back to a core team after. No long-term retainer required.</p>
             </div>
 
         </div>
@@ -537,8 +517,8 @@
                 Generic software outsourcing firms provide developers who happen to know some Python.
                 We are a domain-specific robotics engineering group — every person here works exclusively
                 in ROS2, motion planning, computer vision, and robot software systems.
-                That specialization is the difference between a team that needs six months to ramp up
-                and one that submits its first meaningful PR on day four.
+                That specialization is the difference between a team that needs months to ramp up
+                and one that submits its first meaningful PR early in the engagement.
             </p>
         </div>
     </div>

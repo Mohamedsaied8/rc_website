@@ -1,6 +1,7 @@
 @extends('components.layout')
 
 @section('title', 'Hardware & Software Products - Robotics Corner')
+@section('description', 'Explore Robotics Corner hardware and software products — robotics platforms, tools, and AI-driven solutions engineered for real-world deployment.')
 
 @section('content')
     @include('components.page-hero', [
@@ -80,7 +81,7 @@
                         <li class="flex items-center gap-3 text-sm font-semibold text-slate-600"><i class="fa-solid fa-check text-purple-500"></i> 3D Physics Simulation Engine</li>
                         <li class="flex items-center gap-3 text-sm font-semibold text-slate-600"><i class="fa-solid fa-check text-purple-500"></i> Over-the-Air (OTA) Deployments</li>
                     </ul>
-                    <a href="https://roboagentweb.vercel.app/" target="_blank" class="w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl text-white font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+                    <a href="https://www.roboticscorner.tech/roboagent" target="_blank" class="w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl text-white font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 flex items-center justify-center gap-2">
                         Visit RoboAgent Website <i class="fa-solid fa-globe"></i>
                     </a>
                 </div>
@@ -189,12 +190,6 @@
                     this.isOpen = false;
                     document.body.style.overflow = '';
                     setTimeout(() => { this.selectedProduct = ''; }, 300);
-                },
-
-                submitForm() {
-                    // Placeholder for actual submission logic
-                    alert(`Quote request for ${this.selectedProduct} submitted successfully. Our enterprise team will contact you shortly.`);
-                    this.closeModal();
                 }
             }))
         })

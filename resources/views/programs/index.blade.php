@@ -1,6 +1,7 @@
 @extends('components.layout')
 
 @section('title', 'Our Programs - Robotics Corner')
+@section('description', 'Browse Robotics Corner training programs in robotics, ROS2, embedded systems, and software engineering — hands-on, cohort-based, and career-focused.')
 
 @section('content')
 <div class="pt-24 pb-20 bg-slate-50 text-slate-800 font-sans selection:bg-cyan-500/30 overflow-hidden relative min-h-screen">
@@ -34,7 +35,7 @@
                         <div class="relative aspect-video bg-slate-100 overflow-hidden">
                             <iframe 
                                 class="w-full h-full absolute inset-0"
-                                src="{{ $program->video_url }}" 
+                                src="{{ \App\Helpers\VideoHelper::getEmbedUrl($program->video_url) }}"
                                 title="{{ $program->title }}" 
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

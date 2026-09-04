@@ -1,5 +1,8 @@
 @extends('components.layout')
 
+@section('title', 'Robotics Corner — Robotics & Software Engineering Training')
+@section('description', 'Robotics Corner delivers hands-on, industry-focused training and R&D in robotics, autonomous systems, and software engineering. Learn ROS2, embedded, AI perception and more.')
+
 @section('content')
     <!-- Hero Section -->
     <section class="relative min-h-[70vh] md:min-h-screen flex items-center overflow-hidden pt-24 pb-16 md:pb-12">
@@ -37,7 +40,7 @@
             </style>
             
             <!-- CTA Interactive Hub -->
-            <div x-data="{ activeHub: null }" class="animate-fade-in-up stagger-3 relative w-full max-w-5xl mx-auto min-h-[160px] flex items-start justify-center mt-12 mb-8">
+            <div x-data="{ activeHub: null }" class="animate-fade-in-up stagger-3 relative z-30 w-full max-w-5xl mx-auto min-h-[64px] flex items-start justify-center mt-10">
                 <!-- Center Main Buttons -->
                 <div class="flex flex-col sm:flex-row items-center gap-6 relative z-20">
                     
@@ -56,11 +59,11 @@
                              x-transition:leave="transition ease-in duration-200"
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-4"
-                             class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-full mt-12 flex-wrap justify-center gap-4 w-[800px] z-10 pointer-events-auto"
+                             class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-full pt-12 flex-wrap justify-center gap-4 w-[800px] z-10 pointer-events-auto"
                              style="display: none;">
-                            
+
                             <!-- SVG Wires for Products -->
-                            <svg class="hidden md:block absolute bottom-full left-0 w-full h-[48px] -z-10" viewBox="0 0 800 48" preserveAspectRatio="none">
+                            <svg class="hidden md:block absolute top-0 left-0 w-full h-[48px] -z-10" viewBox="0 0 800 48" preserveAspectRatio="none">
                                 <path d="M400,0 C400,24 210,24 210,48" fill="none" stroke="url(#cyanGrad)" stroke-width="2" class="dash-anim" />
                                 <path d="M400,0 C400,24 450,24 450,48" fill="none" stroke="url(#cyanGrad)" stroke-width="2" class="dash-anim" style="animation-delay: 0.1s" />
                                 <path d="M400,0 C400,24 640,24 640,48" fill="none" stroke="url(#cyanGrad)" stroke-width="2" class="dash-anim" style="animation-delay: 0.2s" />
@@ -99,11 +102,11 @@
                              x-transition:leave="transition ease-in duration-200"
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-4"
-                             class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-full mt-12 flex-wrap justify-center gap-3 w-[800px] z-10 pointer-events-auto"
+                             class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-full pt-12 flex-wrap justify-center gap-3 w-[800px] z-10 pointer-events-auto"
                              style="display: none;">
-                            
+
                             <!-- SVG Wires for Services -->
-                            <svg class="hidden md:block absolute bottom-full left-0 w-full h-[48px] -z-10" viewBox="0 0 800 48" preserveAspectRatio="none">
+                            <svg class="hidden md:block absolute top-0 left-0 w-full h-[48px] -z-10" viewBox="0 0 800 48" preserveAspectRatio="none">
                                 <path d="M400,0 C400,24 180,24 180,48" fill="none" stroke="url(#blueGrad)" stroke-width="2" class="dash-anim" />
                                 <path d="M400,0 C400,24 270,24 270,48" fill="none" stroke="url(#blueGrad)" stroke-width="2" class="dash-anim" style="animation-delay: 0.1s" />
                                 <path d="M400,0 C400,24 380,24 380,48" fill="none" stroke="url(#blueGrad)" stroke-width="2" class="dash-anim" style="animation-delay: 0.2s" />
@@ -132,6 +135,16 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Highlights strip -->
+            <div class="mt-10 md:mt-14 pt-8 border-t border-slate-200/70 flex flex-wrap items-center justify-center gap-2.5 md:gap-3 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 450ms;">
+                @foreach($stats as $stat)
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm shadow-sm hover:border-cyan-200 hover:shadow-md transition-all duration-300">
+                        <i class="fa-solid {{ $stat['icon'] }} text-cyan-600"></i>
+                        <span class="text-sm font-semibold text-slate-700 whitespace-nowrap">{{ $stat['text'] }}</span>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
 
@@ -145,6 +158,7 @@
                 <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-5">
                     {!! cms('home.services.title', 'Enterprise <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Services</span>') !!}
                 </h2>
+                <p class="text-slate-600">{{ cms('home.services.subtitle', 'Four specialized divisions delivering research, engineering, training, and dedicated teams for the world\'s most demanding robotics challenges.') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -262,7 +276,7 @@
                     <div class="p-8 z-20">
                         <h3 class="text-2xl font-bold text-slate-900 mb-2">{{ cms('home.products.ide_title', 'RoboAgent IDE') }}</h3>
                         <p class="!text-left text-slate-600 mb-6 line-clamp-3">{{ cms('home.products.ide_desc', 'Our proprietary Integrated Development Environment specifically tailored for robotics programming, ROS2 integration, and simulation.') }}</p>
-                        <a href="https://roboagentweb.vercel.app/" target="_blank" class="relative z-30 inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 rounded-xl text-purple-700 text-sm font-bold transition-colors">
+                        <a href="https://www.roboticscorner.tech/roboagent" target="_blank" class="relative z-30 inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 rounded-xl text-purple-700 text-sm font-bold transition-colors">
                             {!! cms('home.products.ide_link', 'Product Specs <i class="fa-solid fa-arrow-right text-xs"></i>') !!}
                         </a>
                     </div>
@@ -272,21 +286,32 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="relative py-16 md:py-32 overflow-hidden border-t border-slate-200 bg-white">
-        <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full" style="background: radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 70%);"></div>
-        </div>
+    <section class="relative py-16 md:py-24 overflow-hidden border-t border-slate-200 bg-slate-50">
+        <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 px-6 py-16 md:px-16 md:py-20 text-center shadow-2xl shadow-slate-900/20">
+                <!-- Ambient glow + grid -->
+                <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(34,211,238,0.22) 0%, transparent 65%);"></div>
+                    <div class="absolute -bottom-32 right-0 w-[500px] h-[400px] rounded-full" style="background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 65%);"></div>
+                </div>
 
-        <div class="relative z-10 text-center">
-            <h2 class="text-4xl md:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-8">
-                {!! cms('home.cta.title', 'Ready to Accelerate Your <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Robotics Journey</span>?') !!}
-            </h2>
-            <p class="text-lg md:text-xl text-slate-600 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4">
-                {{ cms('home.cta.description', 'Whether you need enterprise engineering solutions, proprietary hardware, or elite training, Robotics Corner is your partner in innovation.') }}
-            </p>
-            <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-base md:text-lg font-bold rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 hover:-translate-y-1">
-                {{ cms('home.cta.button', 'Contact Our Team') }} <i class="fa-solid fa-arrow-right"></i>
-            </a>
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-6 leading-[1.1]">
+                        {!! cms('home.cta.title', 'Ready to Accelerate Your <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Robotics Journey</span>?') !!}
+                    </h2>
+                    <p class="text-base md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        {{ cms('home.cta.description', 'Whether you need enterprise engineering solutions, proprietary hardware, or elite training, Robotics Corner is your partner in innovation.') }}
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-900 text-base md:text-lg font-bold rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
+                            {{ cms('home.cta.button', 'Contact Our Team') }} <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="{{ route('programs.index') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 bg-white/5 text-white text-base md:text-lg font-bold rounded-xl hover:bg-white/10 transition-all duration-300">
+                            {{ cms('home.cta.button_secondary', 'Explore Training') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection

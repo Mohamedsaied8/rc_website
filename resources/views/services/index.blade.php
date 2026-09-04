@@ -1,6 +1,7 @@
 @extends('components.layout')
 
 @section('title', 'Interconnected Services - Robotics Corner')
+@section('description', 'Robotics Corner services: R&D for autonomous systems and robotics, engineering consultation, and dedicated software outsourcing teams.')
 
 @section('content')
     @include('components.page-hero', [

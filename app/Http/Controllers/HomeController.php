@@ -13,10 +13,10 @@ class HomeController extends Controller
     public function index()
     {
         $stats = [
-            ['number' => '500+', 'label' => 'Students Trained'],
-            ['number' => '50+', 'label' => 'Industry Projects'],
-            ['number' => '95%', 'label' => 'Job Placement Rate'],
-            ['number' => '4.9', 'label' => 'Average Rating']
+            ['icon' => 'fa-screwdriver-wrench', 'text' => 'Hands-on, project-based'],
+            ['icon' => 'fa-industry',           'text' => 'Industry-aligned curriculum'],
+            ['icon' => 'fa-chalkboard-user',    'text' => 'Expert-led instruction'],
+            ['icon' => 'fa-briefcase',          'text' => 'Career placement support'],
         ];
 
         // Fetch programs from database instead of courses

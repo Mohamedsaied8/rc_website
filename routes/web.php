@@ -133,9 +133,12 @@ Route::get('/products', function () {
     return view('products.index');
 })->name('products.index');
 
-// Freelance External Redirect
+// Freelance -> RoboHub (RemoteRobotics marketplace).
+// RoboHub is a local SPA served by the host nginx at /robohub. An optional
+// "freelance_link" site setting can override the target.
 Route::get('/freelance', function () {
-    return redirect()->away('https://remoterobotics.placeholder.com');
+    $url = \App\Models\SiteSetting::get('freelance_link');
+    return $url ? redirect()->away($url) : redirect('/robohub');
 })->name('freelance');
 
 // Programs (Now acting as "Training" service)
@@ -144,21 +147,30 @@ Route::get('/programs/{id}', [ProgramController::class, 'show'])->name('programs
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:6,1')->name('contact.store');
 
 // Authentication
 Route::middleware('guest:web')->group(function () {
     Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [StudentAuthController::class, 'login'])->name('login.store');
+    Route::post('/login', [StudentAuthController::class, 'login'])->middleware('throttle:5,1')->name('login.store');
     Route::get('/register', [StudentAuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [StudentAuthController::class, 'register'])->name('register.store');
+    Route::post('/register', [StudentAuthController::class, 'register'])->middleware('throttle:5,1')->name('register.store');
+
+    // Password reset
+    Route::get('/forgot-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'showLinkRequest'])->name('password.request');
+    Route::post('/forgot-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'sendLink'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/reset-password/{token}', [\App\Http\Controllers\Auth\PasswordResetController::class, 'showReset'])->name('password.reset');
+    Route::post('/reset-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'reset'])->middleware('throttle:5,1')->name('password.update');
 });
 Route::post('/logout', [StudentAuthController::class, 'logout'])->name('logout')->middleware('auth:web');
 
 // Enrollment (Protected)
 Route::middleware('auth:web')->group(function () {
+    // User Profile
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile');
+
     Route::get('/enroll', [EnrollController::class, 'index'])->name('enroll');
-    Route::post('/enroll', [EnrollController::class, 'store'])->name('enroll.store');
+    Route::post('/enroll', [EnrollController::class, 'store'])->middleware('throttle:10,1')->name('enroll.store');
     Route::get('/enroll/success', [EnrollController::class, 'success'])->name('enroll.success');
     
     // Payment Processing
@@ -171,13 +183,25 @@ Route::post('/payment/callback', [\App\Http\Controllers\PaymentController::class
 
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
+// User-submitted posts. These must be declared before /blog/{slug} or the wildcard eats them.
+Route::middleware('auth:web')->group(function () {
+    Route::get('/blog/submit', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/blog/submit', [BlogController::class, 'store'])->middleware('throttle:10,60')->name('blog.store');
+    Route::post('/blog/preview', [BlogController::class, 'preview'])->name('blog.preview');
+    Route::get('/blog/my-posts', [BlogController::class, 'mine'])->name('blog.mine');
+});
+
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// SEO sitemap
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 // Admin Routes
 Route::prefix('admin')->group(function () {
     // Admin Authentication
     Route::get('/login', [AuthController::class, 'showLogin'])->name('admin.login');
-    Route::post('/login', [AuthController::class, 'login'])->name('admin.login.store');
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('admin.login.store');
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
     // Admin Dashboard (protected)
@@ -209,6 +233,7 @@ Route::prefix('admin')->group(function () {
 
         // Settings Management
         Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
+        Route::post('/settings/batch', [SettingsController::class, 'updateBatch'])->name('admin.settings.update-batch');
         Route::get('/settings/{setting}/edit', [SettingsController::class, 'edit'])->name('admin.settings.edit');
         Route::put('/settings/{setting}', [SettingsController::class, 'update'])->name('admin.settings.update');
 
@@ -218,7 +243,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/file-manager/delete', [FileManagerController::class, 'delete'])->name('admin.file-manager.delete');
 
         // Blog Management
-        Route::resource('blog', AdminBlogController::class)->names('admin.blog');
+        Route::post('/blog/preview', [AdminBlogController::class, 'preview'])->name('admin.blog.preview');
+        Route::post('/blog/{blog}/approve', [AdminBlogController::class, 'approve'])->name('admin.blog.approve');
+        Route::post('/blog/{blog}/reject', [AdminBlogController::class, 'reject'])->name('admin.blog.reject');
+        // No show() — the admin edits in place and previews on the live site.
+        Route::resource('blog', AdminBlogController::class)->except('show')->names('admin.blog');
 
         // Contact Messages Management
         Route::get('/messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])->name('admin.messages.index');
@@ -256,7 +285,3 @@ Route::get('/{slug}', function ($slug) {
     
     return view('pages.custom', compact('page'));
 })->where('slug', '.*')->name('custom.page');
-
-Route::get('/test', function() { dd(env('APP_KEY'), config('app.key')); });
-
-Route::get('/test2', function() { return file_get_contents(base_path('.env')); });

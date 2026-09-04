@@ -20,12 +20,9 @@
                 <span class="text-cyan-600 font-mono text-xl mb-4 block">01</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Middleware & Adaptive AUTOSAR</h2>
                 <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                    We focus on custom implementations that decouple complex automotive software from underlying hardware constraints. Experience how our middleware standardizes chaotic hardware signals into clean, deterministic data streams for high-level autonomous functions.
+                    We focus on custom implementations that decouple complex automotive software from underlying hardware constraints. Watch how our middleware standardizes chaotic hardware signals into clean, deterministic data streams for high-level autonomous functions.
                 </p>
                 <div class="h-1 w-20 bg-cyan-600 rounded-full mb-6"></div>
-                <button onclick="toggleMiddleware()" id="btn-middleware" class="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 border border-cyan-200 px-6 py-3 rounded-xl font-bold transition-colors flex items-center shadow-sm">
-                    <i class="fa-solid fa-power-off mr-3"></i> Enable Middleware Layer
-                </button>
             </div>
             <div class="md:w-1/2 flex justify-center p-8 bg-white rounded-3xl border border-slate-200 shadow-xl relative overflow-hidden h-[300px]">
                 <!-- Background Grid -->
@@ -78,12 +75,9 @@
                 <span class="text-blue-600 font-mono text-xl mb-4 block">02</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">RTOS & Mixed Criticality</h2>
                 <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                    Safety is paramount. Our hypervisor architectures provide strict ASIL-D safety isolation. When non-critical systems fail (like the Infotainment OS), the mission-critical systems (like Braking) remain 100% isolated and operational. Test the partitioning below.
+                    Safety is paramount. Our hypervisor architectures provide strict ASIL-D safety isolation. When non-critical systems fail (like the Infotainment OS), the mission-critical systems (like Braking) remain fully isolated and operational. Watch the partitioning in action below.
                 </p>
                 <div class="h-1 w-20 bg-blue-600 rounded-full mb-6"></div>
-                <button onclick="crashInfotainment()" id="btn-crash" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-6 py-3 rounded-xl font-bold transition-colors flex items-center shadow-sm">
-                    <i class="fa-solid fa-triangle-exclamation mr-3"></i> Simulate Infotainment Crash
-                </button>
             </div>
             <div class="md:w-1/2 flex justify-center p-8 bg-white rounded-3xl border border-slate-200 shadow-xl relative overflow-hidden h-[300px]">
                 <div class="absolute inset-0" style="background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -127,9 +121,6 @@
                     The autonomous vehicle does not exist in isolation. Our V2X (Vehicle-to-Everything) R&D pioneers secure, delta-based Over-The-Air (OTA) update infrastructure. See how updates are pushed to a global fleet simultaneously via a distributed cloud network.
                 </p>
                 <div class="h-1 w-20 bg-indigo-600 rounded-full mb-6"></div>
-                <button onclick="deployOTAUpdate()" id="btn-ota" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-6 py-3 rounded-xl font-bold transition-colors flex items-center shadow-sm">
-                    <i class="fa-solid fa-cloud-arrow-down mr-3"></i> Deploy OTA Fleet Update
-                </button>
             </div>
             <div class="md:w-1/2 flex justify-center p-8 bg-white rounded-3xl border border-slate-200 shadow-xl relative overflow-hidden h-[300px]">
                 <div class="absolute inset-0" style="background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -176,7 +167,7 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">In-Vehicle Software Stack</h2>
-            <p class="text-slate-600 text-lg max-w-2xl mx-auto">Interactive architecture model. Click on the layers below to explore the specific technologies and research focuses for each level of the software-defined vehicle.</p>
+            <p class="text-slate-600 text-lg max-w-2xl mx-auto">A guided walkthrough of the specific technologies and research focuses for each level of the software-defined vehicle.</p>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-12 items-center">
@@ -185,7 +176,7 @@
             <div class="w-full lg:w-1/2 flex flex-col gap-4">
                 
                 <!-- Top Layer -->
-                <div id="layer-top" class="cursor-pointer group bg-white border-2 border-slate-200 hover:border-cyan-500 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-between" onclick="showLayerInfo('top')">
+                <div id="layer-top" class="group bg-white border-2 border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-cloud text-xl"></i>
@@ -199,7 +190,7 @@
                 </div>
 
                 <!-- Mid Layer -->
-                <div id="layer-mid" class="cursor-pointer group bg-white border-2 border-slate-200 hover:border-blue-500 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-between" onclick="showLayerInfo('mid')">
+                <div id="layer-mid" class="group bg-white border-2 border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-layer-group text-xl"></i>
@@ -213,7 +204,7 @@
                 </div>
 
                 <!-- Base Layer -->
-                <div id="layer-base" class="cursor-pointer group bg-white border-2 border-slate-200 hover:border-indigo-500 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-between" onclick="showLayerInfo('base')">
+                <div id="layer-base" class="group bg-white border-2 border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-microchip text-xl"></i>
@@ -235,8 +226,8 @@
                         <div class="w-20 h-20 mx-auto bg-slate-200 rounded-full flex items-center justify-center mb-6">
                             <i class="fa-solid fa-hand-pointer text-3xl text-slate-400"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Select a Layer</h3>
-                        <p class="text-slate-500">Click on any layer on the left to view our research initiatives and technology implementations for that specific domain.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">The Software-Defined Vehicle</h3>
+                        <p class="text-slate-500">A layer-by-layer tour of our research initiatives and technology implementations across each domain.</p>
                     </div>
 
                     <!-- Top Layer Info -->
@@ -283,7 +274,7 @@
         
         <div class="mb-12 md:w-2/3">
             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Telemetry Security Sandbox</h2>
-            <p class="text-slate-600 text-lg">Experience our proprietary deep-packet inspection routing in action. As vehicles stream thousands of CAN-bus and Ethernet packets per second to the cloud, our edge filter acts as an impenetrable gateway. Inject a malicious packet to see the ASIL-D certified security filter isolate threats in real-time.</p>
+            <p class="text-slate-600 text-lg">Experience our proprietary deep-packet inspection routing in action. As vehicles stream thousands of CAN-bus and Ethernet packets per second to the cloud, our edge filter acts as an impenetrable gateway. Watch the ASIL-D certified security filter detect and isolate malicious packets in real-time.</p>
         </div>
 
         <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl flex flex-col lg:flex-row gap-8">
@@ -315,12 +306,6 @@
                     <polygon points="400,140 450,200 400,260 350,200" fill="#f0fdf4" stroke="#10b981" stroke-width="3" id="security-filter-shield"/>
                     <text x="400" y="205" fill="#10b981" font-size="28" text-anchor="middle">🛡️</text>
                 </svg>
-
-                <div class="absolute top-4 left-4 z-50">
-                    <button onclick="injectMaliciousPacket()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2 rounded-lg font-mono text-sm uppercase tracking-wider font-bold shadow-sm transition-colors cursor-pointer">
-                        <i class="fa-solid fa-bug mr-2"></i> Inject Malicious Packet
-                    </button>
-                </div>
             </div>
 
             <!-- Terminal Window -->
@@ -369,7 +354,7 @@
 </style>
 
 <script>
-    // --- Interactive Masterpiece 1: Flat Stack ---
+    // --- Masterpiece 1: Flat Stack (auto-guided tour) ---
     function showLayerInfo(layer) {
         // Hide all info panels
         document.getElementById('info-default').classList.add('opacity-0', 'pointer-events-none');
@@ -385,8 +370,8 @@
         // Show selected panel
         const selectedPanel = document.getElementById('info-' + layer);
         selectedPanel.classList.remove('opacity-0', 'pointer-events-none');
-        
-        // Highlight active button
+
+        // Highlight active layer
         const activeBtn = document.getElementById('layer-' + layer);
         activeBtn.classList.remove('border-slate-200');
         if(layer === 'top') {
@@ -398,7 +383,19 @@
         }
     }
 
-    // --- Interactive Masterpiece 2: Telemetry Sandbox ---
+    // Auto-cycle through the layers so the stack tells its own story
+    (function autoCycleStack() {
+        const order = ['top', 'mid', 'base'];
+        let i = 0;
+        // Kick off shortly after load, then advance on an interval
+        setTimeout(() => showLayerInfo(order[0]), 1200);
+        setInterval(() => {
+            i = (i + 1) % order.length;
+            showLayerInfo(order[i]);
+        }, 3500);
+    })();
+
+    // --- Masterpiece 2: Telemetry Sandbox (auto-injecting) ---
     document.addEventListener('DOMContentLoaded', function() {
         const svg = document.getElementById('telemetry-svg');
         const terminal = document.getElementById('terminal-logs');
@@ -412,6 +409,13 @@
                 createPacket(false);
             }
         }, 800);
+
+        // Periodically inject a malicious packet automatically so the filter demonstrates itself
+        setInterval(() => {
+            if(document.visibilityState === 'visible') {
+                createPacket(true);
+            }
+        }, 5000);
 
         function createPacket(isMalicious) {
             packetCount++;
@@ -500,10 +504,6 @@
             requestAnimationFrame(step);
         }
 
-        window.injectMaliciousPacket = function() {
-            createPacket(true);
-        }
-
         function logTerminal(msg) {
             const time = new Date().toISOString().split('T')[1].substr(0, 12);
             const div = document.createElement('div');
@@ -513,89 +513,100 @@
         }
     });
 
-    // --- Vector 1: Middleware ---
-    let middlewareOn = false;
-    window.toggleMiddleware = function() {
-        middlewareOn = !middlewareOn;
-        const btn = document.getElementById('btn-middleware');
+    // --- Vector 1: Middleware (auto-toggle loop) ---
+    (function autoMiddleware() {
         const messy = document.getElementById('connections-messy');
         const clean = document.getElementById('layer-middleware');
-        
-        if(middlewareOn) {
-            btn.innerHTML = '<i class="fa-solid fa-power-off mr-3"></i> Disable Middleware Layer';
-            btn.classList.replace('bg-cyan-50', 'bg-cyan-600');
-            btn.classList.replace('text-cyan-700', 'text-white');
-            messy.classList.add('opacity-0');
-            clean.classList.remove('opacity-0');
-        } else {
-            btn.innerHTML = '<i class="fa-solid fa-power-off mr-3"></i> Enable Middleware Layer';
-            btn.classList.replace('bg-cyan-600', 'bg-cyan-50');
-            btn.classList.replace('text-white', 'text-cyan-700');
-            messy.classList.remove('opacity-0');
-            clean.classList.add('opacity-0');
-        }
-    }
+        if(!messy || !clean) return;
+        let on = false;
+        setInterval(() => {
+            on = !on;
+            if(on) {
+                messy.classList.add('opacity-0');
+                clean.classList.remove('opacity-0');
+            } else {
+                messy.classList.remove('opacity-0');
+                clean.classList.add('opacity-0');
+            }
+        }, 3200);
+    })();
 
-    // --- Vector 2: RTOS Isolation ---
-    let infoCrashed = false;
-    window.crashInfotainment = function() {
-        if(infoCrashed) return; // already crashed
-        infoCrashed = true;
-        
-        const btn = document.getElementById('btn-crash');
+    // --- Vector 2: RTOS Isolation (auto crash & recover loop) ---
+    (function autoRtos() {
         const box = document.getElementById('vm-info-box');
         const title = document.getElementById('vm-info-title');
         const status = document.getElementById('vm-info-status');
         const gear = document.getElementById('gear-info');
-        
-        btn.innerHTML = '<i class="fa-solid fa-skull mr-3"></i> Infotainment Offline';
-        btn.classList.add('opacity-50', 'cursor-not-allowed');
-        
-        box.setAttribute('fill', '#fef2f2');
-        box.setAttribute('stroke', '#ef4444');
-        title.setAttribute('fill', '#ef4444');
-        status.setAttribute('fill', '#ef4444');
-        status.textContent = 'CRASHED';
-        
-        // Stop spinning
-        gear.classList.remove('animate-[spin_4s_linear_infinite]');
-        gear.querySelector('circle').setAttribute('stroke', '#ef4444');
-    }
+        if(!box || !gear) return;
+        const gearCircle = gear.querySelector('circle');
 
-    // --- Vector 3: OTA Updates ---
-    window.deployOTAUpdate = function() {
-        const btn = document.getElementById('btn-ota');
+        function crash() {
+            box.setAttribute('fill', '#fef2f2');
+            box.setAttribute('stroke', '#ef4444');
+            title.setAttribute('fill', '#ef4444');
+            status.setAttribute('fill', '#ef4444');
+            status.textContent = 'CRASHED';
+            gear.classList.remove('animate-[spin_4s_linear_infinite]');
+            gearCircle.setAttribute('stroke', '#ef4444');
+        }
+        function recover() {
+            box.setAttribute('fill', '#f0fdfa');
+            box.setAttribute('stroke', '#14b8a6');
+            title.setAttribute('fill', '#0f766e');
+            status.setAttribute('fill', '#0f766e');
+            status.textContent = 'OK';
+            gear.classList.add('animate-[spin_4s_linear_infinite]');
+            gearCircle.setAttribute('stroke', '#14b8a6');
+        }
+
+        // Loop: run healthy for a while, crash the infotainment VM, then recover
+        setInterval(() => {
+            crash();
+            setTimeout(recover, 3000);
+        }, 6000);
+    })();
+
+    // --- Vector 3: OTA Updates (auto deploy loop) ---
+    (function autoOta() {
         const w1 = document.getElementById('ota-wave-1');
         const w2 = document.getElementById('ota-wave-2');
         const cars = document.querySelectorAll('.ota-car');
-        
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-3"></i> Deploying...';
-        btn.disabled = true;
-        
-        // Animate waves
-        w1.classList.remove('opacity-0');
-        w1.style.transform = 'scale(1.5)';
-        setTimeout(() => {
-            w2.classList.remove('opacity-0');
-            w2.style.transform = 'scale(1.5)';
-        }, 300);
-        
-        setTimeout(() => {
-            cars.forEach(car => {
-                car.querySelector('rect').setAttribute('fill', '#f0fdf4');
-                car.querySelector('rect').setAttribute('stroke', '#10b981');
-                car.querySelector('circle').setAttribute('fill', '#10b981');
-            });
-            
-            btn.innerHTML = '<i class="fa-solid fa-check mr-3"></i> Fleet Updated 100%';
-            btn.classList.replace('bg-indigo-50', 'bg-green-50');
-            btn.classList.replace('text-indigo-700', 'text-green-700');
-            btn.classList.replace('border-indigo-200', 'border-green-200');
-            
-            // Reset waves
-            w1.classList.add('opacity-0');
-            w2.classList.add('opacity-0');
-        }, 800);
-    }
+        if(!w1 || !w2) return;
+
+        function deploy() {
+            // Pulse waves out from the cloud
+            w1.classList.remove('opacity-0');
+            w1.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                w2.classList.remove('opacity-0');
+                w2.style.transform = 'scale(1.5)';
+            }, 300);
+
+            // Light up the fleet
+            setTimeout(() => {
+                cars.forEach(car => {
+                    car.querySelector('rect').setAttribute('fill', '#f0fdf4');
+                    car.querySelector('rect').setAttribute('stroke', '#10b981');
+                    car.querySelector('circle').setAttribute('fill', '#10b981');
+                });
+                w1.classList.add('opacity-0');
+                w2.classList.add('opacity-0');
+                w1.style.transform = 'scale(1)';
+                w2.style.transform = 'scale(1)';
+            }, 900);
+
+            // Reset the fleet before the next cycle
+            setTimeout(() => {
+                cars.forEach(car => {
+                    car.querySelector('rect').setAttribute('fill', '#f1f5f9');
+                    car.querySelector('rect').setAttribute('stroke', '#94a3b8');
+                    car.querySelector('circle').setAttribute('fill', '#94a3b8');
+                });
+            }, 4000);
+        }
+
+        setTimeout(deploy, 1500);
+        setInterval(deploy, 6000);
+    })();
 </script>
 @endsection
