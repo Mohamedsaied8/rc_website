@@ -1,61 +1,50 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Robotics Corner Website (`rc_website`)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The main **Robotics Corner** website — marketing site + student portal, live at **https://www.roboticscorner.tech**.
 
-## About Laravel
+What it does:
+- Public pages: home, about, services (incl. bespoke R&D pages), products, programs, freelance, contact
+- Student portal: register/login (Supabase SSO), enroll in programs, pay online (Kashier) or manually (wallet/InstaPay), profile
+- Blog: user-submitted posts with admin moderation
+- Admin panel (`/admin`): courses, programs, cohorts, enrollments, blog moderation, contact messages, CMS pages with inline editing
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+It is one of four Robotics Corner apps served from a single origin behind one host nginx (`rc_website` at `/`, plus `/connectedlabs`, `/robohub`, `/roboagent`). They share a Supabase project for SSO — see [ARCHITECTURE.md](ARCHITECTURE.md).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Laravel 12** (PHP 8.2) — the main app
+- **Legacy standalone PHP** (`blog.php`, `blog_admin.php`, `db_config.php`, …) — old blog/admin pages that talk to MySQL directly; still present, kept for compatibility
+- **Vite 7 + Tailwind CSS v4** (CSS-first config in `resources/css/app.css`), Alpine.js, Font Awesome 6 (CDN)
+- **MySQL 8** (Docker), **Supabase** (auth + cross-app data), **Kashier** (payments; Paymob legacy)
+- **Docker Compose**: nginx (`:8000`) + php-fpm + MySQL (`127.0.0.1:33061`)
 
-## Learning Laravel
+## Running locally
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone https://github.com/ahmed-codics/rc_website.git
+cd rc_website
+cp .env.example .env        # then fill in DB passwords, Supabase keys, Kashier keys
+docker compose up -d --build
+docker compose exec app composer install
+docker compose exec -u www-data app php artisan key:generate
+docker compose exec -u www-data app php artisan migrate
+docker compose exec app npm install
+docker compose exec app npm run build
+docker compose exec app chown -R www-data:www-data storage bootstrap/cache
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Site is then at http://localhost:8000.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> ⚠️ Run `php artisan` as **www-data** (`-u www-data`) but `npm run build` as **root**. Getting this backwards breaks the site — see [DEPLOYMENT.md](DEPLOYMENT.md#permissions--the-1-source-of-500s).
 
-## Laravel Sponsors
+Use **MySQL**, not SQLite: the legacy PHP pages hardcode a MySQL DSN and the compose stack provisions it (`DB_HOST=db`).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Documentation map
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Doc | What's in it |
+|---|---|
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Production server, deploy steps, restarts, logs, gotchas |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Auth/SSO, payments, data model, env vars, cross-app integration |
+| [CLAUDE.md](CLAUDE.md) | Conventions and gotchas for AI-assisted development |
+| `GO-LIVE.md` | Original go-live checklist (mostly done; SMTP still pending) |
+| `BLOG_SETUP.md`, `DEPLOYMENT_GUIDE.md`, `FILE_MANAGER_README.md`, `SLAM_POST_README.md` | **Legacy** docs for the old standalone-PHP blog system — historical reference only |
